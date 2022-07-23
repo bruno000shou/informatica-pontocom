@@ -1,0 +1,41 @@
+.containerHome {
+    display: flex;
+    width: 127%;
+    height: 39.7vw;    
+}
+
+.divFormStyles {
+    padding: 0 2vw;
+    width: 100%;
+}
+
+.divH2Styles {
+    text-align: center;
+    margin-left: 14%;
+}
+
+.buttonStyles {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 25%;
+    margin-right: 20%;
+}
+
+.buttonStyles button {
+    height: 3vw;
+    border-radius: 5px;
+}
+
+
+.buttonStyles p {
+    font-size: 20px;
+    margin: 0; 
+    font-weight:400;
+}
+
+.checkWhatsapp {           
+    font-size: 1vw; 
+    font-weight: 800;
+    margin-left: 13vw;
+}
+

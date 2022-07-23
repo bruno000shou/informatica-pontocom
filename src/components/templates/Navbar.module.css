@@ -1,0 +1,46 @@
+.navbarStyles a {
+    color: white;
+    font-size: 1.2em;
+    margin-right: 30px;
+    transition: 0.8s;
+}
+
+.navbarStyles a:hover {
+    color: #CD853F;
+    transition: 0.8s;
+}
+
+.home a:nth-child(1){
+    color: #CD853F;
+    font-size: 1.8em;
+    margin-right: 30px;
+    transition: 0.8s;
+}
+
+.homepos a:nth-child(2){
+    color: #CD853F;
+    font-size: 1.8em;
+    margin-right: 30px;
+    transition: 0.8s;
+}
+
+.homeclient a:nth-child(3){
+    color: #CD853F;
+    font-size: 1.8em;
+    margin-right: 30px;
+    transition: 0.8s;
+}
+
+.homereceipt a:nth-child(4){
+    color: #CD853F;
+    font-size: 1.8em;
+    margin-right: 30px;
+    transition: 0.8s;
+}
+
+.homeserviceorder a:nth-child(5){
+    color: #CD853F;
+    font-size: 1.8em;
+    margin-right: 30px;
+    transition: 0.8s;
+}

@@ -1,0 +1,23 @@
+.divStyles {
+    margin: 2em 1em 2em 1em ;
+    display: flex;
+    justify-content: flex-end;
+
+} 
+
+.inputStyles:focus {
+    background-color: #F5DEB3;
+    transform: translateY(-5px);
+    transition: .5s;
+}
+
+.inputStyles:hover {
+    background-color: #F5DEB3;
+    transform: translateY(-5px);
+    transition: .5s;
+}
+
+.inputStyles {
+    border: none;
+    margin-left: 1em;    
+}

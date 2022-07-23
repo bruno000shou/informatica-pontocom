@@ -1,0 +1,30 @@
+.inputStyles {
+    width: 85%;
+    border: none;
+    height: 2.5em;
+    margin-left: 1em;    
+}
+
+.inputStyles:hover {
+    background-color: #F5DEB3;
+    transform: translateY(-5px);
+    transition: .5s;
+}
+
+.inputStyles:focus {
+    background-color: #F5DEB3;
+    transform: translateY(-5px);
+    transition: .5s;
+}
+
+.observacao {
+    height: 10em;
+    border: none;
+}
+
+.divStyles {
+    margin: 2em 1em;
+    display: flex;
+    justify-content: flex-end;
+
+}

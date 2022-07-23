@@ -1,0 +1,15 @@
+.footerStyles {
+    background-color: black;
+    color: white;
+    padding: 2px;
+    text-align: center;   
+}
+
+.footerStyles p:hover {
+    color: #CD853F;
+    transition: 0.8s;
+}
+
+.footerStyles p {
+    transition: 0.8s; 
+}
