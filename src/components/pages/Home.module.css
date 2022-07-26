@@ -1,9 +1,40 @@
-.containerHome {
-  display: flex;
-  align-items: center;
-  width: 100%;;
-  justify-content: center;
-  flex-direction: column;
+.homeContainer {
+  width: 100vw;
+}
+
+.homeContainerBox {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100vw;
+  height: 32vw;
+  margin-top: -1%;
+  grid-gap: 5%;
+}
+
+.homeContainerBox div {
+  background-color: white;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.homeContainerBox div:nth-child(3) {
+  background-color: white;
+  width: 80%;
+  margin-left: 10%;
+  height: 210%;
+}
+
+.homeContainerBox :nth-child(5) {
+  background-color: #DCDCDC;
+  margin-left: 18%;
+}
+
+h2 {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
 }
 
 

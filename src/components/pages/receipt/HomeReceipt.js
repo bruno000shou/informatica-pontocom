@@ -13,7 +13,7 @@ function HomeReceipt() {
           </div>
           <div className={styles.buttonFindClient}>
             <ButtonSave
-              textButton={"Pesquisar Cliente"}
+              textButton={"Pesquisar Cliente ou OS"}
               colorBg={"colorBgFindCliente"}
               colorText={"colorTextFindClient"}
               className={styles.buttonClient}
@@ -56,7 +56,7 @@ function HomeReceipt() {
           <div className={styles.buttonStyles}>
             <ButtonSave
               type={"submit"}
-              textButton={"Salvar Cadastro"}
+              textButton={"Salvar e Imprimir"}
               colorBg={"colorBgSave"}
               colorText={"colorTextSave"}
             />
@@ -90,10 +90,28 @@ function HomeReceipt() {
               name={"telefone"}
             />
           </div>
+          <div className={styles.inputDate}>
+            <div className={styles.divDateStyles}>
+              <InputRegClient
+                type={"date"}
+                textLabel={"Data inicial:"}
+                name={"dateIni"}
+                labelStyles={"labelStyles"}
+              />
+            </div>
+            <div className={styles.divDateStyles}>
+              <InputRegClient
+                type={"date"}
+                textLabel={"Data final:"}
+                name={"dateIni"}
+                labelStyles={"labelStyles"}
+              />
+            </div>
+          </div>
           <div className={styles.buttonStyles}>
             <ButtonSave
               type={"submit"}
-              textButton={"Pesquisar"}
+              textButton={"Pesquisar recibo"}
               colorBg={"colorBgSave"}
               colorText={"colorTextSave"}
             />

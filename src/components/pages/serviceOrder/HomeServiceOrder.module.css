@@ -1,0 +1,72 @@
+.containerHome {
+    display: flex;
+    width: 127%;
+    height: 39.7vw;    
+}
+
+.divFormStyles {
+    padding: 0 2vw;
+    width: 100%;
+}
+
+.divH2Styles {
+    text-align: center;
+    margin-left: 14%;
+}
+
+.buttonStyles {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 25%;
+    margin-right: 20%;
+}
+
+.buttonFindClient button{  
+    height: 20%;
+    width: 100%;
+    border-radius: 5px; 
+    margin-top: 14%;
+}
+
+.buttonStyles button {
+    height: 180%;
+    border-radius: 5px;
+}
+
+
+.buttonStyles p {
+    font-size: 20px;
+    margin: 0; 
+    font-weight: 400;
+}
+
+
+.buttonAbandon {
+    margin-top: 10%;
+    margin-left: 40%;
+}
+
+.inputDate {
+    display: flex;
+    justify-content:space-between;
+    margin-left: -2%;
+    margin-top: -4%;
+}
+
+.divDateStyles {
+    width: 100%;
+    
+}
+
+.divTopMakeOsStyles {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 12% -4% 8%;
+}
+
+.checkApprovedOs {   
+    display: flex;  
+    justify-content: space-between; 
+    margin: -7% 0 -2% 7%;
+}
+

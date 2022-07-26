@@ -41,6 +41,7 @@
 }
 
 
+
 .colorBgFindCliente {
     background-color: #CD853F;
 }
@@ -50,5 +51,189 @@
 }
 
 .colorTextFindCLient {
+    color: black;
+}
+
+/* BOTAO DO SERVICEORDER DE LISTA DE ABANDONO */
+
+.colorBgAbandon {
+    background-color: black;
+    width: 50%;
+}
+
+.colorBgAbandon p {
+    color: white;
+    
+}
+
+.colorBgAbandon:hover {    
+    border: 2px solid white;
+}
+
+.colorTextAbandon {
+    color: black;
+}
+
+/* BOTOES DO POS DE SELECAO DE SERVICO */
+
+.colorBgSell {
+    background-color: black;
+    transition: .5s;
+    height: 7vw;
+    width: 10vw;
+    border-radius: 5px;
+}
+
+.colorBgSell:hover {
+    background-color: #CD853F;
+    border: 2px solid black;
+}
+
+.colorTextSell {
+    color: white;
+    font-size: 20px;
+}
+
+.colorTextSell:hover {
+    color: black;
+}
+
+/* BOTOES DO POS DE GERENCIAMENTO DO CAIXA */
+
+.colorBgSellManager {
+    background-color: #CD853F;
+    transition: .5s;
+    height: 3.5vw;
+    width: 10vw;
+    border-radius: 5px;
+}
+
+.colorBgSellManager:hover {
+    background-color: black;
+    border: 2px solid #CD853F;
+}
+
+.colorTextSellManager {
+    color: black;
+    font-size: 15px;
+}
+
+.colorTextSellManager:hover {
+    color: #CD853F;
+}
+
+/* BOTOES POS DE FECHAMNNTO DE VENDA */
+
+.colorBgSellDeal {
+    background-color: black;
+    transition: .5s;
+    border-radius: 5px;
+}
+
+.colorBgSellDeal:hover {
+    background-color: green;
+    transition: .5s;
+    color: white;
+}
+
+.colorTextSellDeal   {
+    color: #CD853F;
+}
+
+/* BOTOES POS DE RESET DE VENDA */
+
+.colorBgSellFinishReset {
+    background-color: black;
+    transition: .5s;
+    border-radius: 5px;
+}
+
+.colorBgSellFinishReset:hover {
+    background-color: red;
+    transition: .5s;
+    color: white;
+}
+
+.colorTextSellFinishReset {
+    color: #CD853F;
+}
+
+
+/* BOTOES DE POS DE SELEÇÃO DE FORMA DE PAGAMENTO*/
+
+.colorBgReset {
+    background-color: black;
+    filter:opacity(50%);
+    transition: .5s;
+    border-radius: 5px;
+}
+
+.colorBgReset:hover {
+    background-color: black;
+    filter:opacity(100%);
+    transition: .5s;
+    border: 1px solid #CD853F;
+}
+
+.colorTextReset {
+    color: #CD853F;
+}
+
+/* BOTOES DO POS DE SELECAO DE SERVICO */
+
+.colorBgSellDevolution {
+    background-color: black;
+    transition: .5s;
+    height: 7vw;
+    width: 10vw;
+    border-radius: 5px;
+}
+
+.colorBgSellDevolution:hover {
+    background-color: red;
+    border: 2px solid black;
+}
+
+.colorTextSellDevolution {
+    color: white;
+    font-size: 20px;
+}
+
+/* BOTOES DE POS TIPOS DE PAGAMENTO */
+
+.colorBgPayTypes {
+    background-color: black;
+    filter:opacity(50%);
+    transition: .5s;
+}
+
+.colorBgPayTypes:hover {
+    background-color: black;
+    filter:opacity(100%);
+    transition: .5s;
+}
+
+.colorTextPayTypes {
+    color: #CD853F;
+}
+
+/* BOTAO DO HOME ABRIR */
+
+.colorBgOpen {
+    background-color: #CD853F;
+    transition: .5s;
+    width: 80%;
+    height: 10vh;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.colorBgOpen:hover {
+    background-color: black;
+    color: white;
+    transition: .5s;
+}
+
+.colorTextOpen {
     color: black;
 }

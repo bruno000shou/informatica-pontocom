@@ -1,9 +1,9 @@
 import styles from "./InputRegClient.module.css";
 
-function InputRegClient({ type, placeholder, textLabel, name }) {
+function InputRegClient({ type, placeholder, textLabel, name, labelStyles }) {
   return (
     <div className={styles.divStyles}>
-      <label>{textLabel}</label>
+      <label className={styles[labelStyles]}>{textLabel}</label>
       <input
         className={`${styles.inputStyles} ${styles[name]}`}
         type={type}

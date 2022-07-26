@@ -28,3 +28,12 @@
     justify-content: flex-end;
 
 }
+
+.labelStyles {
+    width: 40%;
+}
+
+.labelStylesCheckBox {
+    width: 13vw;
+    margin-right: -30px;
+}
