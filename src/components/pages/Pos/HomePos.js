@@ -4,78 +4,99 @@ import InputRegClient from "../../templates/InputRegClient";
 import { useState } from "react";
 
 function HomePos() {
-  const [service, setService] = useState({
+  // VERIFICAR O ESTADO DOS BOTOES, PASANDO PRO STATE TRUE OU FALSE
+
+  const servStateType = {
     btnServicoInformatica: false,
     btnServicoCelular: false,
     btnServicoTelevisao: false,
     btnServicosDiversos: false,
     btnProdutos: false,
     btnSaidaDevolucao: false,
-  });
+  };
+  const payTypeType = {
+    payTypeMoney: false,
+    payTypeCredit: false,
+    payTypeDebit: false,
+    payTypePix: false,
+  };
+
+  const [service, setService] = useState(servStateType);
+  const [payType, setPayType] = useState(payTypeType);
 
   function setServiceValue(name) {
-    console.log(name);
+    setService({ ...servStateType, [name]: true });
+  }
+  function setPayTypeValue(name) {
+    setPayType({ ...payTypeType, [name]: true });
   }
 
-  // let serviceAux =
-  // console.log(serviceAux);
-  // setService({ btnServicoTelevisao: "true" });
+  function resetSellStates() {
+    setPayType({ ...payTypeType, key: false });
+    setService({ ...servStateType, key: false });
+  }
 
   return (
     <div className={styles.sellContainer}>
       <div className={styles.sellTypeButton}>
         <div>
           <ButtonSave
+            eClick={setServiceValue}
             textButton={"Serviço Informática"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
             name={"btnServicoInformatica"}
-            eClick={setServiceValue}
+            focus={service.btnServicoInformatica}
           />
         </div>
         <div>
           <ButtonSave
+            eClick={setServiceValue}
             textButton={"Serviço Celular"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
             name={"btnServicoCelular"}
-            eClick={setServiceValue}
+            focus={service.btnServicoCelular}
           />
         </div>
         <div>
           <ButtonSave
+            eClick={setServiceValue}
             textButton={"Serviço Televisão"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
             name={"btnServicoTelevisao"}
-            eClick={setServiceValue}
+            focus={service.btnServicoTelevisao}
           />
         </div>
         <div>
           <ButtonSave
+            eClick={setServiceValue}
             textButton={"Serviços Diversos"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
             name={"btnServicosDiversos"}
-            eClick={setServiceValue}
+            focus={service.btnServicosDiversos}
           />
         </div>
         <div>
           <ButtonSave
+            eClick={setServiceValue}
             textButton={"Produtos"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
             name={"btnProdutos"}
-            eClick={setServiceValue}
+            focus={service.btnProdutos}
           />
         </div>
         <div>
           <ButtonSave
+            eClick={setServiceValue}
             textButton={"Saída ou Devolução"}
             colorBg={"colorBgSellDevolution"}
             colorText={"colorTextSellDevolution"}
             name={"btnSaidaDevolucao"}
-            eClick={setServiceValue}
+            focus={service.btnSaidaDevolucao}
           />
         </div>
       </div>
@@ -90,24 +111,36 @@ function HomePos() {
         </div>
         <div className={styles.payTypes}>
           <ButtonSave
+            eClick={setPayTypeValue}
             textButton={"Dinheiro"}
             colorBg={"colorBgPayTypes"}
             colorText={"colorTextPayTypes"}
+            name={"payTypeMoney"}
+            focus={payType.payTypeMoney}
           />
           <ButtonSave
+            eClick={setPayTypeValue}
             textButton={"Crédito"}
             colorBg={"colorBgPayTypes"}
             colorText={"colorTextPayTypes"}
+            name={"payTypeCredit"}
+            focus={payType.payTypeCredit}
           />
           <ButtonSave
+            eClick={setPayTypeValue}
             textButton={"Débito"}
             colorBg={"colorBgPayTypes"}
             colorText={"colorTextPayTypes"}
+            name={"payTypeDebit"}
+            focus={payType.payTypeDebit}
           />
           <ButtonSave
+            eClick={setPayTypeValue}
             textButton={"Pix"}
             colorBg={"colorBgPayTypes"}
             colorText={"colorTextPayTypes"}
+            name={"payTypePix"}
+            focus={payType.payTypePix}
           />
         </div>
         <div className={styles.sellValorInputBot}>
@@ -117,6 +150,7 @@ function HomePos() {
             colorText={"colorTextSellDeal"}
           />
           <ButtonSave
+            eClick={resetSellStates}
             textButton={"Limpar"}
             colorBg={"colorBgSellFinishReset"}
             colorText={"colorTextSellFinishReset"}

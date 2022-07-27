@@ -1,0 +1,27 @@
+{
+  "sellRegisterMonth": {
+    "finishMonth": false,
+    "dateMonth": "",
+    "monthMoney": 0,
+    "monthCredit": 0,
+    "monthDebit": 0,
+    "monthSpending": 0,
+    "monthProfit": 0,
+    "sellRegisterDaily": {
+      "sell": {
+        "sellDate": "",
+        "dayMoney": 0,
+        "dayDebit": 0,
+        "dayCredit": 0,
+        "daySpending": 0,
+        "entrie": {
+          "sellId": 0,
+          "sellOpen": false,
+          "sellService": "",
+          "sellPayType": "",
+          "sellValor": 0
+        }
+      }
+    }
+  }
+}
