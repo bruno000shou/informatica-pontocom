@@ -1,6 +1,14 @@
 import styles from "./InputRegClient.module.css";
 
-function InputRegClient({ type, placeholder, textLabel, name, labelStyles }) {
+function InputRegClient({
+  type,
+  placeholder,
+  textLabel,
+  name,
+  labelStyles,
+  makeChange,
+  value,
+}) {
   return (
     <div className={styles.divStyles}>
       <label className={styles[labelStyles]}>{textLabel}</label>
@@ -10,6 +18,10 @@ function InputRegClient({ type, placeholder, textLabel, name, labelStyles }) {
         name={name}
         placeholder={placeholder}
         id={name}
+        value={value}
+        onChange={(e) => {
+          makeChange(e.target.value);
+        }}
       ></input>
     </div>
   );

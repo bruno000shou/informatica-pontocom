@@ -2,6 +2,7 @@ import styles from "./HomePos.module.css";
 import ButtonSave from "../../templates/ButtonSave";
 import InputRegClient from "../../templates/InputRegClient";
 import { useState } from "react";
+import DraggableDialog from "../../templates/DraggableDialog";
 
 function HomePos() {
   // VERIFICAR O ESTADO DOS BOTOES, PASANDO PRO STATE TRUE OU FALSE
@@ -20,9 +21,12 @@ function HomePos() {
     payTypeDebit: false,
     payTypePix: false,
   };
+  const payValueType = 0;
 
   const [service, setService] = useState(servStateType);
   const [payType, setPayType] = useState(payTypeType);
+  const [payValue, setPayValue] = useState(payValueType);
+  const [openDialog, setOpenDialog] = useState(false);
 
   function setServiceValue(name) {
     setService({ ...servStateType, [name]: true });
@@ -34,6 +38,18 @@ function HomePos() {
   function resetSellStates() {
     setPayType({ ...payTypeType, key: false });
     setService({ ...servStateType, key: false });
+    setPayValue(0);
+  }
+  function handleChange(e) {
+    setPayValue(e);
+    console.log(e);
+  }
+
+  function openDaily() {
+    setOpenDialog(true);
+  }
+  function handleCloseDialog() {
+    setOpenDialog(false);
   }
 
   return (
@@ -106,7 +122,9 @@ function HomePos() {
           <InputRegClient
             type={"number"}
             name={"sellValor"}
-            placeholder={"0000,00"}
+            placeholder={payValue}
+            value={payValue}
+            makeChange={handleChange}
           />
         </div>
         <div className={styles.payTypes}>
@@ -152,6 +170,7 @@ function HomePos() {
           <ButtonSave
             eClick={resetSellStates}
             textButton={"Limpar"}
+            type="reset"
             colorBg={"colorBgSellFinishReset"}
             colorText={"colorTextSellFinishReset"}
           />
@@ -162,11 +181,13 @@ function HomePos() {
           textButton={"Abrir Caixa"}
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
+          eClick={openDaily}
         />
         <ButtonSave
           textButton={"Fechar Caixa"}
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
+          eClick={openDaily}
         />
         <ButtonSave
           textButton={"Relatório Dia"}
@@ -184,6 +205,18 @@ function HomePos() {
           colorText={"colorTextSellManager"}
         />
       </div>
+      <DraggableDialog
+        open={openDialog}
+        handleClose={handleCloseDialog}
+        titleText="Caixa Aberto"
+        dialogBox="O caixa do dia foi aberto. Ao final do dia, feche o caixa"
+      />
+      {/* <DraggableDialog
+        open={openDialog}
+        handleClose={handleCloseDialog}
+        titleText="Caixa Fechado"
+        dialogBox="O caixa foi fechado. Para inserir vendas, abra um novo caixa"
+      /> */}
     </div>
   );
 }
