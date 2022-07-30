@@ -75,3 +75,6 @@
     grid-gap: 16%;
 }
 
+.componentsBox {
+    position: absolute;
+}

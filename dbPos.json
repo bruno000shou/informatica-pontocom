@@ -1,0 +1,14 @@
+{
+  "dailyList": [
+    {
+      "datePos": "29072022",
+      "openPos": true,
+      "id": 1
+    },
+    {
+      "datePos": "29072022",
+      "openPos": false,
+      "id": 2
+    }
+  ]
+}
