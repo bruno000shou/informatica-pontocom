@@ -1,6 +1,1 @@
-{
-  "dailyList": [
-    { "id": "2", "datePos": "31072022", "openPos": false },
-    { "id": "1", "datePos": "31072022", "openPos": false }
-  ]
-}
+{"dailyList":[{"id":"2","datePos":"31072022","openPos":false},{"id":"1","datePos":"31072022","openPos":false},{"id":"4f45d4a5-e574-47b9-84a7-7efe85cf2295","datePos":"01082022","openPos":false},{"id":"a5ec2cd8-efa0-4168-8679-3ee556031ca6","datePos":"01082022","openPos":false},{"id":"1a60daa5-2255-49b6-844c-02336f4b7fda","datePos":"01082022","openPos":false},{"id":"8a1320cb-8c8d-46e9-b382-e6d53ee9ced8","datePos":"01082022","openPos":true}]}
