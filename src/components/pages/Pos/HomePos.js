@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import DraggableDialog from "../../templates/DraggableDialog";
 import axios from "axios";
 import { getPaperUtilityClass, getStepButtonUtilityClass } from "@mui/material";
+import { alignProperty } from "@mui/material/styles/cssUtils";
+import Api from "../../../../src/Api/Api";
+import { getAllByDisplayValue } from "@testing-library/react";
 
 function HomePos() {
   const servStateType = {
@@ -73,11 +76,33 @@ function HomePos() {
     setSellDailyInsertValue(e);
   }
 
+  function handleCloseDialog() {
+    setOpenDialog(false);
+  }
+
+  function handleCloseDialog2() {
+    setCloseDialog(false);
+  }
+
+  function printDaily() {
+    setPrintDialog(true);
+  }
+
+  function handlePrintDialog() {
+    setPrintDialog(false);
+  }
+
+  function handleSellDialog() {
+    setSellDialog(false);
+  }
+
   // SESSAO PARA ABERTURA DE UM CAIXA NO POS
+  //FUNCAO VERIFICA SE TEM CAIXA ABERTO, SE TIVER, ELE DA A MENSAGEM QUE JA TEM CAIXA ABERTO E NAO FAZ MAIS
+  // NADA , SE NAO TIVER CAIXA ABERTO CRIA UM OBJETO COM POST E NOSSO DAILY LIST NO DB
   async function openDaily() {
     // setOpenDialog(true);
     setSellDailyOpen(true);
-
+    getOnLoad();
     if (sellNow == "") {
       await axios.post("http://localhost:5000/dailyList", {
         datePos: takeDateNow,
@@ -92,29 +117,15 @@ function HomePos() {
     }
   }
 
-  function handleCloseDialog() {
-    setOpenDialog(false);
-  }
+  //SESSAO PARA FECHAMENTO DE CAIXA JA ABERTO
 
   async function closeDaily() {
     // setCloseDialog(true);
     await axios
       .get("http://localhost:5000/dailyList")
-      .then((resp) => setUpdateJson(resp.data))
+      .then((resp) => setUpdateJson(resp.data.dailyList))
       .catch((err) => console.log(err));
-    await axios.delete("http://localhost:5000/dailyList");
-
-    // axios.put("http://localhost:5000", { hello: "atum" });
-
-    // fetch('http://localhost:5000/projects', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-type': 'application/json',
-    //         },
-    //         body: {hello : "caguei"},
-    //     })
   }
-
   useEffect(() => {
     if (sellNow == "") {
       console.log("Nao ha caixa aberto. Abra um caixa.");
@@ -124,39 +135,23 @@ function HomePos() {
       let varId;
       if (!!varSellNow && varSellNow.length > 0) {
         varId = varSellNow.find((a) => a);
-        varId = varId.id;
+        varId = varId.id; //AQUI NOS TEMOS O ID DO CAIXA ABERTO
       }
-      // ATE AQUI, TEMOS O JSON TODO EM UPDATEJASON E VARJSON, TEMOS O ID DO CIXA ABERTO EM VARID,
-      // TEMOS O CAIXA COMPLETO ABERTO EM VARSELLNOW E SELLNOW
+      // JSON COMPLETO =  UPDATEJASON E VARJSON
+      // ID DO CAIXA ABERTO =  VARID
+      // CAIXA COMPLETO ABERTO = VARSELLNOW E SELLNOW
       let varJson = updateJson;
       if (!!varJson && varJson.length > 0) {
         varJson.map((item) => {
           if (item.id == varId) return (item.openPos = false);
-          console.log("Caixa fechado com sucesso");
+          console.log("Caixa fechado com sucesso"); //AQUI SETAMOS FALSE PARA O CAIXA ABERTO
           setUpdateJson(varJson);
-          // axios.put("http://localhost:5000/dailyList", updateJson);
-          // console.log("variavel json");
-          // console.log(varJson);
-          // let aux = Object.assign({}, varJson);
-          // console.log("var aux deve ser object");
-          // console.log(aux);
-          // setUpdateJson(aux);
+          axios.put("http://localhost:5000/dailyList", updateJson);
+          console.log("put ok");
         });
       }
     }
   }, [updateJson]);
-
-  function handleCloseDialog2() {
-    setCloseDialog(false);
-  }
-
-  function printDaily() {
-    setPrintDialog(true);
-  }
-
-  function handlePrintDialog() {
-    setPrintDialog(false);
-  }
 
   function sellDaily() {
     setSellDialog(true);
@@ -172,19 +167,20 @@ function HomePos() {
     //   .then(console.log(sellDailyInsertSend));
   }
 
-  function handleSellDialog() {
-    setSellDialog(false);
-  }
-
-  // FUNCOES PARA PEGAR DATA E DADOS DE QUALQUER CAIXA ABERTO EM NOSSO SISTEMA
-
+  // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
   async function getOnLoad() {
     await axios
       .get("http://localhost:5000/dailyList")
-      .then((resp) => setSellNow(resp.data))
-      .then(() => (resp) => resp.filter((name) => name.openPos == true))
-      .then((resp) => setSellNow(resp))
-      .catch((erro) => console.log(erro));
+      .then((resp) => {
+        let caixaDia = resp.data.dailyList.filter(
+          (name) => name.openPos === true
+        );
+        setSellNow(caixaDia);
+        console.log(caixaDia);
+      })
+      .catch((erro) => {
+        console.log(erro);
+      });
   }
 
   window.onload = function getDateNow() {
