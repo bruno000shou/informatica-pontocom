@@ -8,6 +8,8 @@ import { getPaperUtilityClass, getStepButtonUtilityClass } from "@mui/material";
 import { alignProperty } from "@mui/material/styles/cssUtils";
 import Api from "../../../../src/Api/Api";
 import { getAllByDisplayValue } from "@testing-library/react";
+import { v4 as uuidv4 } from "uuid";
+import api from "../../../../src/Api/Api";
 
 function HomePos() {
   const servStateType = {
@@ -29,28 +31,31 @@ function HomePos() {
     id: 0,
     openPos: null,
     datePos: null,
+    entries: {},
   };
   let sendSellInsert = {
+    id: 0,
     serviceType: "",
     payType: "",
     value: "",
   };
 
+  const [takeDateNow, setTakeDateNow] = useState(""); // STATE PARA ARMAZENAR DATA
+  const [sellNow, setSellNow] = useState(); //STATE PARA ARMAZENAR O CAIXA ABERTO AGORA
   const [service, setService] = useState(servStateType); // STATE PARA RECEBER O TIPO DE SERVICO DA VENDA
   const [payType, setPayType] = useState(payTypeType); // STATE PARA RECEBER TYPO DE PAGAMENTO
   const [payValue, setPayValue] = useState(payValueType); //STATE PARA RECEBER O VALOR DO INPUT DE VENDA
-  const [openDialog, setOpenDialog] = useState(false);
-  const [closeDialog, setCloseDialog] = useState(false);
-  const [sellDialog, setSellDialog] = useState(false);
-  const [printDialog, setPrintDialog] = useState(false);
-  const [sellDailyOpen, setSellDailyOpen] = useState(sendSellDaily); //OBJETO PARA FAZER POST DE CAIXA
   const [sellDailyInsertService, setSellDailyInsertService] = useState(""); // STATE PARA SETAR SERVICO NO POST
   const [sellDailyInsertType, setSellDailyInsertType] = useState(""); // STATE PARA SETAR TIPO NO POST
   const [sellDailyInsertValue, setSellDailyInsertValue] = useState(""); // STATE PARA SETAR VALOR NO POST
   const [sellDailyInsertSend, setSellDailyInsertSend] =
     useState(sendSellInsert); //STATE OBJETO PARA POST DE VENDAS
-  const [takeDateNow, setTakeDateNow] = useState(""); // STATE PARA ARMAZENAR DATA
-  const [sellNow, setSellNow] = useState(); //STATE PARA ARMAZENAR O CAIXA ABERTO AGORA
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [closeDialog, setCloseDialog] = useState(false);
+  const [sellDialog, setSellDialog] = useState(false);
+  const [printDialog, setPrintDialog] = useState(false);
+  // APAGAR ?? const [sellDailyOpen, setSellDailyOpen] = useState(sendSellDaily); //OBJETO PARA FAZER POST DE CAIXA
   const [updateJson, setUpdateJson] = useState(); //STATE PARA RECEBER E ENVIAR TODO O JSON
 
   // FUNCOES PARA MARCAR OS BOTOES PRESSIONADOS E SETAR EM UM STATE
@@ -96,87 +101,99 @@ function HomePos() {
     setSellDialog(false);
   }
 
-  // SESSAO PARA ABERTURA DE UM CAIXA NO POS
-  //FUNCAO VERIFICA SE TEM CAIXA ABERTO, SE TIVER, ELE DA A MENSAGEM QUE JA TEM CAIXA ABERTO E NAO FAZ MAIS
-  // NADA , SE NAO TIVER CAIXA ABERTO CRIA UM OBJETO COM POST E NOSSO DAILY LIST NO DB
+  // Abertura de Caixa:
+  // Verifica se tem caixa aberto, se tiver, avisa que ja existe, senao abre um caixa novo
   async function openDaily() {
     // setOpenDialog(true);
-    setSellDailyOpen(true);
-    getOnLoad();
-    if (sellNow == "") {
-      await axios.post("http://localhost:5000/dailyList", {
-        datePos: takeDateNow,
-        openPos: true,
-      });
-      console.log("Abrir caixa");
-      console.log(sellNow);
-      getOnLoad();
-    } else {
-      console.log("Ja tem caixa aberto");
-      console.log(sellNow);
-    }
-  }
-
-  //SESSAO PARA FECHAMENTO DE CAIXA JA ABERTO
-
-  async function closeDaily() {
-    // setCloseDialog(true);
-    await axios
-      .get("http://localhost:5000/dailyList")
-      .then((resp) => setUpdateJson(resp.data.dailyList))
-      .catch((err) => console.log(err));
-  }
-  useEffect(() => {
-    if (sellNow == "") {
-      console.log("Nao ha caixa aberto. Abra um caixa.");
-      getOnLoad();
-    } else {
-      let varSellNow = sellNow;
-      let varId;
-      if (!!varSellNow && varSellNow.length > 0) {
-        varId = varSellNow.find((a) => a);
-        varId = varId.id; //AQUI NOS TEMOS O ID DO CAIXA ABERTO
-      }
-      // JSON COMPLETO =  UPDATEJASON E VARJSON
-      // ID DO CAIXA ABERTO =  VARID
-      // CAIXA COMPLETO ABERTO = VARSELLNOW E SELLNOW
-      let varJson = updateJson;
-      if (!!varJson && varJson.length > 0) {
-        varJson.map((item) => {
-          if (item.id == varId) return (item.openPos = false);
-          console.log("Caixa fechado com sucesso"); //AQUI SETAMOS FALSE PARA O CAIXA ABERTO
-          setUpdateJson(varJson);
-          axios.put("http://localhost:5000/dailyList", updateJson);
-          console.log("put ok");
-        });
-      }
-    }
-  }, [updateJson]);
-
-  function sellDaily() {
-    setSellDialog(true);
-    let auxService = sellDailyInsertService.substr(10);
-    let auxType = sellDailyInsertType.substr(7);
-    setSellDailyInsertSend({
-      serviceType: auxService,
-      payType: auxType,
-      value: sellDailyInsertValue,
-    });
-    // axios
-    //   .post("http://localhost:5000/dailyList", sellDailyInsertSend)
-    //   .then(console.log(sellDailyInsertSend));
-  }
-
-  // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
-  async function getOnLoad() {
+    let caixaDia;
     await axios
       .get("http://localhost:5000/dailyList")
       .then((resp) => {
-        let caixaDia = resp.data.dailyList.filter(
-          (name) => name.openPos === true
-        );
+        caixaDia = resp.data.dailyList.filter((name) => name.openPos === true);
+      })
+      .catch((erro) => {
+        console.log(erro);
+      });
+    if (caixaDia.length > 0) {
+      console.log("Ja tem caixa aberto");
+    } else {
+      await axios.post("http://localhost:5000/dailyList", {
+        id: uuidv4(),
+        datePos: takeDateNow,
+        openPos: true,
+        entries: {},
+      });
+      console.log("Abrindo caixa caixa");
+      getOnLoad();
+    }
+    setSellNow(caixaDia);
+  }
+
+  // Fechamento de caixa:
+  // Verifica se tem caixa fechado, se tiver, fecha passando false para openPos
+  // Se nao tiver, avisa que precisa antes abrir um caixa
+  async function closeDaily() {
+    let varJson;
+    await axios
+      .get("http://localhost:5000/dailyList")
+      .then((resp) => (varJson = resp.data.dailyList))
+      .catch((err) => console.log(err));
+
+    let varSellNow = sellNow;
+    let varId = "";
+
+    console.log(varJson);
+    console.log(varSellNow);
+    if (
+      (!!varSellNow && varSellNow.length > 0) ||
+      varSellNow.openPos === true
+    ) {
+      varId = varSellNow.find((a) => a);
+      varId = varId.id; //AQUI NOS TEMOS O ID DO CAIXA ABERTO
+      varJson.map(async (item) => {
+        if (item.id === varId) item.openPos = false;
+        console.log("Caixa fechado com sucesso"); //AQUI SETAMOS FALSE PARA O CAIXA ABERTO
+        await axios.put("http://localhost:5000/dailyList", varJson);
+      });
+    } else {
+      console.log("Nao ha caixa aberto. Abra um caixa.");
+    }
+    getOnLoad();
+  }
+
+  // Execução de venda:
+  // Insere, no caixa que ja esta aberto, uma venda registrada na pagina
+  async function sellDaily() {
+    // setSellDialog(true);
+    let varJson;
+    let caixaDia = {};
+    let auxService = sellDailyInsertService.substr(10);
+    let auxType = sellDailyInsertType.substr(7);
+    let auxSend = {
+      id: uuidv4(),
+      serviceType: auxService,
+      payType: auxType,
+      value: sellDailyInsertValue,
+    };
+    await api.get("/dailyList").then((resp) => {
+      varJson = resp.data;
+      caixaDia = resp.data.dailyList.filter((name) => name.openPos === true);
+    });
+
+    caixaDia.map(async (item) => {
+      if (item.openPos === true) item.entries = auxSend;
+    });
+    await axios.put("http://localhost:5000/dailyList", varJson);
+  }
+
+  // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
+  function getOnLoad() {
+    let caixaDia;
+    axios
+      .get("http://localhost:5000/dailyList")
+      .then((resp) => {
+        caixaDia = resp.data.dailyList.filter((name) => name.openPos == true);
         setSellNow(caixaDia);
-        console.log(caixaDia);
       })
       .catch((erro) => {
         console.log(erro);
