@@ -69,7 +69,7 @@ function HomePos() {
   }
 
   // RESET PARA TODOS OS STATES ENVOLVIDOS NA VENDA
-  function resetSellStates() {
+  function resetsellstates() {
     setPayType({ ...payTypeType, key: false });
     setService({ ...servStateType, key: false });
     setPayValue(0);
@@ -121,7 +121,7 @@ function HomePos() {
         id: uuidv4(),
         datePos: takeDateNow,
         openPos: true,
-        entries: {},
+        sales: [],
       });
       console.log("Abrindo caixa caixa");
       getOnLoad();
@@ -138,12 +138,8 @@ function HomePos() {
       .get("http://localhost:5000/dailyList")
       .then((resp) => (varJson = resp.data.dailyList))
       .catch((err) => console.log(err));
-
     let varSellNow = sellNow;
     let varId = "";
-
-    console.log(varJson);
-    console.log(varSellNow);
     if (
       (!!varSellNow && varSellNow.length > 0) ||
       varSellNow.openPos === true
@@ -166,7 +162,8 @@ function HomePos() {
   async function sellDaily() {
     // setSellDialog(true);
     let varJson;
-    let caixaDia = {};
+    let caixaDia;
+    let auxIndex = 0;
     let auxService = sellDailyInsertService.substr(10);
     let auxType = sellDailyInsertType.substr(7);
     let auxSend = {
@@ -175,15 +172,21 @@ function HomePos() {
       payType: auxType,
       value: sellDailyInsertValue,
     };
-    await api.get("/dailyList").then((resp) => {
-      varJson = resp.data;
+    await axios.get("http://localhost:5000/dailyList").then((resp) => {
+      varJson = resp.data.dailyList;
       caixaDia = resp.data.dailyList.filter((name) => name.openPos === true);
     });
+    // VARJSON TEM O CAIXA COMPLETO COM A VENDA INCLUIDA
+    // CAIXADIA POSSUI O CAIXA ABERTO MAIS A VENDA INCLUIDA
+    caixaDia[0].sales.push(auxSend);
 
-    caixaDia.map(async (item) => {
-      if (item.openPos === true) item.entries = auxSend;
-    });
-    await axios.put("http://localhost:5000/dailyList", varJson);
+    if (!!caixaDia && caixaDia.length > 0) {
+      axios.put("http://localhost:5000/dailyList", varJson);
+      console.log("Venda Incluída com sucesso");
+      // console.log(varJson);
+    } else {
+      console.log("Não há caixa aberto, precisa abrir um caixa antes");
+    }
   }
 
   // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
@@ -326,7 +329,7 @@ function HomePos() {
             eClick={sellDaily}
           />
           <ButtonSave
-            eClick={resetSellStates}
+            eClick={resetsellstates}
             textButton={"Limpar"}
             type="reset"
             colorBg={"colorBgSellFinishReset"}

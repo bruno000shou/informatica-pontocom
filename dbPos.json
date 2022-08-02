@@ -1,9 +1,1 @@
-{
-  "dailyList": [
-    {
-      "id": "817e3f9f-bee2-4ab5-b819-27d533e43294",
-      "datePos": "01082022",
-      "openPos": false
-    }
-  ]
-}
+{"dailyList":[{"id":"3ea51b4a-e153-49fe-8fc2-640455227bff","datePos":"02082022","openPos":false,"sales":[]},{"id":"829ffc26-f854-4edb-abe6-613ebbc0dcb1","datePos":"02082022","openPos":false,"sales":[{"id":"362515f4-a907-4bb2-998f-1a39cf22dcff","serviceType":"Informatica","payType":"Money","value":"300"},{"id":"de81f8dd-75e7-47ff-a25e-07df2bf1e486","serviceType":"Celular","payType":"Money","value":"400"},{"id":"de267df2-2b01-43eb-a0d4-821e723581de","serviceType":"Informatica","payType":"Credit","value":"120"}]},{"id":"cc0aca1f-5810-4ecb-bc37-45c014f5ade4","datePos":"02082022","openPos":false,"sales":[{"id":"5bf0c094-131f-48ad-8252-97cc8be95d5f","serviceType":"Celular","payType":"Credit","value":"25"},{"id":"338e002e-61b2-4c8e-835f-94ad8dea6ff4","serviceType":"Celular","payType":"Money","value":"20"}]}]}

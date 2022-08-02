@@ -17,7 +17,7 @@
         "entrie": {
           "sellId": 0,
           "sellOpen": false,
-          "sellService": "",
+          "sellservice": "",
           "sellPayType": "",
           "sellValor": 0
         }
