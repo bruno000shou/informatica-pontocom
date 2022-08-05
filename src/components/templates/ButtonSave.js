@@ -9,7 +9,6 @@ function ButtonSave({
   eClick,
   focus,
 }) {
-  let altera;
   return (
     <div>
       <button

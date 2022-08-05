@@ -1,0 +1,73 @@
+.searchContainer { 
+    margin: 3.3% 0 0 72%;
+    position: absolute;
+    background-color: #DCDCDC;  
+    height: 66%;
+    width: 25%;
+    transition: 0.5s;
+}
+
+.searchContainer h2 {
+    margin-left: -1%;
+    margin-top: -2%;
+    width: 100%;
+}
+
+.btnresetSearchDiv {
+    width: 50%;
+    margin-left: 20%;
+    margin-top: 12%;
+}
+
+.btnSubmitSearchDiv {
+    margin-left: 30%;
+    margin-top: 12%;
+}
+
+.formDivStyles div label{
+    margin-right: 0%;
+    width: 50%;
+    margin-top: 1.5%;
+} 
+
+.btnBackSearchDiv {
+    margin-left: 30%;
+    margin-top: 12%;
+}
+    
+.searchHideShow {
+    display: none;    
+}
+
+.buttonSubmit:hover {
+    background-color: black;
+    border: 2px solid #CD853F;
+    cursor: pointer;
+    color: #CD853F;
+    transform: translateY(0px) !important;
+    transition: .3s;
+}
+
+.buttonSubmit {
+    background-color: #CD853F;
+    height: 3.5vw;
+    width: 10vw;
+    border-radius: 5px;
+    color: black;
+    font-size: 15px;
+    border: none;  
+    transition: .3s;  
+}
+
+.buttonSubmitP {
+    color: black;
+    position: absolute;
+    margin: -11% 0 0 11%;
+    pointer-events: none;
+}
+
+.buttonSubmit:hover + p{
+    color: #CD853F;
+}
+
+

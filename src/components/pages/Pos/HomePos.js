@@ -1,15 +1,15 @@
 import styles from "./HomePos.module.css";
 import ButtonSave from "../../templates/ButtonSave";
 import InputRegClient from "../../templates/InputRegClient";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import SearchSales from "./SearchSales";
 import DraggableDialog from "../../templates/DraggableDialog";
 import axios from "axios";
 import { getPaperUtilityClass, getStepButtonUtilityClass } from "@mui/material";
 import { alignProperty } from "@mui/material/styles/cssUtils";
-import Api from "../../../../src/Api/Api";
+
 import { getAllByDisplayValue } from "@testing-library/react";
 import { v4 as uuidv4 } from "uuid";
-import api from "../../../../src/Api/Api";
 
 function HomePos() {
   const servStateType = {
@@ -48,15 +48,15 @@ function HomePos() {
   const [sellDailyInsertService, setSellDailyInsertService] = useState(""); // STATE PARA SETAR SERVICO NO POST
   const [sellDailyInsertType, setSellDailyInsertType] = useState(""); // STATE PARA SETAR TIPO NO POST
   const [sellDailyInsertValue, setSellDailyInsertValue] = useState(""); // STATE PARA SETAR VALOR NO POST
+  const [updateJson, setUpdateJson] = useState(); //STATE PARA RECEBER E ENVIAR TODO O JSON
+  const [showSearch, setShowSearch] = useState(0);
+
   const [sellDailyInsertSend, setSellDailyInsertSend] =
     useState(sendSellInsert); //STATE OBJETO PARA POST DE VENDAS
-
   const [openDialog, setOpenDialog] = useState(false);
   const [closeDialog, setCloseDialog] = useState(false);
   const [sellDialog, setSellDialog] = useState(false);
   const [printDialog, setPrintDialog] = useState(false);
-  // APAGAR ?? const [sellDailyOpen, setSellDailyOpen] = useState(sendSellDaily); //OBJETO PARA FAZER POST DE CAIXA
-  const [updateJson, setUpdateJson] = useState(); //STATE PARA RECEBER E ENVIAR TODO O JSON
 
   // FUNCOES PARA MARCAR OS BOTOES PRESSIONADOS E SETAR EM UM STATE
   function setServiceValue(name) {
@@ -77,7 +77,6 @@ function HomePos() {
 
   function handleChange(e) {
     setPayValue(e);
-    console.log(e);
     setSellDailyInsertValue(e);
   }
 
@@ -189,13 +188,21 @@ function HomePos() {
     }
   }
 
+  function SearchDaily() {
+    if (showSearch !== 1) {
+      setShowSearch(1);
+    }
+    getOnLoad();
+  }
+
   // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
   function getOnLoad() {
     let caixaDia;
     axios
       .get("http://localhost:5000/dailyList")
       .then((resp) => {
-        caixaDia = resp.data.dailyList.filter((name) => name.openPos == true);
+        setUpdateJson(resp.data.dailyList);
+        caixaDia = resp.data.dailyList.filter((name) => name.openPos === true);
         setSellNow(caixaDia);
       })
       .catch((erro) => {
@@ -208,7 +215,7 @@ function HomePos() {
     let dia = String(dateNow.getDate()).padStart(2, "0");
     let mes = String(dateNow.getMonth() + 1).padStart(2, "0");
     let ano = dateNow.getFullYear();
-    setTakeDateNow(dia + mes + ano);
+    setTakeDateNow(ano + mes + dia);
     getOnLoad();
   };
 
@@ -337,6 +344,7 @@ function HomePos() {
           />
         </div>
       </div>
+      <SearchSales showHide={showSearch} allJson={updateJson} />
       <div className={styles.sellManager}>
         <ButtonSave
           textButton={"Abrir Caixa"}
@@ -365,6 +373,7 @@ function HomePos() {
           textButton={"Pesquisar Caixa"}
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
+          eClick={SearchDaily}
         />
       </div>
       <div className={styles.componentsBox}>
