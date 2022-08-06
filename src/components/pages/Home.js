@@ -1,5 +1,6 @@
 import styles from "./Home.module.css";
 import ButtonSave from "../templates/ButtonSave";
+import React from "react";
 
 function Home() {
   return (

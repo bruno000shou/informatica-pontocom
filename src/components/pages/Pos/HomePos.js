@@ -3,13 +3,15 @@ import ButtonSave from "../../templates/ButtonSave";
 import InputRegClient from "../../templates/InputRegClient";
 import { useState } from "react";
 import SearchSales from "./SearchSales";
-import DraggableDialog from "../../templates/DraggableDialog";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import ShowSearchSales from "./ShowSearchSales";
+import React from "react";
+
+import DraggableDialog from "../../templates/DraggableDialog";
 import { getPaperUtilityClass, getStepButtonUtilityClass } from "@mui/material";
 import { alignProperty } from "@mui/material/styles/cssUtils";
-
 import { getAllByDisplayValue } from "@testing-library/react";
-import { v4 as uuidv4 } from "uuid";
 
 function HomePos() {
   const servStateType = {
@@ -50,9 +52,11 @@ function HomePos() {
   const [sellDailyInsertValue, setSellDailyInsertValue] = useState(""); // STATE PARA SETAR VALOR NO POST
   const [updateJson, setUpdateJson] = useState(); //STATE PARA RECEBER E ENVIAR TODO O JSON
   const [showSearch, setShowSearch] = useState(0);
+  const [searchComplete, setSearchComplete] = useState();
 
-  const [sellDailyInsertSend, setSellDailyInsertSend] =
-    useState(sendSellInsert); //STATE OBJETO PARA POST DE VENDAS
+  const [sellDailyInsertSend, setSellDailyInsertSend] = useState(
+    sendSellInsert
+  ); //STATE OBJETO PARA POST DE VENDAS
   const [openDialog, setOpenDialog] = useState(false);
   const [closeDialog, setCloseDialog] = useState(false);
   const [sellDialog, setSellDialog] = useState(false);
@@ -344,7 +348,17 @@ function HomePos() {
           />
         </div>
       </div>
-      <SearchSales showHide={showSearch} allJson={updateJson} />
+      <SearchSales
+        showHide={showSearch}
+        allJson={updateJson}
+        setShowSearch={setShowSearch}
+        setSearchComplete={setSearchComplete}
+      />
+      <ShowSearchSales
+        showHide={showSearch}
+        searchComplete={searchComplete}
+        setShowSearch={setShowSearch}
+      />
       <div className={styles.sellManager}>
         <ButtonSave
           textButton={"Abrir Caixa"}

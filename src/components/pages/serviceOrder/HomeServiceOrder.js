@@ -2,6 +2,7 @@ import styles from "./HomeServiceOrder.module.css";
 import ButtonSave from "../../templates/ButtonSave";
 import InputRegClient from "../../templates/InputRegClient";
 import TextArea from "../../templates/TextArea";
+import React from "react";
 
 function HomeServiceOrder() {
   return (

@@ -2,6 +2,7 @@ import styles from "./HomeReceipt.module.css";
 import InputRegClient from "../../templates/InputRegClient";
 import ButtonSave from "../../templates/ButtonSave";
 import TextArea from "../../templates/TextArea";
+import React from "react";
 
 function HomeReceipt() {
   return (

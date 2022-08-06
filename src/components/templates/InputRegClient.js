@@ -1,4 +1,5 @@
 import styles from "./InputRegClient.module.css";
+import React from "react";
 
 function InputRegClient({
   type,

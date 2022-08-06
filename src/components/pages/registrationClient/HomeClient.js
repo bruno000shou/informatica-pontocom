@@ -2,6 +2,7 @@ import styles from "./HomeClient.module.css";
 import InputRegClient from "../../templates/InputRegClient";
 import ButtonSave from "../../templates/ButtonSave";
 import TextArea from "../../templates/TextArea";
+import React from "react";
 
 function HomeClient() {
   return (

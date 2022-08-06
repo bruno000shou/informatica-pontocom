@@ -3,13 +3,11 @@ import InputRegClient from "../../templates/InputRegClient";
 import ButtonSave from "../../templates/ButtonSave";
 import findBetween from "../../../helpers/FindBetween";
 import { useState } from "react";
+import React from "react";
 
-function SearchSales({ allJson, showHide }) {
-  // let initDate = "";
-  // let finalDate = "";
+function SearchSales({ allJson, showHide, setShowSearch, setSearchComplete }) {
   const [initDate, setInitDate] = useState();
   const [finalDate, setFinalDate] = useState();
-  const [searchComplete, setSearchComplete] = useState();
 
   function hideDiv() {
     showHide = 0;
@@ -49,8 +47,9 @@ function SearchSales({ allJson, showHide }) {
     } else {
       console.log("Pesquisa feita com sucesso");
       findBetween(allJson, initDate, finalDate, setSearchComplete);
-      console.log(searchComplete);
       handleReset();
+      setShowSearch(2);
+      //TEMOS QUE EXECUTAR AQUI O PAINEL LATERAL QUE IRA PARA O SHOWSEARCHSALES
     }
   }
 

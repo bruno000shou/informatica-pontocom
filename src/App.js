@@ -3,7 +3,10 @@ import RoutePages from "./RoutePages";
 import HeaderBar from "./components/templates/HeaderBar";
 import Footer from "./components/templates/Footer";
 import Container from "./components/templates/Container";
+import React from "react";
+import { initializeIcons } from "@fluentui/react/lib/Icons";
 
+initializeIcons();
 function App() {
   return (
     <>

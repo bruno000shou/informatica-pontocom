@@ -4,6 +4,7 @@ import HomePos from "./components/pages/Pos/HomePos";
 import HomeClient from "./components/pages/registrationClient/HomeClient";
 import HomeReceipt from "./components/pages/receipt/HomeReceipt";
 import HomeServiceOrder from "./components/pages/serviceOrder/HomeServiceOrder";
+import React from "react";
 
 const routePages = () => {
   return (

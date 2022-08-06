@@ -1,4 +1,5 @@
 import styles from "./TextArea.module.css";
+import React from "react";
 
 function TextArea({ type, placeholder, textLabel, name, rows, cols }) {
   return (
