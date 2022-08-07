@@ -5,7 +5,6 @@ import { useState } from "react";
 import SearchSales from "./SearchSales";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import ShowSearchSales from "./ShowSearchSales";
 import React from "react";
 
 import DraggableDialog from "../../templates/DraggableDialog";
@@ -354,11 +353,7 @@ function HomePos() {
         setShowSearch={setShowSearch}
         setSearchComplete={setSearchComplete}
       />
-      <ShowSearchSales
-        showHide={showSearch}
-        searchComplete={searchComplete}
-        setShowSearch={setShowSearch}
-      />
+
       <div className={styles.sellManager}>
         <ButtonSave
           textButton={"Abrir Caixa"}

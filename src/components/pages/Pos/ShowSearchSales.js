@@ -7,9 +7,9 @@ import { useState } from "react";
 
 function ShowSearchSales({ showHide, searchComplete }) {
   let dataSearch = searchComplete;
-  const [isPanelOpen, setIsPanelOpen] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(false);
 
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogOpen2, setDialogOpen2] = useState(false);
   const dialogContentProps = {
     type: DialogType.normal,
     title: "Tem certeza que deseja fechar a pesquisa?",
@@ -19,23 +19,31 @@ function ShowSearchSales({ showHide, searchComplete }) {
     styles: { main: { maxWidth: 450 } },
   };
 
-  function closePanel() {
+  function closePanelOpenDialog() {
     setDialogOpen(true);
   }
 
-  // function closeDialogPanel() {
-  //   setDialogOpen(false);
-  // }
-
-  const closeDialogPanel = () => {
-    if (showHide === 2) {
-      setIsPanelOpen(true);
-    }
-  };
+  function closePanelOpenDialog2() {
+    setDialogOpen(true);
+  }
 
   function closeDialog() {
     setDialogOpen(false);
   }
+
+  function closeDialog2() {
+    setDialogOpen2(false);
+  }
+
+  function closeAll() {
+    setDialogOpen2(true);
+    setDialogOpen(false);
+  }
+
+  // function closeAll() {
+  //   showHide = 80;
+  //   setDialogOpen(false);
+  // }
 
   //----------------------------------------------------------------------------------------------
   // o vlor do showHide esta chegando 2 corretamente, porem o if na classe nao esta passando o valor vazio
@@ -47,9 +55,9 @@ function ShowSearchSales({ showHide, searchComplete }) {
         <br />
         <Panel
           headerText="A pesquisa encontrou o seguinte resultado"
-          // isOpen={showHide === 2 ? true : false}
-          isOpen={isPanelOpen}
-          onDismiss={closePanel}
+          isOpen={showHide === 2 && !dialogOpen2 === true ? true : false}
+          // isOpen={dialogOpen2}
+          onDismiss={closePanelOpenDialog2}
           closeButtonAriaLabel="Close"
         ></Panel>
         <Dialog
@@ -59,8 +67,8 @@ function ShowSearchSales({ showHide, searchComplete }) {
           modalProps={dialogModalProps}
         >
           <DialogFooter>
-            <PrimaryButton onClick={""} text="Fechar" />
-            <DefaultButton onClick={() => closeDialogPanel} text="Voltar" />
+            <PrimaryButton onClick={closeAll} text="Fechar" />
+            <DefaultButton onClick={closeDialog} text="Voltar" />
           </DialogFooter>
         </Dialog>
       </div>

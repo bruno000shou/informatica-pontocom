@@ -4,6 +4,7 @@ import ButtonSave from "../../templates/ButtonSave";
 import findBetween from "../../../helpers/FindBetween";
 import { useState } from "react";
 import React from "react";
+import ShowSearchSales from "./ShowSearchSales";
 
 function SearchSales({ allJson, showHide, setShowSearch, setSearchComplete }) {
   const [initDate, setInitDate] = useState();
@@ -114,6 +115,11 @@ function SearchSales({ allJson, showHide, setShowSearch, setSearchComplete }) {
           />
         </div>
       </form>
+      <ShowSearchSales
+        showHide={showHide}
+        // searchComplete={searchComplete}
+        // setShowSearch={setShowSearch}
+      />
     </div>
   );
 }
