@@ -11,6 +11,7 @@ import DraggableDialog from "../../templates/DraggableDialog";
 import { getPaperUtilityClass, getStepButtonUtilityClass } from "@mui/material";
 import { alignProperty } from "@mui/material/styles/cssUtils";
 import { getAllByDisplayValue } from "@testing-library/react";
+import DailyReport from "./apagarReportButton";
 
 function HomePos() {
   const servStateType = {
@@ -51,7 +52,8 @@ function HomePos() {
   const [sellDailyInsertValue, setSellDailyInsertValue] = useState(""); // STATE PARA SETAR VALOR NO POST
   const [updateJson, setUpdateJson] = useState(); //STATE PARA RECEBER E ENVIAR TODO O JSON
   const [showSearch, setShowSearch] = useState(0);
-  const [searchComplete, setSearchComplete] = useState();
+  const [searchComplete, setSearchComplete] = useState([]);
+  // const [showReport, setShowReport] = useState(0);
 
   const [sellDailyInsertSend, setSellDailyInsertSend] = useState(
     sendSellInsert
@@ -196,6 +198,10 @@ function HomePos() {
       setShowSearch(1);
     }
     getOnLoad();
+  }
+
+  function verifyReportDaily() {
+    setShowSearch(3);
   }
 
   // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
@@ -352,7 +358,9 @@ function HomePos() {
         allJson={updateJson}
         setShowSearch={setShowSearch}
         setSearchComplete={setSearchComplete}
+        searchComplete={searchComplete}
       />
+      {/* <ReportButton sellNow={sellNow} showHide={showSearch} /> */}
 
       <div className={styles.sellManager}>
         <ButtonSave
@@ -371,6 +379,7 @@ function HomePos() {
           textButton={"Relatório Dia"}
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
+          eClick={verifyReportDaily}
         />
         <ButtonSave
           textButton={"Imprimir Caixa"}

@@ -6,7 +6,13 @@ import { useState } from "react";
 import React from "react";
 import ShowSearchSales from "./ShowSearchSales";
 
-function SearchSales({ allJson, showHide, setShowSearch, setSearchComplete }) {
+function SearchSales({
+  allJson,
+  showHide,
+  setShowSearch,
+  setSearchComplete,
+  searchComplete,
+}) {
   const [initDate, setInitDate] = useState();
   const [finalDate, setFinalDate] = useState();
 
@@ -50,7 +56,6 @@ function SearchSales({ allJson, showHide, setShowSearch, setSearchComplete }) {
       findBetween(allJson, initDate, finalDate, setSearchComplete);
       handleReset();
       setShowSearch(2);
-      //TEMOS QUE EXECUTAR AQUI O PAINEL LATERAL QUE IRA PARA O SHOWSEARCHSALES
     }
   }
 
@@ -117,7 +122,7 @@ function SearchSales({ allJson, showHide, setShowSearch, setSearchComplete }) {
       </form>
       <ShowSearchSales
         showHide={showHide}
-        // searchComplete={searchComplete}
+        searchComplete={searchComplete}
         // setShowSearch={setShowSearch}
       />
     </div>

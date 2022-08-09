@@ -270,3 +270,29 @@
 .colorTextOpen {
     color: black;
 }
+
+/* BOTOES DE SHOW SEARCH SALES */
+.bgSearchSalesUnit {
+    background-color: black;
+    opacity: 50%;
+    transition: .5s;
+    border-radius: 20px;
+}
+
+.textSearchSalesUnit {
+    color: white;
+    margin: 0;
+}
+
+.bgSearchSalesUnit:hover {
+    background-color: black;
+    opacity: 50%;
+    transition: .5s;
+}
+
+.textSearchSalesUnit:hover {
+    color: white;
+    margin: 0;
+    transition: .5s;
+    opacity: 1;
+}

@@ -1,4 +1,41 @@
-
-.searchHideShow {
-    /* display: none !important; */
+.btnSearchSalesUnit {
+    width: 78%;
+    margin-top: 40%;
 }
+
+.stylesTemplateBoxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.btnOverSearchSalesUnit {
+    background-color: #CD853F;
+    color: white;
+    width: 3vw;
+    border-radius: 10px;
+    margin-left: 200%;
+    height: 4.3vw;
+    margin-top: -4%;
+}
+
+.searchSalesUnit {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    height: 4vw;
+    border-radius: 1vw;
+}
+
+.searchSalesUnit:hover {
+    opacity: 1;
+    transition: .5s;
+    transform: translatey(-5%);
+    color: #CD853F;
+    border: 1px solid #CD853F;
+}
+
+.showHideReport {
+    display: none;
+}
+
