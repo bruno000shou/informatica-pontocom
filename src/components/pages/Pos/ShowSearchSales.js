@@ -4,7 +4,6 @@ import { DefaultButton, PrimaryButton } from "@fluentui/react/lib/Button";
 import { Panel } from "@fluentui/react/lib/Panel";
 import { Dialog, DialogFooter, DialogType } from "@fluentui/react/lib/Dialog";
 import { useState } from "react";
-// import ButtonGeneric from "../../templates/ButtonSave";
 
 function ShowSearchSales({ showHide, searchComplete }) {
   let dataSearch = searchComplete;
@@ -98,8 +97,6 @@ function ShowSearchSales({ showHide, searchComplete }) {
         }
       }
     });
-    //DEVOLUCAO NAO E TIPOD E PAGAMENTO ETIPO DE VENDA, PRECISO VER UM ESQUEMA PARA SUBTRAIR O VALOR DA DEVOLUCAO
-    // CORRETO PARA O TIPOD E PAGAMENTO QUE ELA FOI ESTABELECIDA.
 
     auxCredit.map((creditValue) => {
       varAllCredit += parseInt(creditValue.value);
@@ -165,9 +162,6 @@ function ShowSearchSales({ showHide, searchComplete }) {
           <div
             className={`${styles.stylesTemplateBoxes}
              ${openReportVerif === false ? styles.showHideReport : ""}`}
-            // className={`${
-            //   openReportVerif === false ? styles.showHideReport : ""
-            // } ${styles.stylesTemplateBoxes}`}
           >
             {ordenateGrow()}
             {dataSearch.map((item) => {

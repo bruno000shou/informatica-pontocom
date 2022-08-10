@@ -6,12 +6,7 @@ import SearchSales from "./SearchSales";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import React from "react";
-
 import DraggableDialog from "../../templates/DraggableDialog";
-import { getPaperUtilityClass, getStepButtonUtilityClass } from "@mui/material";
-import { alignProperty } from "@mui/material/styles/cssUtils";
-import { getAllByDisplayValue } from "@testing-library/react";
-import DailyReport from "./apagarReportButton";
 
 function HomePos() {
   const servStateType = {
@@ -59,7 +54,9 @@ function HomePos() {
     sendSellInsert
   ); //STATE OBJETO PARA POST DE VENDAS
   const [openDialog, setOpenDialog] = useState(false);
+  const [openDialogAlready, setOpenDialogAlready] = useState(false);
   const [closeDialog, setCloseDialog] = useState(false);
+  const [closeDialogAlready, setCloseDialogAlready] = useState(false);
   const [sellDialog, setSellDialog] = useState(false);
   const [printDialog, setPrintDialog] = useState(false);
 
@@ -87,10 +84,12 @@ function HomePos() {
 
   function handleCloseDialog() {
     setOpenDialog(false);
+    setOpenDialogAlready(false);
   }
 
   function handleCloseDialog2() {
     setCloseDialog(false);
+    setCloseDialogAlready(false);
   }
 
   function printDaily() {
@@ -120,6 +119,7 @@ function HomePos() {
       });
     if (caixaDia.length > 0) {
       console.log("Ja tem caixa aberto");
+      setOpenDialogAlready(true);
     } else {
       await axios.post("http://localhost:5000/dailyList", {
         id: uuidv4(),
@@ -129,6 +129,7 @@ function HomePos() {
       });
       console.log("Abrindo caixa caixa");
       getOnLoad();
+      setOpenDialog(true);
     }
     setSellNow(caixaDia);
   }
@@ -155,8 +156,10 @@ function HomePos() {
         console.log("Caixa fechado com sucesso"); //AQUI SETAMOS FALSE PARA O CAIXA ABERTO
         await axios.put("http://localhost:5000/dailyList", varJson);
       });
+      setCloseDialog(true);
     } else {
       console.log("Nao ha caixa aberto. Abra um caixa.");
+      setCloseDialogAlready(true);
     }
     getOnLoad();
   }
@@ -360,8 +363,6 @@ function HomePos() {
         setSearchComplete={setSearchComplete}
         searchComplete={searchComplete}
       />
-      {/* <ReportButton sellNow={sellNow} showHide={showSearch} /> */}
-
       <div className={styles.sellManager}>
         <ButtonSave
           textButton={"Abrir Caixa"}
@@ -395,13 +396,19 @@ function HomePos() {
         />
       </div>
       <div className={styles.componentsBox}>
-        {/* <DraggableDialog
+        <DraggableDialog
           open={openDialog}
           handleClose={handleCloseDialog}
           titleText={"Caixa Aberto"}
           dialogBox="O caixa do dia foi aberto. Ao final do dia, feche o caixa"
-        /> */}
-        {/* {
+        />
+        <DraggableDialog
+          open={openDialogAlready}
+          handleClose={handleCloseDialog}
+          titleText={"Caixa já Aberto"}
+          dialogBox="Já existe um caixa aberto"
+        />
+        {
           <DraggableDialog
             open={closeDialog}
             handleClose={handleCloseDialog2}
@@ -409,6 +416,15 @@ function HomePos() {
             dialogBox="O caixa foi fechado. Para inserir vendas, abra um novo caixa"
           />
         }
+        {
+          <DraggableDialog
+            open={closeDialogAlready}
+            handleClose={handleCloseDialog2}
+            titleText="Abra um Caixa"
+            dialogBox="Não há caixa aberto, abra um novo caixa"
+          />
+        }
+        {/* setCloseDialogAlready */}
         {
           <DraggableDialog
             open={sellDialog}
@@ -424,7 +440,7 @@ function HomePos() {
             titleText="Impressão em Andamento"
             dialogBox="Impressão foi enviada a impressora"
           />
-        } */}
+        }
       </div>
     </div>
   );
