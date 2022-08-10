@@ -19,8 +19,8 @@ function HomePos() {
     btnServicoCelular: false,
     btnServicoTelevisao: false,
     btnServicoDiversos: false,
-    btnProdutos: false,
-    btnSaidaDevolucao: false,
+    btnServicoProdutos: false,
+    btnServicoDevolucao: false,
   };
   const payTypeType = {
     payTypeMoney: false,
@@ -277,8 +277,8 @@ function HomePos() {
             textButton={"Produtos"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
-            name={"btnProdutos"}
-            focus={service.btnProdutos}
+            name={"btnServicoProdutos"}
+            focus={service.btnServicoProdutos}
           />
         </div>
         <div>
@@ -287,8 +287,8 @@ function HomePos() {
             textButton={"Saída ou Devolução"}
             colorBg={"colorBgSellDevolution"}
             colorText={"colorTextSellDevolution"}
-            name={"btnSaidaDevolucao"}
-            focus={service.btnSaidaDevolucao}
+            name={"btnServicoDevolucao"}
+            focus={service.btnServicoDevolucao}
           />
         </div>
       </div>

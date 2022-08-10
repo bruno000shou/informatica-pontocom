@@ -120,11 +120,8 @@ function SearchSales({
           />
         </div>
       </form>
-      <ShowSearchSales
-        showHide={showHide}
-        searchComplete={searchComplete}
-        // setShowSearch={setShowSearch}
-      />
+
+      <ShowSearchSales showHide={showHide} searchComplete={searchComplete} />
     </div>
   );
 }

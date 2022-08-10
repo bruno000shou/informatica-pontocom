@@ -16,6 +16,13 @@ function ShowSearchSales({ showHide, searchComplete }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogOpen2, setDialogOpen2] = useState(false);
   const [openReportVerif, setOpenReportVerif] = useState(true);
+  const [allMoney, setAllMoney] = useState(0);
+  const [allCredit, setAllCredit] = useState(0);
+  const [allDebit, setAllDebit] = useState(0);
+  const [allPix, setAllPix] = useState(0);
+  const [allDevolucao, setAllDevolucao] = useState(0);
+  const [varAll, setVarAll] = useState(0);
+  const [datePainel, setDatePainel] = useState(0);
   const dialogContentProps = {
     type: DialogType.normal,
     title: "Tem certeza que deseja fechar a pesquisa?",
@@ -38,8 +45,110 @@ function ShowSearchSales({ showHide, searchComplete }) {
     setDialogOpen(false);
   }
 
-  function openReport() {
+  function openReport(item) {
     setOpenReportVerif(false);
+    let day = item.datePos.slice(6, 8);
+    let month = item.datePos.slice(4, 6);
+    let year = item.datePos.slice(0, 4);
+    let auxdate = day + "/" + month + "/" + year;
+
+    let auxCredit = [];
+    let auxDebit = [];
+    let auxPix = [];
+    let auxMoney = [];
+    let auxCreditDev = [];
+    let auxDebitDev = [];
+    let auxPixDev = [];
+    let auxMoneyDev = [];
+
+    let varAllCredit = 0;
+    let varAllMoney = 0;
+    let varAllDebit = 0;
+    let varAllPix = 0;
+
+    let devAllCredit = 0;
+    let devAllMoney = 0;
+    let devAllDebit = 0;
+    let devAllPix = 0;
+
+    item.sales.map((aux) => {
+      if (aux.payType === "Credit") {
+        if (aux.serviceType !== "Devolucao") {
+          auxCredit.push(aux);
+        } else {
+          auxCreditDev.push(aux);
+        }
+      } else if (aux.payType === "Debit") {
+        if (aux.serviceType !== "Devolucao") {
+          auxDebit.push(aux);
+        } else {
+          auxDebitDev.push(aux);
+        }
+      } else if (aux.payType === "Pix") {
+        if (aux.serviceType !== "Devolucao") {
+          auxPix.push(aux);
+        } else {
+          auxPixDev.push(aux);
+        }
+      } else {
+        if (aux.serviceType !== "Devolucao") {
+          auxMoney.push(aux);
+        } else {
+          auxMoneyDev.push(aux);
+        }
+      }
+    });
+    //DEVOLUCAO NAO E TIPOD E PAGAMENTO ETIPO DE VENDA, PRECISO VER UM ESQUEMA PARA SUBTRAIR O VALOR DA DEVOLUCAO
+    // CORRETO PARA O TIPOD E PAGAMENTO QUE ELA FOI ESTABELECIDA.
+
+    auxCredit.map((creditValue) => {
+      varAllCredit += parseInt(creditValue.value);
+    });
+    auxCreditDev.map((creditValue) => {
+      devAllCredit += parseInt(creditValue.value);
+    });
+    setAllCredit(varAllCredit - devAllCredit);
+
+    auxDebit.map((debitValue) => {
+      varAllDebit += parseInt(debitValue.value);
+    });
+    auxDebitDev.map((debitValue) => {
+      devAllDebit += parseInt(debitValue.value);
+    });
+    setAllDebit(varAllDebit - devAllDebit);
+
+    auxMoney.map((moneyValue) => {
+      varAllMoney += parseInt(moneyValue.value);
+    });
+    auxMoneyDev.map((moneyValue) => {
+      devAllMoney += parseInt(moneyValue.value);
+    });
+    setAllMoney(varAllMoney);
+
+    auxPix.map((pixValue) => {
+      varAllPix += parseInt(pixValue.value);
+    });
+    auxPixDev.map((pixValue) => {
+      devAllPix += parseInt(pixValue.value);
+    });
+    setAllPix(varAllPix - devAllPix);
+
+    let auxVarDev = devAllPix + devAllMoney + devAllDebit + devAllCredit;
+    let auxVarAll =
+      varAllPix +
+      varAllMoney +
+      varAllDebit +
+      varAllCredit -
+      (devAllPix + devAllMoney + devAllDebit + devAllCredit);
+    setVarAll(auxVarAll);
+    setAllDevolucao(auxVarDev);
+    setDatePainel(auxdate);
+  }
+
+  function ordenateGrow() {
+    dataSearch.sort(function(x, y) {
+      return x.datePos - y.datePos;
+    });
   }
 
   return (
@@ -60,6 +169,7 @@ function ShowSearchSales({ showHide, searchComplete }) {
             //   openReportVerif === false ? styles.showHideReport : ""
             // } ${styles.stylesTemplateBoxes}`}
           >
+            {ordenateGrow()}
             {dataSearch.map((item) => {
               {
                 year = item.datePos.slice(0, 4);
@@ -70,13 +180,14 @@ function ShowSearchSales({ showHide, searchComplete }) {
               {
                 day = item.datePos.slice(6, 8);
               }
+
               return (
                 <>
                   <div className={styles.btnSearchSalesUnit}>
                     <button
-                      name={"boxSearcUnit" + item.datePos}
+                      name={item.datePos}
                       className={styles.searchSalesUnit}
-                      onClick={openReport}
+                      onClick={() => openReport(item)}
                     >
                       {day}/{month}/{year}
                     </button>
@@ -84,6 +195,31 @@ function ShowSearchSales({ showHide, searchComplete }) {
                 </>
               );
             })}
+          </div>
+          <div
+            className={`${""}
+             ${openReportVerif === true ? styles.showHideReport : ""}`}
+          >
+            <div className={styles.showPainelContent}>
+              <h2>Caixa do dia {datePainel}</h2>
+              <p>Valor total para dinheiro:</p>
+              <p className={styles.contentP}>{`R$ ${allMoney}`}</p>
+              <br />
+              <p>Valor total para crédito:</p>
+              <p className={styles.contentP}>{`R$ ${allCredit}`}</p>
+              <br />
+              <p>Valor total para débito:</p>
+              <p className={styles.contentP}>{`R$ ${allDebit}`}</p>
+              <br />
+              <p>Valor total para pix:</p>
+              <p className={styles.contentP}>{`R$ ${allPix}`}</p>
+              <br />
+              <p>Valor total para devolução: </p>
+              <p className={styles.contentDevP}>{`R$ ${allDevolucao}`}</p>
+              <br />
+              <p>Valor total do caixa:</p>
+              <p className={styles.contentAllP}>{`R$ ${varAll}`}</p>
+            </div>
           </div>
         </Panel>
         <Dialog

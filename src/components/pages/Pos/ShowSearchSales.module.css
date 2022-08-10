@@ -35,7 +35,23 @@
     border: 1px solid #CD853F;
 }
 
+.showPainelContent p {
+    font-size: 15px;
+    font-weight: 600;
+}
+
 .showHideReport {
     display: none;
 }
 
+.contentDevP {
+    color: red !important;
+}
+
+.contentP {
+    color: green;
+}
+
+.contentAllP {
+    color: blue;
+}
