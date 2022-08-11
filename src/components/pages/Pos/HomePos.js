@@ -7,6 +7,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import React from "react";
 import DraggableDialog from "../../templates/DraggableDialog";
+import DailyReport from "./DailyReport";
 
 function HomePos() {
   const servStateType = {
@@ -23,19 +24,7 @@ function HomePos() {
     payTypeDebit: false,
     payTypePix: false,
   };
-  const payValueType = 0;
-  let sendSellDaily = {
-    id: 0,
-    openPos: null,
-    datePos: null,
-    entries: {},
-  };
-  let sendSellInsert = {
-    id: 0,
-    serviceType: "",
-    payType: "",
-    value: "",
-  };
+  const payValueType = "";
 
   const [takeDateNow, setTakeDateNow] = useState(""); // STATE PARA ARMAZENAR DATA
   const [sellNow, setSellNow] = useState(); //STATE PARA ARMAZENAR O CAIXA ABERTO AGORA
@@ -48,11 +37,6 @@ function HomePos() {
   const [updateJson, setUpdateJson] = useState(); //STATE PARA RECEBER E ENVIAR TODO O JSON
   const [showSearch, setShowSearch] = useState(0);
   const [searchComplete, setSearchComplete] = useState([]);
-  // const [showReport, setShowReport] = useState(0);
-
-  const [sellDailyInsertSend, setSellDailyInsertSend] = useState(
-    sendSellInsert
-  ); //STATE OBJETO PARA POST DE VENDAS
   const [openDialog, setOpenDialog] = useState(false);
   const [openDialogAlready, setOpenDialogAlready] = useState(false);
   const [closeDialog, setCloseDialog] = useState(false);
@@ -74,7 +58,7 @@ function HomePos() {
   function resetsellstates() {
     setPayType({ ...payTypeType, key: false });
     setService({ ...servStateType, key: false });
-    setPayValue(0);
+    setPayValue("");
   }
 
   function handleChange(e) {
@@ -170,7 +154,6 @@ function HomePos() {
     // setSellDialog(true);
     let varJson;
     let caixaDia;
-    let auxIndex = 0;
     let auxService = sellDailyInsertService.substr(10);
     let auxType = sellDailyInsertType.substr(7);
     let auxSend = {
@@ -190,7 +173,7 @@ function HomePos() {
     if (!!caixaDia && caixaDia.length > 0) {
       axios.put("http://localhost:5000/dailyList", varJson);
       console.log("Venda Incluída com sucesso");
-      // console.log(varJson);
+      setSellDialog(true);
     } else {
       console.log("Não há caixa aberto, precisa abrir um caixa antes");
     }
@@ -204,7 +187,7 @@ function HomePos() {
   }
 
   function verifyReportDaily() {
-    setShowSearch(3);
+    setShowSearch(4);
   }
 
   // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
@@ -394,25 +377,31 @@ function HomePos() {
           colorText={"colorTextSellManager"}
           eClick={SearchDaily}
         />
+        <DailyReport
+          showHide={showSearch}
+          sellNow={sellNow}
+          setShowSearch={setShowSearch}
+        />
       </div>
+
       <div className={styles.componentsBox}>
         <DraggableDialog
           open={openDialog}
           handleClose={handleCloseDialog}
-          titleText={"Caixa Aberto"}
+          titleText={"Abrindo Caixa"}
           dialogBox="O caixa do dia foi aberto. Ao final do dia, feche o caixa"
         />
         <DraggableDialog
           open={openDialogAlready}
           handleClose={handleCloseDialog}
-          titleText={"Caixa já Aberto"}
+          titleText={"Caixa Aberto"}
           dialogBox="Já existe um caixa aberto"
         />
         {
           <DraggableDialog
             open={closeDialog}
             handleClose={handleCloseDialog2}
-            titleText="Caixa Fechado"
+            titleText="Fechando Caixa"
             dialogBox="O caixa foi fechado. Para inserir vendas, abra um novo caixa"
           />
         }
@@ -420,17 +409,16 @@ function HomePos() {
           <DraggableDialog
             open={closeDialogAlready}
             handleClose={handleCloseDialog2}
-            titleText="Abra um Caixa"
+            titleText="Caixa Fechado"
             dialogBox="Não há caixa aberto, abra um novo caixa"
           />
         }
-        {/* setCloseDialogAlready */}
         {
           <DraggableDialog
             open={sellDialog}
             handleClose={handleSellDialog}
             titleText="Venda Concluída"
-            dialogBox="Venda concluida. Para excluir uma venda use 'Pesquisar Caixa'"
+            dialogBox="Venda concluida. Para excluir uma venda acesse 'Relatório Dia'"
           />
         }
         {
