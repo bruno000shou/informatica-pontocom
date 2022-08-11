@@ -5,6 +5,7 @@ import findBetween from "../../../helpers/FindBetween";
 import { useState } from "react";
 import React from "react";
 import ShowSearchSales from "./ShowSearchSales";
+import DraggableDialog from "../../templates/DraggableDialog";
 
 function SearchSales({
   allJson,
@@ -13,8 +14,13 @@ function SearchSales({
   setSearchComplete,
   searchComplete,
 }) {
-  const [initDate, setInitDate] = useState();
-  const [finalDate, setFinalDate] = useState();
+  const [initDate, setInitDate] = useState("");
+  const [finalDate, setFinalDate] = useState("");
+  const [searchFailInit, setSearchFailInit] = useState(false);
+  const [searchFailFinal, setSearchFailFinal] = useState(false);
+  const [searchFailBoth, setSearchFailBoth] = useState(false);
+  const [searchFailInitBigFinal, setSearchFailInitBigFinal] = useState(false);
+  const [resetData, setResetData] = useState("");
 
   function hideDiv() {
     showHide = 0;
@@ -37,16 +43,20 @@ function SearchSales({
   function handleSearch(e) {
     if (initDate === "" && finalDate !== "") {
       console.log("Nao foi escolhida  uma data inicial");
+      handleSearchFailInit();
       handleReset();
     } else if (finalDate === "" && initDate !== "") {
       console.log("Nao foi escolhida uma data final");
+      handleSearchFailFinal();
       handleReset();
     } else if (finalDate === "" && initDate === "") {
+      handleSearchFailBoth();
       console.log(
         "Nenhuma data foi escolhida, escolha as datas e refaça a pesquisa"
       );
       handleReset();
     } else if (initDate > finalDate) {
+      handleSearchFailInitBigFinal();
       console.log(
         "A data inicial e mais recente que a data final, refaça a pesquisa"
       );
@@ -54,14 +64,39 @@ function SearchSales({
     } else {
       console.log("Pesquisa feita com sucesso");
       findBetween(allJson, initDate, finalDate, setSearchComplete);
-      handleReset();
       setShowSearch(2);
+      handleReset();
     }
+    handleReset();
+    setResetData("");
   }
 
   function handleReset() {
     setInitDate("");
     setFinalDate("");
+  }
+
+  function handleSearchFailInit() {
+    setSearchFailInit(true);
+  }
+
+  function handleSearchFailFinal() {
+    setSearchFailFinal(true);
+  }
+
+  function handleSearchFailBoth() {
+    setSearchFailFinal(true);
+  }
+
+  function handleSearchFailInitBigFinal() {
+    setSearchFailInitBigFinal(true);
+  }
+
+  function handleClose() {
+    setSearchFailInit(false);
+    setSearchFailFinal(false);
+    setSearchFailBoth(false);
+    setSearchFailInitBigFinal(false);
   }
 
   return (
@@ -77,6 +112,7 @@ function SearchSales({
             <InputRegClient
               textLabel={"Data inicial:"}
               type={"date"}
+              value={resetData}
               name={"searchInitDate"}
               makeChange={handleInitDate}
             />
@@ -85,6 +121,7 @@ function SearchSales({
             <InputRegClient
               textLabel={"Data final:"}
               type={"date"}
+              value={resetData}
               name={"searchFinishDate"}
               makeChange={handleFinalDate}
             />
@@ -120,8 +157,35 @@ function SearchSales({
           />
         </div>
       </form>
-
-      <ShowSearchSales showHide={showHide} searchComplete={searchComplete} />
+      <DraggableDialog
+        open={searchFailInit}
+        handleClose={handleClose}
+        titleText="Falha na pesquisa"
+        dialogBox="Não foi especficada a data inicial"
+      />
+      <DraggableDialog
+        open={searchFailFinal}
+        handleClose={handleClose}
+        titleText="Falha na pesquisa"
+        dialogBox="Não foi especficada a data final"
+      />
+      <DraggableDialog
+        open={searchFailBoth}
+        handleClose={handleClose}
+        titleText="Falha na pesquisa"
+        dialogBox="Não foi especficada nenhuma data"
+      />
+      <DraggableDialog
+        open={searchFailInitBigFinal}
+        handleClose={handleClose}
+        titleText="Falha na pesquisa"
+        dialogBox="A data inicial é mais recente que a data final"
+      />
+      <ShowSearchSales
+        showHide={showHide}
+        searchComplete={searchComplete}
+        setShowSearch={setShowSearch}
+      />
     </div>
   );
 }

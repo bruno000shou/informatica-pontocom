@@ -1,17 +1,18 @@
 import styles from "./ShowSearchSales.module.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { DefaultButton, PrimaryButton } from "@fluentui/react/lib/Button";
 import { Panel } from "@fluentui/react/lib/Panel";
 import { Dialog, DialogFooter, DialogType } from "@fluentui/react/lib/Dialog";
 import { useState } from "react";
 
-function ShowSearchSales({ showHide, searchComplete }) {
+function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
   let dataSearch = searchComplete;
+  console.log(dataSearch);
+
   let day;
   let month;
   let year;
 
-  const [hideShowBox, setHideShowBox] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogOpen2, setDialogOpen2] = useState(false);
   const [openReportVerif, setOpenReportVerif] = useState(true);
@@ -31,6 +32,11 @@ function ShowSearchSales({ showHide, searchComplete }) {
     styles: { main: { maxWidth: 450 } },
   };
 
+  // useEffect(() => {
+  //   dataSearch = searchComplete;
+  //   console.log(dataSearch);
+  // }, searchComplete);
+
   function closePanelOpenDialog2() {
     setDialogOpen(true);
   }
@@ -42,7 +48,13 @@ function ShowSearchSales({ showHide, searchComplete }) {
   function closeAll() {
     setDialogOpen2(true);
     setDialogOpen(false);
+    // setOpenReportVerif(false);
   }
+
+  // useEffect(() => {
+  //   setDialogOpen2(false);
+  //   setShowSearch(0);
+  // }, [dialogOpen]);
 
   function openReport(item) {
     setOpenReportVerif(false);
@@ -155,7 +167,7 @@ function ShowSearchSales({ showHide, searchComplete }) {
         <br />
         <Panel
           headerText="A pesquisa encontrou o seguinte resultado"
-          isOpen={showHide === 2 && !dialogOpen2 === true ? true : false}
+          isOpen={showHide === 2 && dialogOpen2 === false ? true : false}
           onDismiss={closePanelOpenDialog2}
           closeButtonAriaLabel="Close"
         >
@@ -174,7 +186,6 @@ function ShowSearchSales({ showHide, searchComplete }) {
               {
                 day = item.datePos.slice(6, 8);
               }
-
               return (
                 <>
                   <div className={styles.btnSearchSalesUnit}>

@@ -12,7 +12,9 @@ function InputRegClient({
 }) {
   return (
     <div className={styles.divStyles}>
-      <label className={styles[labelStyles]}>{textLabel}</label>
+      {!!textLabel && textLabel.length > 0 && (
+        <label className={styles[labelStyles]}>{textLabel}</label>
+      )}
       <input
         className={`${styles.inputStyles} ${styles[name]}`}
         type={type}

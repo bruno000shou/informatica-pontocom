@@ -173,6 +173,7 @@ function HomePos() {
     if (!!caixaDia && caixaDia.length > 0) {
       axios.put("http://localhost:5000/dailyList", varJson);
       console.log("Venda Incluída com sucesso");
+      resetsellstates();
       setSellDialog(true);
     } else {
       console.log("Não há caixa aberto, precisa abrir um caixa antes");

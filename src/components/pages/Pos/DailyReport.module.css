@@ -1,0 +1,16 @@
+.contentDevP {
+    color: red !important;
+}
+
+.contentP {
+    color: green;
+}
+
+.contentAllP {
+    color: blue;
+}
+
+.showPainelContent p {
+    font-size: 15px;
+    font-weight: 600;
+}
