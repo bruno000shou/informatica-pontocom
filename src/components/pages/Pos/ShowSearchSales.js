@@ -1,21 +1,19 @@
 import styles from "./ShowSearchSales.module.css";
-import React, { useEffect } from "react";
 import { DefaultButton, PrimaryButton } from "@fluentui/react/lib/Button";
 import { Panel } from "@fluentui/react/lib/Panel";
 import { Dialog, DialogFooter, DialogType } from "@fluentui/react/lib/Dialog";
 import { useState } from "react";
+import React from "react";
 
 function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
   let dataSearch = searchComplete;
-  console.log(dataSearch);
-
   let day;
   let month;
   let year;
 
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [dialogOpen2, setDialogOpen2] = useState(false);
-  const [openReportVerif, setOpenReportVerif] = useState(true);
+  const [openReportVerif, setOpenReportVerif] = useState(false);
+  const [openReportVerif2, setOpenReportVerif2] = useState(false);
   const [allMoney, setAllMoney] = useState(0);
   const [allCredit, setAllCredit] = useState(0);
   const [allDebit, setAllDebit] = useState(0);
@@ -32,11 +30,6 @@ function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
     styles: { main: { maxWidth: 450 } },
   };
 
-  // useEffect(() => {
-  //   dataSearch = searchComplete;
-  //   console.log(dataSearch);
-  // }, searchComplete);
-
   function closePanelOpenDialog2() {
     setDialogOpen(true);
   }
@@ -46,18 +39,15 @@ function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
   }
 
   function closeAll() {
-    setDialogOpen2(true);
     setDialogOpen(false);
-    // setOpenReportVerif(false);
+    setShowSearch(0);
+    setOpenReportVerif(false);
+    setOpenReportVerif2(false);
   }
 
-  // useEffect(() => {
-  //   setDialogOpen2(false);
-  //   setShowSearch(0);
-  // }, [dialogOpen]);
-
   function openReport(item) {
-    setOpenReportVerif(false);
+    setOpenReportVerif2(true);
+    setOpenReportVerif(true);
     let day = item.datePos.slice(6, 8);
     let month = item.datePos.slice(4, 6);
     let year = item.datePos.slice(0, 4);
@@ -167,13 +157,13 @@ function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
         <br />
         <Panel
           headerText="A pesquisa encontrou o seguinte resultado"
-          isOpen={showHide === 2 && dialogOpen2 === false ? true : false}
+          isOpen={showHide === 2 ? true : false}
           onDismiss={closePanelOpenDialog2}
           closeButtonAriaLabel="Close"
         >
           <div
             className={`${styles.stylesTemplateBoxes}
-             ${openReportVerif === false ? styles.showHideReport : ""}`}
+             ${openReportVerif === false ? "" : styles.showHideReport}`}
           >
             {ordenateGrow()}
             {dataSearch.map((item) => {
@@ -202,8 +192,7 @@ function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
             })}
           </div>
           <div
-            className={`${""}
-             ${openReportVerif === true ? styles.showHideReport : ""}`}
+            className={openReportVerif2 === true ? "" : styles.showHideReport}
           >
             <div className={styles.showPainelContent}>
               <h2>Caixa do dia {datePainel}</h2>
