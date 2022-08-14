@@ -1,6 +1,6 @@
 import { jsPDF } from "jspdf";
 
-function PrintReport(printSuportData) {
+function PrintReport(printSuportData, takeDateNow) {
   if (printSuportData !== undefined) {
     let money = parseInt(printSuportData[0]);
     let allDevMoney = parseInt(printSuportData[6]);
@@ -25,11 +25,16 @@ function PrintReport(printSuportData) {
     let all = parseInt(printSuportData[4]);
     let allDev = printSuportData[9].toString();
 
+    let year = takeDateNow.slice(0, 4);
+    let month = takeDateNow.slice(4, 6);
+    let day = takeDateNow.slice(6, 8);
+    let auxDate = day + "/" + month + "/" + year;
+
     var doc = new jsPDF();
     doc.setFontSize(25);
     doc.setFont("helvetica", "bold");
     doc.text("Caixa do Dia", 20, 20);
-    // doc.text("22/22/2222", 40, 20);
+    doc.text(auxDate, 140, 20);
 
     doc.line(20, 25, 190, 25, null);
 

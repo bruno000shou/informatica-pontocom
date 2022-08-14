@@ -160,7 +160,6 @@ function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
         onDismiss={closePanelOpenDialog2}
         closeButtonAriaLabel="Close"
       >
-        {/* onFocus={openReport} */}
         <div className={styles.showPainelContent}>
           <h2>Relatório do Caixa do Dia</h2>
           <p>Valor total para dinheiro:</p>

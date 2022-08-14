@@ -1,1 +1,149 @@
-{"dailyList":[{"id":"4c039494-2282-4516-b31f-3a96e6b10ebe","datePos":"20220812","openPos":false,"sales":[{"id":"160efe5c-2a70-49df-806e-e7bd494a656f","serviceType":"Celular","payType":"Money","value":"110"},{"id":"c0f54ed5-6c1b-494c-a142-cf1466a36f76","serviceType":"Informatica","payType":"Credit","value":"250"},{"id":"df704b10-0802-436e-8f7a-3565da1d302e","serviceType":"Produtos","payType":"Debit","value":"52"},{"id":"099d08d4-cc18-4c0b-bfbc-65f1c9f20a95","serviceType":"Diversos","payType":"Pix","value":"24"},{"id":"0eabf08d-8028-4ac5-9151-bf251605966a","serviceType":"Diversos","payType":"Debit","value":"100"},{"id":"2f76d205-6277-4772-945b-e1c6492a1351","serviceType":"Celular","payType":"Debit","value":"100"},{"id":"8ceae5c6-fe60-428c-9a48-f6ff3ee1e1ac","serviceType":"Diversos","payType":"Debit","value":"100"},{"id":"93fab6c3-2a59-4761-baa1-6f71e7f9c672","serviceType":"Televisao","payType":"Debit","value":"100"},{"id":"53882221-9746-4d7d-b3c6-e1b18e1279c1","serviceType":"Informatica","payType":"Debit","value":"100"},{"id":"ce3f29d9-e108-4245-ad00-83366bfd6e46","serviceType":"Celular","payType":"Debit","value":"100"},{"id":"54d6ce86-1d77-4cba-b53c-648a669a3b9e","serviceType":"Informatica","payType":"Debit","value":"100"},{"id":"ad130446-7c4f-48f6-bb4f-af4e63fabf58","serviceType":"Celular","payType":"Credit","value":"15"},{"id":"73f3ae6b-b2c2-423e-8098-0088b553bec9","serviceType":"Devolucao","payType":"Money","value":"500"},{"id":"99b53162-cb6a-4622-b7bf-177ef57625aa","serviceType":"Celular","payType":"Money","value":"2"},{"id":"24e45392-e8b7-4331-8371-f0d6c6863440","serviceType":"Celular","payType":"Money","value":"4"},{"id":"686afffc-ca8a-4569-8afd-7de4d0c9a284","serviceType":"Celular","payType":"Money","value":"32"},{"id":"214bc7b0-17cd-4206-9baf-dc1937ed6af9","serviceType":"Celular","payType":"Money","value":"32"},{"id":"c494b692-9d5d-409b-80c1-415f4dcfd7c4","serviceType":"Televisao","payType":"Credit","value":"32"},{"id":"c1fe14bb-e193-4e04-9206-a3ef29932ca4","serviceType":"Televisao","payType":"Money","value":"43"},{"id":"914edd35-35b1-45a4-92d7-0e0732eac9bc","serviceType":"Televisao","payType":"Money","value":"54"},{"id":"b06f41bf-b4b8-409c-83ba-e18ef1b49cf2","serviceType":"Informatica","payType":"Money","value":"21"},{"id":"05d65a69-fea9-4825-8348-88dbfe02b6eb","serviceType":"Celular","payType":"Money","value":"32"},{"id":"2df384fa-f4fb-45c5-8d91-a4e2e69889b0","serviceType":"Celular","payType":"Money","value":"25"}]},{"id":"04ab8350-b569-438e-a4c9-58b931d221ae","datePos":"20220813","openPos":true,"sales":[{"id":"eb63ccf0-7d3a-4278-87c0-4b1bb37cd120","serviceType":"Diversos","payType":"Money","value":"21"},{"id":"eba17855-37b1-4580-8549-96061668f3e2","serviceType":"Celular","payType":"Money","value":"25"},{"id":"195d4964-adb8-4ff4-b817-16abfd7a7ce4","serviceType":"Celular","payType":"Money","value":"52"}]}]}
+{
+  "dailyList": [
+    {
+      "id": "4c039494-2282-4516-b31f-3a96e6b10ebe",
+      "datePos": "20220812",
+      "openPos": true,
+      "sales": [
+        {
+          "id": "160efe5c-2a70-49df-806e-e7bd494a656f",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "110"
+        },
+        {
+          "id": "c0f54ed5-6c1b-494c-a142-cf1466a36f76",
+          "serviceType": "Informatica",
+          "payType": "Credit",
+          "value": "250"
+        },
+        {
+          "id": "df704b10-0802-436e-8f7a-3565da1d302e",
+          "serviceType": "Produtos",
+          "payType": "Debit",
+          "value": "52"
+        },
+        {
+          "id": "099d08d4-cc18-4c0b-bfbc-65f1c9f20a95",
+          "serviceType": "Diversos",
+          "payType": "Pix",
+          "value": "24"
+        },
+        {
+          "id": "0eabf08d-8028-4ac5-9151-bf251605966a",
+          "serviceType": "Diversos",
+          "payType": "Debit",
+          "value": "100"
+        },
+        {
+          "id": "2f76d205-6277-4772-945b-e1c6492a1351",
+          "serviceType": "Celular",
+          "payType": "Debit",
+          "value": "100"
+        },
+        {
+          "id": "8ceae5c6-fe60-428c-9a48-f6ff3ee1e1ac",
+          "serviceType": "Diversos",
+          "payType": "Debit",
+          "value": "100"
+        },
+        {
+          "id": "93fab6c3-2a59-4761-baa1-6f71e7f9c672",
+          "serviceType": "Televisao",
+          "payType": "Debit",
+          "value": "100"
+        },
+        {
+          "id": "53882221-9746-4d7d-b3c6-e1b18e1279c1",
+          "serviceType": "Informatica",
+          "payType": "Debit",
+          "value": "100"
+        },
+        {
+          "id": "ce3f29d9-e108-4245-ad00-83366bfd6e46",
+          "serviceType": "Celular",
+          "payType": "Debit",
+          "value": "100"
+        },
+        {
+          "id": "54d6ce86-1d77-4cba-b53c-648a669a3b9e",
+          "serviceType": "Informatica",
+          "payType": "Debit",
+          "value": "100"
+        },
+        {
+          "id": "ad130446-7c4f-48f6-bb4f-af4e63fabf58",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "15"
+        },
+        {
+          "id": "73f3ae6b-b2c2-423e-8098-0088b553bec9",
+          "serviceType": "Devolucao",
+          "payType": "Money",
+          "value": "500"
+        },
+        {
+          "id": "99b53162-cb6a-4622-b7bf-177ef57625aa",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "2"
+        },
+        {
+          "id": "24e45392-e8b7-4331-8371-f0d6c6863440",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "4"
+        },
+        {
+          "id": "686afffc-ca8a-4569-8afd-7de4d0c9a284",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "32"
+        },
+        {
+          "id": "214bc7b0-17cd-4206-9baf-dc1937ed6af9",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "32"
+        },
+        {
+          "id": "c494b692-9d5d-409b-80c1-415f4dcfd7c4",
+          "serviceType": "Televisao",
+          "payType": "Credit",
+          "value": "32"
+        },
+        {
+          "id": "c1fe14bb-e193-4e04-9206-a3ef29932ca4",
+          "serviceType": "Televisao",
+          "payType": "Money",
+          "value": "43"
+        },
+        {
+          "id": "914edd35-35b1-45a4-92d7-0e0732eac9bc",
+          "serviceType": "Televisao",
+          "payType": "Money",
+          "value": "54"
+        },
+        {
+          "id": "b06f41bf-b4b8-409c-83ba-e18ef1b49cf2",
+          "serviceType": "Informatica",
+          "payType": "Money",
+          "value": "21"
+        },
+        {
+          "id": "05d65a69-fea9-4825-8348-88dbfe02b6eb",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "32"
+        },
+        {
+          "id": "2df384fa-f4fb-45c5-8d91-a4e2e69889b0",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "25"
+        }
+      ]
+    }
+  ]
+}

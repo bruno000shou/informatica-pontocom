@@ -81,10 +81,8 @@ function HomePos() {
 
   function printDaily() {
     setPrintDialog(true);
-    PrintReport(printSuportData);
+    PrintReport(printSuportData, takeDateNow);
   }
-
-  ///////////////////////////////////// useEffect(() => setPrintSuportData(sellNow), sellNow);
 
   function handlePrintDialog() {
     setPrintDialog(false);
@@ -203,7 +201,6 @@ function HomePos() {
 
   function verifyReportDaily() {
     setShowSearch(4);
-    ///////////////////////////////// O VALOR DE SELLNOW ESTA CHEGANDO AQUI CORRETAMENTE
   }
 
   // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
@@ -366,15 +363,17 @@ function HomePos() {
         <ButtonSave
           active
           className={styles.openDailyStatus}
-          colorBg={"colorBgSellManager"}
-          colorText={"colorTextSellManager"}
-          // textButton={sellNow[0] > "" ? "Caixa Aberto" : "Abrir Caixa"}
-          // colorBg={
-          //   sellNow[0] > "" ? "colorBgSellManager2" : "colorBgSellManager"
-          // }
-          // colorText={
-          //   sellNow[0] > "" ? "colorTextSellManager2" : "colorTextSellManager"
-          // }
+          // colorBg={"colorBgSellManager"}
+          // colorText={"colorTextSell  Manager"}
+          textButton={sellNow.length > 0 ? "Caixa Aberto" : "Abrir Caixa"}
+          colorBg={
+            sellNow.length > 0 ? "colorBgSellManager2" : "colorBgSellManager"
+          }
+          colorText={
+            sellNow.length > 0
+              ? "colorTextSellManager2"
+              : "colorTextSellManager"
+          }
           eClick={openDaily}
         />
         <ButtonSave
