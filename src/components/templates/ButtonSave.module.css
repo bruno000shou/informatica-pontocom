@@ -138,6 +138,19 @@
     color: #CD853F;
 }
 
+.colorTextSellManager2 {
+    color: #CD853F;
+    font-size: 15px;
+}
+
+.colorBgSellManager2 {
+    background-color: black;
+    transition: .5s;
+    height: 3.5vw;
+    width: 10vw;
+    border-radius: 5px;
+}
+
 /* BOTOES POS DE FECHAMNNTO DE VENDA */
 
 .colorBgSellDeal {

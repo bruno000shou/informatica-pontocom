@@ -1,13 +1,15 @@
 import styles from "./HomePos.module.css";
 import ButtonSave from "../../templates/ButtonSave";
 import InputRegClient from "../../templates/InputRegClient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchSales from "./SearchSales";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import React from "react";
 import DraggableDialog from "../../templates/DraggableDialog";
 import DailyReport from "./DailyReport";
+import PrintReport from "./PrintReport";
+import openReport from "./DailyReport";
 
 function HomePos() {
   const servStateType = {
@@ -27,7 +29,7 @@ function HomePos() {
   const payValueType = "";
 
   const [takeDateNow, setTakeDateNow] = useState(""); // STATE PARA ARMAZENAR DATA
-  const [sellNow, setSellNow] = useState(); //STATE PARA ARMAZENAR O CAIXA ABERTO AGORA
+  const [sellNow, setSellNow] = useState([]); //STATE PARA ARMAZENAR O CAIXA ABERTO AGORA
   const [service, setService] = useState(servStateType); // STATE PARA RECEBER O TIPO DE SERVICO DA VENDA
   const [payType, setPayType] = useState(payTypeType); // STATE PARA RECEBER TYPO DE PAGAMENTO
   const [payValue, setPayValue] = useState(payValueType); //STATE PARA RECEBER O VALOR DO INPUT DE VENDA
@@ -43,6 +45,7 @@ function HomePos() {
   const [closeDialogAlready, setCloseDialogAlready] = useState(false);
   const [sellDialog, setSellDialog] = useState(false);
   const [printDialog, setPrintDialog] = useState(false);
+  const [printSuportData, setPrintSuportData] = useState();
 
   // FUNCOES PARA MARCAR OS BOTOES PRESSIONADOS E SETAR EM UM STATE
   function setServiceValue(name) {
@@ -78,7 +81,10 @@ function HomePos() {
 
   function printDaily() {
     setPrintDialog(true);
+    PrintReport(printSuportData);
   }
+
+  ///////////////////////////////////// useEffect(() => setPrintSuportData(sellNow), sellNow);
 
   function handlePrintDialog() {
     setPrintDialog(false);
@@ -151,7 +157,6 @@ function HomePos() {
   // Execução de venda:
   // Insere, no caixa que ja esta aberto, uma venda registrada na pagina
   async function sellDaily() {
-    // setSellDialog(true);
     let varJson;
     let caixaDia;
     let auxService = sellDailyInsertService.substr(10);
@@ -170,11 +175,20 @@ function HomePos() {
     // CAIXADIA POSSUI O CAIXA ABERTO MAIS A VENDA INCLUIDA
     caixaDia[0].sales.push(auxSend);
 
-    if (!!caixaDia && caixaDia.length > 0) {
+    if (
+      !!caixaDia &&
+      caixaDia.length > 0 &&
+      payValue.length > 0 &&
+      sellDailyInsertService !== "" &&
+      sellDailyInsertType !== ""
+    ) {
       axios.put("http://localhost:5000/dailyList", varJson);
       console.log("Venda Incluída com sucesso");
       resetsellstates();
       setSellDialog(true);
+      setSellNow(caixaDia); // ALTERADO AQUI PARA ATUALIZAR O VALOR DO CAIXA DIA
+      setSellDailyInsertService("");
+      setSellDailyInsertType("");
     } else {
       console.log("Não há caixa aberto, precisa abrir um caixa antes");
     }
@@ -189,6 +203,7 @@ function HomePos() {
 
   function verifyReportDaily() {
     setShowSearch(4);
+    ///////////////////////////////// O VALOR DE SELLNOW ESTA CHEGANDO AQUI CORRETAMENTE
   }
 
   // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
@@ -349,9 +364,17 @@ function HomePos() {
       />
       <div className={styles.sellManager}>
         <ButtonSave
-          textButton={"Abrir Caixa"}
+          active
+          className={styles.openDailyStatus}
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
+          // textButton={sellNow[0] > "" ? "Caixa Aberto" : "Abrir Caixa"}
+          // colorBg={
+          //   sellNow[0] > "" ? "colorBgSellManager2" : "colorBgSellManager"
+          // }
+          // colorText={
+          //   sellNow[0] > "" ? "colorTextSellManager2" : "colorTextSellManager"
+          // }
           eClick={openDaily}
         />
         <ButtonSave
@@ -382,6 +405,7 @@ function HomePos() {
           showHide={showSearch}
           sellNow={sellNow}
           setShowSearch={setShowSearch}
+          setPrintSuportData={setPrintSuportData}
         />
       </div>
 

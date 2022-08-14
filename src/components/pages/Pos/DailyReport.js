@@ -5,7 +5,7 @@ import { DefaultButton, PrimaryButton } from "@fluentui/react/lib/Button";
 import { useState } from "react";
 import styles from "./DailyReport.module.css";
 
-function DailyReport({ showHide, sellNow, setShowSearch }) {
+function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
   const [dialogOpen2, setDialogOpen2] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [allMoney, setAllMoney] = useState(0);
@@ -17,7 +17,7 @@ function DailyReport({ showHide, sellNow, setShowSearch }) {
 
   const dialogContentProps = {
     type: DialogType.normal,
-    title: "Tem certeza que deseja fechar a pesquisa?",
+    title: "Tem certeza que deseja fechar o relatório de caixa?",
   };
   const dialogModalProps = {
     isBlocking: true,
@@ -26,7 +26,6 @@ function DailyReport({ showHide, sellNow, setShowSearch }) {
 
   function closePanelOpenDialog2() {
     setDialogOpen(true);
-    // setShowSearch(0);
   }
 
   function closeDialog() {
@@ -46,96 +45,112 @@ function DailyReport({ showHide, sellNow, setShowSearch }) {
   }, [sellNow]);
 
   function openReport() {
-    // setOpenReportVerif(false);
-    console.log(sellNow);
-    let auxCredit = [];
-    let auxDebit = [];
-    let auxPix = [];
-    let auxMoney = [];
-    let auxCreditDev = [];
-    let auxDebitDev = [];
-    let auxPixDev = [];
-    let auxMoneyDev = [];
+    if (sellNow.length > 0) {
+      console.log(sellNow);
 
-    let varAllCredit = 0;
-    let varAllMoney = 0;
-    let varAllDebit = 0;
-    let varAllPix = 0;
+      let auxCredit = [];
+      let auxDebit = [];
+      let auxPix = [];
+      let auxMoney = [];
+      let auxCreditDev = [];
+      let auxDebitDev = [];
+      let auxPixDev = [];
+      let auxMoneyDev = [];
 
-    let devAllCredit = 0;
-    let devAllMoney = 0;
-    let devAllDebit = 0;
-    let devAllPix = 0;
+      let varAllCredit = 0;
+      let varAllMoney = 0;
+      let varAllDebit = 0;
+      let varAllPix = 0;
 
-    sellNow[0].sales.map((aux) => {
-      if (aux.payType === "Credit") {
-        if (aux.serviceType !== "Devolucao") {
-          auxCredit.push(aux);
+      let devAllCredit = 0;
+      let devAllMoney = 0;
+      let devAllDebit = 0;
+      let devAllPix = 0;
+
+      sellNow[0].sales.map((aux) => {
+        if (aux.payType === "Credit") {
+          if (aux.serviceType !== "Devolucao") {
+            auxCredit.push(aux);
+          } else {
+            auxCreditDev.push(aux);
+          }
+        } else if (aux.payType === "Debit") {
+          if (aux.serviceType !== "Devolucao") {
+            auxDebit.push(aux);
+          } else {
+            auxDebitDev.push(aux);
+          }
+        } else if (aux.payType === "Pix") {
+          if (aux.serviceType !== "Devolucao") {
+            auxPix.push(aux);
+          } else {
+            auxPixDev.push(aux);
+          }
         } else {
-          auxCreditDev.push(aux);
+          if (aux.serviceType !== "Devolucao") {
+            auxMoney.push(aux);
+          } else {
+            auxMoneyDev.push(aux);
+          }
         }
-      } else if (aux.payType === "Debit") {
-        if (aux.serviceType !== "Devolucao") {
-          auxDebit.push(aux);
-        } else {
-          auxDebitDev.push(aux);
-        }
-      } else if (aux.payType === "Pix") {
-        if (aux.serviceType !== "Devolucao") {
-          auxPix.push(aux);
-        } else {
-          auxPixDev.push(aux);
-        }
-      } else {
-        if (aux.serviceType !== "Devolucao") {
-          auxMoney.push(aux);
-        } else {
-          auxMoneyDev.push(aux);
-        }
-      }
-    });
+      });
 
-    auxCredit.map((creditValue) => {
-      varAllCredit += parseInt(creditValue.value);
-    });
-    auxCreditDev.map((creditValue) => {
-      devAllCredit += parseInt(creditValue.value);
-    });
-    setAllCredit(varAllCredit - devAllCredit);
+      auxCredit.map((creditValue) => {
+        varAllCredit += parseInt(creditValue.value);
+      });
+      auxCreditDev.map((creditValue) => {
+        devAllCredit += parseInt(creditValue.value);
+      });
+      setAllCredit(varAllCredit - devAllCredit);
 
-    auxDebit.map((debitValue) => {
-      varAllDebit += parseInt(debitValue.value);
-    });
-    auxDebitDev.map((debitValue) => {
-      devAllDebit += parseInt(debitValue.value);
-    });
-    setAllDebit(varAllDebit - devAllDebit);
+      auxDebit.map((debitValue) => {
+        varAllDebit += parseInt(debitValue.value);
+      });
+      auxDebitDev.map((debitValue) => {
+        devAllDebit += parseInt(debitValue.value);
+      });
+      setAllDebit(varAllDebit - devAllDebit);
 
-    auxMoney.map((moneyValue) => {
-      varAllMoney += parseInt(moneyValue.value);
-    });
-    auxMoneyDev.map((moneyValue) => {
-      devAllMoney += parseInt(moneyValue.value);
-    });
-    setAllMoney(varAllMoney);
+      auxMoney.map((moneyValue) => {
+        varAllMoney += parseInt(moneyValue.value);
+      });
+      auxMoneyDev.map((moneyValue) => {
+        devAllMoney += parseInt(moneyValue.value);
+      });
+      setAllMoney(varAllMoney - devAllMoney);
 
-    auxPix.map((pixValue) => {
-      varAllPix += parseInt(pixValue.value);
-    });
-    auxPixDev.map((pixValue) => {
-      devAllPix += parseInt(pixValue.value);
-    });
-    setAllPix(varAllPix - devAllPix);
+      auxPix.map((pixValue) => {
+        varAllPix += parseInt(pixValue.value);
+      });
+      auxPixDev.map((pixValue) => {
+        devAllPix += parseInt(pixValue.value);
+      });
+      setAllPix(varAllPix - devAllPix);
 
-    let auxVarDev = devAllPix + devAllMoney + devAllDebit + devAllCredit;
-    let auxVarAll =
-      varAllPix +
-      varAllMoney +
-      varAllDebit +
-      varAllCredit -
-      (devAllPix + devAllMoney + devAllDebit + devAllCredit);
-    setVarAll(auxVarAll);
-    setAllDevolucao(auxVarDev);
+      let auxVarDev = devAllPix + devAllMoney + devAllDebit + devAllCredit;
+      let auxVarAll =
+        varAllPix +
+        varAllMoney +
+        varAllDebit +
+        varAllCredit -
+        (devAllPix + devAllMoney + devAllDebit + devAllCredit);
+      setVarAll(auxVarAll);
+      setAllDevolucao(auxVarDev);
+      let printSuport = [];
+      printSuport.push(
+        varAllMoney,
+        varAllDebit,
+        varAllCredit,
+        varAllPix,
+        auxVarAll,
+        devAllPix,
+        devAllMoney,
+        devAllDebit,
+        devAllCredit,
+        auxVarDev
+      );
+      setPrintSuportData(printSuport);
+    }
   }
 
   return (
@@ -145,6 +160,7 @@ function DailyReport({ showHide, sellNow, setShowSearch }) {
         onDismiss={closePanelOpenDialog2}
         closeButtonAriaLabel="Close"
       >
+        {/* onFocus={openReport} */}
         <div className={styles.showPainelContent}>
           <h2>Relatório do Caixa do Dia</h2>
           <p>Valor total para dinheiro:</p>

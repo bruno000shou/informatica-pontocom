@@ -122,7 +122,7 @@ function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
     auxMoneyDev.map((moneyValue) => {
       devAllMoney += parseInt(moneyValue.value);
     });
-    setAllMoney(varAllMoney);
+    setAllMoney(varAllMoney - devAllMoney);
 
     auxPix.map((pixValue) => {
       varAllPix += parseInt(pixValue.value);

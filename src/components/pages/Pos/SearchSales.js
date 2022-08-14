@@ -6,6 +6,7 @@ import { useState } from "react";
 import React from "react";
 import ShowSearchSales from "./ShowSearchSales";
 import DraggableDialog from "../../templates/DraggableDialog";
+import moment from "moment";
 
 function SearchSales({
   allJson,
@@ -13,6 +14,7 @@ function SearchSales({
   setShowSearch,
   setSearchComplete,
   searchComplete,
+  setPrintSuportData,
 }) {
   const [initDate, setInitDate] = useState("");
   const [finalDate, setFinalDate] = useState("");
@@ -27,17 +29,20 @@ function SearchSales({
   }
 
   function handleInitDate(e) {
-    let day = e.slice(8, 10);
-    let month = e.slice(5, 7);
-    let year = e.slice(0, 4);
-    setInitDate(year + month + day);
+    // let day = e.slice(8, 10);
+    // let month = e.slice(5, 7);
+    // let year = e.slice(0, 4);
+    // setInitDate(year + month + day);
+    console.log(moment(e).format("YYYYMMDD"));
+    setInitDate(e);
   }
 
   function handleFinalDate(e) {
-    let day = e.slice(8, 10);
-    let month = e.slice(5, 7);
-    let year = e.slice(0, 4);
-    setFinalDate(year + month + day);
+    // let day = e.slice(8, 10);
+    // let month = e.slice(5, 7);
+    // let year = e.slice(0, 4);
+    // setFinalDate(year + month + day);
+    setFinalDate(e);
   }
 
   function handleSearch(e) {
@@ -63,7 +68,12 @@ function SearchSales({
       handleReset();
     } else {
       console.log("Pesquisa feita com sucesso");
-      findBetween(allJson, initDate, finalDate, setSearchComplete);
+      findBetween(
+        allJson,
+        moment(initDate).format("YYYYMMDD"),
+        moment(finalDate).format("YYYYMMDD"),
+        setSearchComplete
+      );
       setShowSearch(2);
       handleReset();
     }
@@ -112,7 +122,7 @@ function SearchSales({
             <InputRegClient
               textLabel={"Data inicial:"}
               type={"date"}
-              value={resetData}
+              value={initDate}
               name={"searchInitDate"}
               makeChange={handleInitDate}
             />
@@ -121,7 +131,7 @@ function SearchSales({
             <InputRegClient
               textLabel={"Data final:"}
               type={"date"}
-              value={resetData}
+              value={finalDate}
               name={"searchFinishDate"}
               makeChange={handleFinalDate}
             />
@@ -185,6 +195,7 @@ function SearchSales({
         showHide={showHide}
         searchComplete={searchComplete}
         setShowSearch={setShowSearch}
+        setPrintSuportData={setPrintSuportData}
       />
     </div>
   );
