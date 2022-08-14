@@ -15,7 +15,6 @@ function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
   const [allPix, setAllPix] = useState(0);
   const [varAll, setVarAll] = useState(0);
   const [allDevolucao, setAllDevolucao] = useState(0);
-  console.log(sellNow);
   const dialogContentProps = {
     type: DialogType.normal,
     title: "Tem certeza que deseja fechar o relatório de caixa?",
@@ -49,8 +48,6 @@ function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
 
   function openReport() {
     if (sellNow.length > 0) {
-      console.log(sellNow);
-
       let auxCredit = [];
       let auxDebit = [];
       let auxPix = [];

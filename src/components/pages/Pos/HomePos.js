@@ -9,7 +9,7 @@ import React from "react";
 import DraggableDialog from "../../templates/DraggableDialog";
 import DailyReport from "./DailyReport";
 import PrintReport from "./PrintReport";
-import openReport from "./DailyReport";
+import PrintHelp from "../../../helpers/PrintHelp";
 
 function HomePos() {
   const servStateType = {
@@ -81,11 +81,18 @@ function HomePos() {
 
   function printDaily() {
     setPrintDialog(true);
+    getOnLoad();
+  }
+
+  function confirmPrint() {
+    PrintHelp(sellNow, setPrintSuportData);
     PrintReport(printSuportData, takeDateNow);
+    console.log(printSuportData);
   }
 
   function handlePrintDialog() {
     setPrintDialog(false);
+    confirmPrint();
   }
 
   function handleSellDialog() {
@@ -446,8 +453,8 @@ function HomePos() {
           <DraggableDialog
             open={printDialog}
             handleClose={handlePrintDialog}
-            titleText="Impressão em Andamento"
-            dialogBox="Impressão foi enviada a impressora"
+            titleText="Deseja imprimir?"
+            dialogBox="Impressão esta sendo preparada"
           />
         }
       </div>
