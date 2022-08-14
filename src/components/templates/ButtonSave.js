@@ -9,6 +9,7 @@ function ButtonSave({
   name,
   eClick,
   focus,
+  onLoad,
 }) {
   return (
     <div>
@@ -22,6 +23,7 @@ function ButtonSave({
         onClick={() => {
           eClick(name);
         }}
+        onLoad={onLoad}
       >
         <p>{textButton}</p>
       </button>

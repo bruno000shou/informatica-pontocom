@@ -4,6 +4,7 @@ import { Dialog, DialogFooter, DialogType } from "@fluentui/react/lib/Dialog";
 import { DefaultButton, PrimaryButton } from "@fluentui/react/lib/Button";
 import { useState } from "react";
 import styles from "./DailyReport.module.css";
+import ButtonGeneric from "../../templates/ButtonGeneric";
 
 function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
   const [dialogOpen2, setDialogOpen2] = useState(false);
@@ -14,7 +15,7 @@ function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
   const [allPix, setAllPix] = useState(0);
   const [varAll, setVarAll] = useState(0);
   const [allDevolucao, setAllDevolucao] = useState(0);
-
+  console.log(sellNow);
   const dialogContentProps = {
     type: DialogType.normal,
     title: "Tem certeza que deseja fechar o relatório de caixa?",
@@ -43,6 +44,8 @@ function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
       openReport();
     }
   }, [sellNow]);
+
+  window.onload = () => openReport();
 
   function openReport() {
     if (sellNow.length > 0) {

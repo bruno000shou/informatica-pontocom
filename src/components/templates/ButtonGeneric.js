@@ -1,4 +1,4 @@
-import styles from "./ButtonSave.module.css";
+import styles from "./ButtonGeneric.module.css";
 import React from "react";
 
 function ButtonGeneric({

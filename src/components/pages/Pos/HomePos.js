@@ -92,10 +92,21 @@ function HomePos() {
     setSellDialog(false);
   }
 
+  function SearchDaily() {
+    if (showSearch !== 1) {
+      setShowSearch(1);
+    }
+    getOnLoad();
+  }
+
+  function verifyReportDaily() {
+    getOnLoad();
+    setShowSearch(4);
+  }
+
   // Abertura de Caixa:
   // Verifica se tem caixa aberto, se tiver, avisa que ja existe, senao abre um caixa novo
   async function openDaily() {
-    // setOpenDialog(true);
     let caixaDia;
     await axios
       .get("http://localhost:5000/dailyList")
@@ -190,17 +201,6 @@ function HomePos() {
     } else {
       console.log("Não há caixa aberto, precisa abrir um caixa antes");
     }
-  }
-
-  function SearchDaily() {
-    if (showSearch !== 1) {
-      setShowSearch(1);
-    }
-    getOnLoad();
-  }
-
-  function verifyReportDaily() {
-    setShowSearch(4);
   }
 
   // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
@@ -363,16 +363,12 @@ function HomePos() {
         <ButtonSave
           active
           className={styles.openDailyStatus}
-          // colorBg={"colorBgSellManager"}
-          // colorText={"colorTextSell  Manager"}
-          textButton={sellNow.length > 0 ? "Caixa Aberto" : "Abrir Caixa"}
+          textButton={sellNow !== "" ? "Caixa Aberto" : "Abrir Caixa"}
           colorBg={
-            sellNow.length > 0 ? "colorBgSellManager2" : "colorBgSellManager"
+            sellNow !== "" ? "colorBgSellManager2" : "colorBgSellManager"
           }
           colorText={
-            sellNow.length > 0
-              ? "colorTextSellManager2"
-              : "colorTextSellManager"
+            sellNow !== "" ? "colorTextSellManager2" : "colorTextSellManager"
           }
           eClick={openDaily}
         />
@@ -393,6 +389,7 @@ function HomePos() {
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
           eClick={printDaily}
+          // onLoad={verifyReportDaily}
         />
         <ButtonSave
           textButton={"Pesquisar Caixa"}
