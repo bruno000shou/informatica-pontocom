@@ -9,6 +9,7 @@ function ButtonGeneric({
   name,
   focus,
   event,
+  onClick,
 }) {
   return (
     <div>
@@ -19,7 +20,7 @@ function ButtonGeneric({
         type={type}
         id={name}
         name={name}
-        // onClick={event}
+        onClick={onClick}
       >
         <p>{textButton}</p>
       </button>

@@ -1,6 +1,6 @@
 import styles from "./HomeClient.module.css";
 import InputRegClient from "../../templates/InputRegClient";
-import ButtonGeneric from "../../templates/ButtonSave";
+import ButtonGeneric from "../../templates/ButtonGeneric";
 import TextArea from "../../templates/TextArea";
 import React, { useState } from "react";
 import axios from "axios";
@@ -44,7 +44,7 @@ function HomeClient() {
     }
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit() {
     let auxPost = postModel;
     auxPost.name = handleName;
     auxPost.tel1 = handleTel1;
@@ -54,13 +54,24 @@ function HomeClient() {
 
     let varJson;
 
-    await axios.get("http://localhost:5000/regClient").then((resp) => {
-      varJson = resp.data.regClient;
-    });
+    await axios
+      .get("http://localhost:5000/regClient")
+      .then((resp) => {
+        varJson = resp.data.regClient;
+      })
+      .catch((err) => console.log(err));
 
     varJson.push(auxPost);
-    console.log(varJson);
+
+    axios
+      .put("http://localhost:5000/regClient", varJson)
+      .then(console.log("Cadastro do cliente feito com sucesso"))
+      .catch((err) => console.log(err));
   }
+
+  function handleSearchNumber() {}
+
+  function handleSearchName() {}
 
   return (
     <div className={styles.containerHome}>
@@ -76,20 +87,24 @@ function HomeClient() {
               textLabel={"Nome"}
               name={"nome"}
               makeChange={handleChangeName}
+              // active
+              // required
             />
           </div>
           <div>
             <InputRegClient
-              type={"number"}
+              type={"text"}
               placeholder={"Digite o telefone(1) aqui"}
               textLabel={"Telefone(1)"}
               name={"telefone1"}
               makeChange={handleChangeTel1}
+              // active
+              // pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
             />
           </div>
           <div>
             <InputRegClient
-              type={"number"}
+              type={"text"}
               placeholder={"Digite o telefone(2) aqui"}
               textLabel={"Telefone(2)"}
               name={"telefone2"}
@@ -121,7 +136,7 @@ function HomeClient() {
               textButton={"Salvar Cadastro"}
               colorBg={"colorBgSave"}
               colorText={"colorTextSave"}
-              eClick={handleSubmit}
+              onClick={handleSubmit}
             />
             <ButtonGeneric
               type={"reset"}
@@ -142,15 +157,18 @@ function HomeClient() {
               type={"text"}
               placeholder={"Digite o nome aqui"}
               textLabel={"Por nome"}
-              name={"nome"}
+              name={"searchName"}
+              makeChange={handleSearchName}
             />
           </div>
           <div>
             <InputRegClient
-              type={"number"}
+              type={"text"}
               placeholder={"Digite o telefone aqui"}
               textLabel={"Por telefone"}
-              name={"telefone"}
+              name={"searchTel"}
+              makeChange={handleSearchNumber}
+              maxlength={"11"}
             />
           </div>
           <div className={styles.buttonStyles}>

@@ -4,3 +4,35 @@
 .deleteSalesText {
     color: white;
 }
+
+.colorBgReset {
+    background-color: black;
+    filter:opacity(50%);
+    transition: .5s;
+}
+
+.colorBgReset:hover {
+    background-color: black;
+    filter:opacity(100%);
+    transition: .5s;
+}
+
+.colorTextReset {
+    color: #CD853F;
+}
+
+.colorBgSave {
+    background-color: #CD853F;
+    filter:opacity(50%);
+    transition: .5s;
+}
+
+.colorBgSave:hover {
+    background-color: #CD853F;
+    transition: .5s;
+    filter: opacity(100%);
+}
+
+.colorTextSave {
+    color: black;
+}

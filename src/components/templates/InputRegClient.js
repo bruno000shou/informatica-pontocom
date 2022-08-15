@@ -9,6 +9,7 @@ function InputRegClient({
   labelStyles,
   makeChange,
   value,
+  maxLength,
 }) {
   return (
     <div className={styles.divStyles}>
@@ -22,6 +23,7 @@ function InputRegClient({
         placeholder={placeholder}
         id={name}
         value={value}
+        maxLength={maxLength}
         onChange={(e) => {
           makeChange(e.target.value);
         }}

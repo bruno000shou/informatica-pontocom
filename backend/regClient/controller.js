@@ -12,6 +12,7 @@ router.put("/", (req, res) => {
   let body = req.body;
   json.regClient = body;
   writePost(json);
+  // y;
   return res.send(json);
 });
 
@@ -24,7 +25,7 @@ router.post("/", (req, res) => {
 });
 
 function writePost(json) {
-  fs.writeFile("../dbRegClient", JSON.stringify(json), (err) => {
+  fs.writeFile("../dbRegClient.json", JSON.stringify(json), (err) => {
     if (err) throw err;
     console.log("Done writing");
     console.log(json);
