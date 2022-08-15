@@ -1,7 +1,7 @@
 import styles from "./HomePos.module.css";
 import ButtonSave from "../../templates/ButtonSave";
 import InputRegClient from "../../templates/InputRegClient";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SearchSales from "./SearchSales";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";

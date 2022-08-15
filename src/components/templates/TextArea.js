@@ -1,7 +1,15 @@
 import styles from "./TextArea.module.css";
 import React from "react";
 
-function TextArea({ type, placeholder, textLabel, name, rows, cols }) {
+function TextArea({
+  type,
+  placeholder,
+  textLabel,
+  name,
+  rows,
+  cols,
+  onChange,
+}) {
   return (
     <div className={styles.divStyles}>
       <label>{textLabel}</label>
@@ -13,6 +21,7 @@ function TextArea({ type, placeholder, textLabel, name, rows, cols }) {
         id={name}
         rows={rows}
         cols={cols}
+        onChange={onChange}
       ></textarea>
     </div>
   );

@@ -4,7 +4,6 @@ import { Dialog, DialogFooter, DialogType } from "@fluentui/react/lib/Dialog";
 import { DefaultButton, PrimaryButton } from "@fluentui/react/lib/Button";
 import { useState } from "react";
 import styles from "./DailyReport.module.css";
-import ButtonGeneric from "../../templates/ButtonGeneric";
 
 function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
   const [dialogOpen2, setDialogOpen2] = useState(false);

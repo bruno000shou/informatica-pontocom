@@ -29,19 +29,11 @@ function SearchSales({
   }
 
   function handleInitDate(e) {
-    // let day = e.slice(8, 10);
-    // let month = e.slice(5, 7);
-    // let year = e.slice(0, 4);
-    // setInitDate(year + month + day);
     console.log(moment(e).format("YYYYMMDD"));
     setInitDate(e);
   }
 
   function handleFinalDate(e) {
-    // let day = e.slice(8, 10);
-    // let month = e.slice(5, 7);
-    // let year = e.slice(0, 4);
-    // setFinalDate(year + month + day);
     setFinalDate(e);
   }
 
