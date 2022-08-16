@@ -4,22 +4,29 @@ import ButtonGeneric from "../../templates/ButtonGeneric";
 import TextArea from "../../templates/TextArea";
 import React, { useState } from "react";
 import axios from "axios";
+import HandleSubmitSearch from "./HandleSubmitSearch";
+import HandleSubmit from "./HandleSubmit";
 
 function HomeClient() {
-  const [handleName, setHandleName] = useState();
-  const [handleTel1, setHandleTel1] = useState();
-  const [handleTel2, setHandleTel2] = useState();
+  const [showHideSearch, setShowHideSearch] = useState(false);
+  const [handleName, setHandleName] = useState("");
+  const [handleTel1, setHandleTel1] = useState("");
+  const [handleTel2, setHandleTel2] = useState("");
   const [handleExtra, setHandleExtra] = useState("");
   const [handleBox, setHandleBox] = useState(false);
-  const [handlePost, setHandlePos] = useState([]);
+  const [searchNumber, setSearchNumber] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [searchByNameList, setSearchByNameList] = useState([]);
+  const [searchByNumberList, setSearchByNumberList] = useState([]);
+  const [searchByNameNumberList, setSearchByNameNumberList] = useState([]);
 
-  const postModel = {
-    name: "",
-    tel1: 0,
-    tel2: 0,
-    extra: "teste",
-    whatsapp: false,
-  };
+  // const postModel = {
+  //   name: "",
+  //   tel1: 0,
+  //   tel2: 0,
+  //   extra: "teste",
+  //   whatsapp: false,
+  // };
   function handleChangeName(e) {
     setHandleName(e);
   }
@@ -44,34 +51,42 @@ function HomeClient() {
     }
   }
 
-  async function handleSubmit() {
-    let auxPost = postModel;
-    auxPost.name = handleName;
-    auxPost.tel1 = handleTel1;
-    auxPost.tel2 = handleTel2;
-    auxPost.extra = handleExtra;
-    auxPost.whatsapp = handleBox;
+  let handleSubmitFunc = () =>
+    HandleSubmit(
+      setHandleBox,
+      setHandleName,
+      setHandleTel1,
+      setHandleTel2,
+      setHandleExtra,
+      handleName,
+      handleTel1,
+      handleTel2,
+      handleExtra,
+      handleBox
+    );
 
-    let varJson;
-
-    await axios
-      .get("http://localhost:5000/regClient")
-      .then((resp) => {
-        varJson = resp.data.regClient;
-      })
-      .catch((err) => console.log(err));
-
-    varJson.push(auxPost);
-
-    axios
-      .put("http://localhost:5000/regClient", varJson)
-      .then(console.log("Cadastro do cliente feito com sucesso"))
-      .catch((err) => console.log(err));
+  function handleSearchName(e) {
+    setSearchName(e);
   }
 
-  function handleSearchNumber() {}
+  function handleSearchNumber(e) {
+    setSearchNumber(e);
+  }
 
-  function handleSearchName() {}
+  let handleSearchFunc = () =>
+    HandleSubmitSearch(
+      setSearchName,
+      setSearchNumber,
+      setSearchByNameList,
+      setSearchByNumberList,
+      setSearchByNameNumberList,
+      searchNumber,
+      searchName
+    );
+
+  function handleBackSearch() {
+    setShowHideSearch(false);
+  }
 
   return (
     <div className={styles.containerHome}>
@@ -87,8 +102,6 @@ function HomeClient() {
               textLabel={"Nome"}
               name={"nome"}
               makeChange={handleChangeName}
-              // active
-              // required
             />
           </div>
           <div>
@@ -98,8 +111,7 @@ function HomeClient() {
               textLabel={"Telefone(1)"}
               name={"telefone1"}
               makeChange={handleChangeTel1}
-              // active
-              // pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+              maxLength={"11"}
             />
           </div>
           <div>
@@ -109,6 +121,7 @@ function HomeClient() {
               textLabel={"Telefone(2)"}
               name={"telefone2"}
               makeChange={handleChangeTel2}
+              maxLength={"11"}
             />
           </div>
           <div>
@@ -132,11 +145,11 @@ function HomeClient() {
           </div>
           <div className={styles.buttonStyles}>
             <ButtonGeneric
-              type={"button"}
+              type={"submit"}
               textButton={"Salvar Cadastro"}
               colorBg={"colorBgSave"}
               colorText={"colorTextSave"}
-              onClick={handleSubmit}
+              onClick={handleSubmitFunc}
             />
             <ButtonGeneric
               type={"reset"}
@@ -147,7 +160,12 @@ function HomeClient() {
           </div>
         </form>
       </div>
-      <div id="form2" className={styles.divFormStyles}>
+      <div
+        id="form2"
+        className={`${styles.divFormStyles} ${
+          showHideSearch === true ? styles.divFormShowHide : ""
+        }`}
+      >
         <form>
           <div className={styles.divH2Styles}>
             <h2>Pesquisar Clientes</h2>
@@ -168,7 +186,7 @@ function HomeClient() {
               textLabel={"Por telefone"}
               name={"searchTel"}
               makeChange={handleSearchNumber}
-              maxlength={"11"}
+              maxLength={"11"}
             />
           </div>
           <div className={styles.buttonStyles}>
@@ -177,6 +195,7 @@ function HomeClient() {
               textButton={"Pesquisar"}
               colorBg={"colorBgSave"}
               colorText={"colorTextSave"}
+              onClick={handleSearchFunc}
             />
             <ButtonGeneric
               type={"reset"}
@@ -184,6 +203,86 @@ function HomeClient() {
               colorBg={"colorBgReset"}
               colorText={"colorTextReset"}
             />
+          </div>
+        </form>
+      </div>
+      <div
+        id="form3"
+        className={`${styles.divFormStyles} ${
+          showHideSearch === false ? styles.divFormShowHide : ""
+        }`}
+      >
+        <form>
+          <div>
+            <div className={styles.divH2Styles}>
+              <h2>Dados Editáveis do Cliente</h2>
+            </div>
+            <div>
+              <InputRegClient
+                type={"text"}
+                textLabel={"Nome:"}
+                name={"NomeDadosCliente"}
+                makeChange={handleChangeName}
+              />
+            </div>
+            <div>
+              <InputRegClient
+                type={"text"}
+                textLabel={"Telefone(1)"}
+                name={"telefone1DadosCLiente"}
+                makeChange={handleChangeTel1}
+                maxLength={"11"}
+              />
+            </div>
+            <div>
+              <InputRegClient
+                type={"text"}
+                textLabel={"Telefone(2)"}
+                name={"telefone2DadosCLiente"}
+                makeChange={handleChangeTel2}
+                maxLength={"11"}
+              />
+            </div>
+            <div>
+              <TextArea
+                textLabel={"Extras:"}
+                type={"text"}
+                name={"observacaoDadosCliente"}
+                rows={"10"}
+                cols={"75"}
+                onChange={handleChangeExtra}
+              />
+            </div>
+            <div className={styles.checkWhatsapp}>
+              <InputRegClient
+                type={"checkbox"}
+                textLabel={"Esse cliente tem whatsapp?"}
+                name={"whatsappDadosCliente"}
+                makeChange={handleChangeBox}
+              />
+            </div>
+            <div className={styles.buttonStyles}>
+              <ButtonGeneric
+                type={"submit"}
+                textButton={"Salvar Cadastro"}
+                colorBg={"colorBgSave"}
+                colorText={"colorTextSave"}
+                onClick={handleSubmitFunc}
+              />
+              <ButtonGeneric
+                type={"reset"}
+                textButton={"Limpar dados"}
+                colorBg={"colorBgReset"}
+                colorText={"colorTextReset"}
+              />
+              <ButtonGeneric
+                type={"button"}
+                textButton={"Voltar"}
+                colorBg={"colorBgSave"}
+                colorText={"colorTextSave"}
+                onClick={handleBackSearch}
+              />
+            </div>
           </div>
         </form>
       </div>
