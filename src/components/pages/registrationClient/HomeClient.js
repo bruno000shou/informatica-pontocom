@@ -6,9 +6,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import HandleSubmitSearch from "./HandleSubmitSearch";
 import HandleSubmit from "./HandleSubmit";
+import { DefaultButton, PrimaryButton } from "@fluentui/react/lib/Button";
+import { Panel } from "@fluentui/react/lib/Panel";
+import { Dialog, DialogFooter, DialogType } from "@fluentui/react/lib/Dialog";
+import { stringify } from "uuid";
 
 function HomeClient() {
   const [showHideSearch, setShowHideSearch] = useState(false);
+  const [showHideSearchPainel, setShowHideSearcPainel] = useState(false);
+  const [openPainelClientDialog, setOpenPainelClientDialog] = useState(false);
   const [handleName, setHandleName] = useState("");
   const [handleTel1, setHandleTel1] = useState("");
   const [handleTel2, setHandleTel2] = useState("");
@@ -16,17 +22,22 @@ function HomeClient() {
   const [handleBox, setHandleBox] = useState(false);
   const [searchNumber, setSearchNumber] = useState("");
   const [searchName, setSearchName] = useState("");
-  const [searchByNameList, setSearchByNameList] = useState([]);
-  const [searchByNumberList, setSearchByNumberList] = useState([]);
   const [searchByNameNumberList, setSearchByNameNumberList] = useState([]);
+  const [clientEditName, setClientEditName] = useState("");
+  const [clientEditTel1, setClientEditTel1] = useState("");
+  const [clientEditTel2, setClientEditTel2] = useState("");
+  const [clientEditExtra, setClientEditExtra] = useState("");
+  const [clientEditBox, setClientEditBox] = useState(false);
 
-  // const postModel = {
-  //   name: "",
-  //   tel1: 0,
-  //   tel2: 0,
-  //   extra: "teste",
-  //   whatsapp: false,
-  // };
+  const dialogContentProps = {
+    type: DialogType.normal,
+    title: "Tem certeza que deseja fechar a pesquisa?",
+  };
+  const dialogModalProps = {
+    isBlocking: true,
+    styles: { main: { maxWidth: 450 } },
+  };
+
   function handleChangeName(e) {
     setHandleName(e);
   }
@@ -77,9 +88,8 @@ function HomeClient() {
     HandleSubmitSearch(
       setSearchName,
       setSearchNumber,
-      setSearchByNameList,
-      setSearchByNumberList,
       setSearchByNameNumberList,
+      setShowHideSearcPainel,
       searchNumber,
       searchName
     );
@@ -88,8 +98,59 @@ function HomeClient() {
     setShowHideSearch(false);
   }
 
+  function closePainelClient() {
+    setOpenPainelClientDialog(true);
+  }
+
+  function closeDialog() {
+    setOpenPainelClientDialog(false);
+  }
+
+  function closeAll() {
+    setOpenPainelClientDialog(false);
+    setShowHideSearcPainel(false);
+  }
+  function openReport(item) {
+    closeAll();
+    setShowHideSearch(true);
+    setClientEditName(item.name);
+    setClientEditTel1(item.tel1);
+    setClientEditTel2(item.tel2);
+    setClientEditExtra(item.extra);
+    console.log(typeof clientEditExtra);
+    setClientEditBox(item.whatsapp);
+  }
+
   return (
     <div className={styles.containerHome}>
+      <Panel
+        headerText="A pesquisa encontrou os cadastros de clientes abaixo:"
+        isOpen={showHideSearchPainel === true ? true : false}
+        onDismiss={closePainelClient}
+        closeButtonAriaLabel="Close"
+      >
+        <div className={styles.stylesTemplateBoxes}>
+          {searchByNameNumberList.map((item) => {
+            return (
+              <>
+                <div className={styles.btnSearchSalesUnit}>
+                  <button
+                    key={item.tel1}
+                    name={item.name}
+                    className={styles.searchSalesUnit}
+                    onClick={() => openReport(item)}
+                  >
+                    {item.name}
+                    <br></br>
+                    <p>Telefone: {item.tel1}</p>
+                    {item.tel1}
+                  </button>
+                </div>
+              </>
+            );
+          })}
+        </div>
+      </Panel>
       <div id="form1" className={styles.divFormStyles}>
         <form>
           <div className={styles.divH2Styles}>
@@ -221,6 +282,7 @@ function HomeClient() {
               <InputRegClient
                 type={"text"}
                 textLabel={"Nome:"}
+                value={clientEditName}
                 name={"NomeDadosCliente"}
                 makeChange={handleChangeName}
               />
@@ -229,6 +291,7 @@ function HomeClient() {
               <InputRegClient
                 type={"text"}
                 textLabel={"Telefone(1)"}
+                value={clientEditTel1}
                 name={"telefone1DadosCLiente"}
                 makeChange={handleChangeTel1}
                 maxLength={"11"}
@@ -238,6 +301,7 @@ function HomeClient() {
               <InputRegClient
                 type={"text"}
                 textLabel={"Telefone(2)"}
+                value={clientEditTel2}
                 name={"telefone2DadosCLiente"}
                 makeChange={handleChangeTel2}
                 maxLength={"11"}
@@ -248,6 +312,7 @@ function HomeClient() {
                 textLabel={"Extras:"}
                 type={"text"}
                 name={"observacaoDadosCliente"}
+                textContent={clientEditExtra}
                 rows={"10"}
                 cols={"75"}
                 onChange={handleChangeExtra}
@@ -257,6 +322,7 @@ function HomeClient() {
               <InputRegClient
                 type={"checkbox"}
                 textLabel={"Esse cliente tem whatsapp?"}
+                check={clientEditBox}
                 name={"whatsappDadosCliente"}
                 makeChange={handleChangeBox}
               />
@@ -285,6 +351,17 @@ function HomeClient() {
             </div>
           </div>
         </form>
+        <Dialog
+          hidden={!openPainelClientDialog}
+          onDismiss={closeDialog}
+          dialogContentProps={dialogContentProps}
+          modalProps={dialogModalProps}
+        >
+          <DialogFooter>
+            <PrimaryButton onClick={closeAll} text="Fechar" />
+            <DefaultButton onClick={closeDialog} text="Voltar" />
+          </DialogFooter>
+        </Dialog>
       </div>
     </div>
   );

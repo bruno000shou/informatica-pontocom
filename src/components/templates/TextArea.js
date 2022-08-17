@@ -9,6 +9,7 @@ function TextArea({
   rows,
   cols,
   onChange,
+  textContent,
 }) {
   return (
     <div className={styles.divStyles}>
@@ -22,7 +23,9 @@ function TextArea({
         rows={rows}
         cols={cols}
         onChange={onChange}
-      ></textarea>
+      >
+        {textContent}
+      </textarea>
     </div>
   );
 }

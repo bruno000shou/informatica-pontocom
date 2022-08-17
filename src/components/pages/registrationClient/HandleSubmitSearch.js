@@ -3,9 +3,8 @@ import axios from "axios";
 async function HandleSubmitSearch(
   setSearchName,
   setSearchNumber,
-  setSearchByNameList,
-  setSearchByNumberList,
   setSearchByNameNumberList,
+  setShowHideSearcPainel,
   searchNumber,
   searchName
 ) {
@@ -37,6 +36,8 @@ async function HandleSubmitSearch(
     });
     i = 0;
     console.log("pesquisa feita com elemento nome");
+    setShowHideSearcPainel(true);
+    setSearchByNameNumberList(auxSearchByNameList);
   } else if (auxNumber !== "" && auxName === "") {
     auxSearchByNumberList = [];
     auxSearch.forEach((element) => {
@@ -54,6 +55,8 @@ async function HandleSubmitSearch(
     });
     i = 0;
     console.log("pesquisa feita com elemento numero ");
+    setShowHideSearcPainel(true);
+    setSearchByNameNumberList(auxSearchByNumberList);
   } else if (auxName !== "" && auxNumber !== "") {
     auxSearch.forEach((element) => {
       if (
@@ -69,14 +72,12 @@ async function HandleSubmitSearch(
       i = i + 1;
     });
     i = 0;
-    setSearchByNameList(auxSearchByNameList);
-    setSearchByNumberList(auxSearchByNumberList);
-    setSearchByNameNumberList(auxSearchByNumberName);
     console.log("pesquisa feita com dois elementos");
+    setShowHideSearcPainel(true);
+    setSearchByNameNumberList(auxSearchByNumberName);
+  } else {
+    console.log("É necessário preencher um dos métodos de pesquisa");
   }
-  console.log(auxSearchByNameList);
-  console.log(auxSearchByNumberList);
-  console.log(auxSearchByNumberName);
   setSearchName("");
   setSearchNumber("");
   auxNumber = "";

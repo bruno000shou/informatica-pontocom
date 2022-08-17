@@ -103,7 +103,6 @@ function PrintHelp(sellNow, setPrintSuportData) {
       auxVarDev
     );
     setPrintSuportData(printSuport);
-    console.log(printSuport);
   }
 }
 

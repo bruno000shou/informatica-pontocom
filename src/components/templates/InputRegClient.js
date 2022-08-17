@@ -10,6 +10,7 @@ function InputRegClient({
   makeChange,
   value,
   maxLength,
+  check,
 }) {
   return (
     <div className={styles.divStyles}>
@@ -23,6 +24,7 @@ function InputRegClient({
         placeholder={placeholder}
         id={name}
         value={value}
+        checked={check}
         maxLength={maxLength}
         onChange={(e) => {
           makeChange(e.target.value);
