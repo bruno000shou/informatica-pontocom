@@ -20,4 +20,5 @@
 .inputStyles {
     border: none;
     margin-left: 1em;    
+    resize: none;
 }

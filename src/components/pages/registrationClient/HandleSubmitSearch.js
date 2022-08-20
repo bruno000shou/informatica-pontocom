@@ -73,8 +73,6 @@ async function HandleSubmitSearch(
   } else {
     console.log("É necessário preencher um dos métodos de pesquisa");
   }
-  setSearchName("");
-  setSearchNumber("");
   auxNumber = "";
   auxName = "";
 }

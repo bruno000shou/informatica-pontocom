@@ -90,3 +90,7 @@
 .whatsappFalse {
     opacity: 30%;
 }
+
+.textAreaStyles {
+resize: none;
+}

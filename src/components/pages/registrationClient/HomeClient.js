@@ -345,12 +345,12 @@ function HomeClient() {
                 <p>Extras:</p>
               </label>
               <textarea
+                className={`${styles.textAreaStyles} ${styles.inputStyles}`}
                 type={"text"}
                 name={"observacaoDadosCliente"}
                 value={clientEditExtra}
                 rows={"10"}
                 cols={"75"}
-                className={styles.inputStyles}
                 onChange={(item) => handleChangeTextArea(item.target.value)}
               />
             </div>

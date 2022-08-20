@@ -41,6 +41,10 @@ function HomePos() {
   const [searchComplete, setSearchComplete] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [openDialogAlready, setOpenDialogAlready] = useState(false);
+  const [openDialogErroSales, setOpenDialogErroSales] = useState(false);
+  const [openDialogErroSalesButtons, setOpenDialogErroSalesButtons] = useState(
+    false
+  );
   const [closeDialog, setCloseDialog] = useState(false);
   const [closeDialogAlready, setCloseDialogAlready] = useState(false);
   const [sellDialog, setSellDialog] = useState(false);
@@ -62,6 +66,8 @@ function HomePos() {
     setPayType({ ...payTypeType, key: false });
     setService({ ...servStateType, key: false });
     setPayValue("");
+    setSellDailyInsertType("");
+    setSellDailyInsertService("");
   }
 
   function handleChange(e) {
@@ -77,6 +83,14 @@ function HomePos() {
   function handleCloseDialog2() {
     setCloseDialog(false);
     setCloseDialogAlready(false);
+  }
+
+  function handleCloseDialogSales() {
+    setOpenDialogErroSales(false);
+  }
+
+  function handleCloseDialogSalesButton() {
+    setOpenDialogErroSalesButtons(false);
   }
 
   function printDaily() {
@@ -189,23 +203,33 @@ function HomePos() {
     });
     // VARJSON TEM O CAIXA COMPLETO COM A VENDA INCLUIDA
     // CAIXADIA POSSUI O CAIXA ABERTO MAIS A VENDA INCLUIDA
-    caixaDia[0].sales.push(auxSend);
-
-    if (
-      !!caixaDia &&
-      caixaDia.length > 0 &&
-      payValue.length > 0 &&
-      sellDailyInsertService !== "" &&
-      sellDailyInsertType !== ""
-    ) {
-      axios.put("http://localhost:5000/dailyList", varJson);
-      console.log("Venda Incluída com sucesso");
-      resetsellstates();
-      setSellDialog(true);
-      setSellNow(caixaDia); // ALTERADO AQUI PARA ATUALIZAR O VALOR DO CAIXA DIA
-      setSellDailyInsertService("");
-      setSellDailyInsertType("");
+    if (sellNow.length > 0) {
+      caixaDia[0].sales.push(auxSend);
     } else {
+      setOpenDialogErroSales(true);
+    }
+
+    if (!!caixaDia && caixaDia.length > 0) {
+      if (
+        payValue.length > 0 &&
+        sellDailyInsertService.length > 0 &&
+        sellDailyInsertType.length > 0
+      ) {
+        axios.put("http://localhost:5000/dailyList", varJson);
+        console.log("Venda Incluída com sucesso");
+        resetsellstates();
+        setSellDialog(true);
+        setSellNow(caixaDia); // ALTERADO AQUI PARA ATUALIZAR O VALOR DO CAIXA DIA
+        setSellDailyInsertService("");
+        setSellDailyInsertType("");
+      } else {
+        console.log(
+          "Venda não pôde ser concluída. Verifique os botões de controle."
+        );
+        setOpenDialogErroSalesButtons(true);
+      }
+    } else {
+      setOpenDialogErroSales(true);
       console.log("Não há caixa aberto, precisa abrir um caixa antes");
     }
   }
@@ -399,7 +423,6 @@ function HomePos() {
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
           eClick={printDaily}
-          // onLoad={verifyReportDaily}
         />
         <ButtonSave
           textButton={"Pesquisar Caixa"}
@@ -421,6 +444,18 @@ function HomePos() {
           handleClose={handleCloseDialog}
           titleText={"Abrindo Caixa"}
           dialogBox="O caixa do dia foi aberto. Ao final do dia, feche o caixa"
+        />
+        <DraggableDialog
+          open={openDialogErroSales}
+          handleClose={handleCloseDialogSales}
+          titleText={"Não há caixa aberto"}
+          dialogBox="Abra um caixa antes de inserir uma venda"
+        />
+        <DraggableDialog
+          open={openDialogErroSalesButtons}
+          handleClose={handleCloseDialogSalesButton}
+          titleText={"Erro ao inserir uma venda"}
+          dialogBox="Verifique os botões de controle de venda ou o valor de entrada"
         />
         <DraggableDialog
           open={openDialogAlready}
