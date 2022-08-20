@@ -17,8 +17,8 @@
 .buttonStyles {
     display: flex;
     justify-content: space-between;
-    margin-left: 25%;
-    margin-right: 20%;
+    margin-left: 28%;
+    margin-right: 15%;
 }
 
 .buttonStyles button {
@@ -63,3 +63,30 @@
     margin-bottom: 2%;
 }
 
+.inputStyles {
+    border: none;
+    margin-left: 16.3%;
+    margin-top: -5%;
+    position: relative;   
+}
+
+.labelStyles p {
+    margin-left: 8%;
+}
+
+.whatsappButton {
+    width: 25%;
+    margin: 3% 0 0 52%;
+}
+
+.checkWhatsappEditBox {
+    font-size: 1vw; 
+    font-weight: 800;
+    margin-left: 20%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.whatsappFalse {
+    opacity: 30%;
+}

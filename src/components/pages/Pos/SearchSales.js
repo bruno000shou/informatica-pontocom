@@ -22,7 +22,7 @@ function SearchSales({
   const [searchFailFinal, setSearchFailFinal] = useState(false);
   const [searchFailBoth, setSearchFailBoth] = useState(false);
   const [searchFailInitBigFinal, setSearchFailInitBigFinal] = useState(false);
-  const [resetData, setResetData] = useState("");
+  // const [resetData, setResetData] = useState("");
 
   function hideDiv() {
     showHide = 0;
@@ -70,7 +70,7 @@ function SearchSales({
       handleReset();
     }
     handleReset();
-    setResetData("");
+    // setResetData("");
   }
 
   function handleReset() {

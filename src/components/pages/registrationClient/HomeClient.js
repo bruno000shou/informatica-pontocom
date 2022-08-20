@@ -1,15 +1,15 @@
-import styles from "./HomeClient.module.css";
-import InputRegClient from "../../templates/InputRegClient";
-import ButtonGeneric from "../../templates/ButtonGeneric";
-import TextArea from "../../templates/TextArea";
 import React, { useState } from "react";
-import axios from "axios";
-import HandleSubmitSearch from "./HandleSubmitSearch";
-import HandleSubmit from "./HandleSubmit";
+import styles from "./HomeClient.module.css";
 import { DefaultButton, PrimaryButton } from "@fluentui/react/lib/Button";
 import { Panel } from "@fluentui/react/lib/Panel";
 import { Dialog, DialogFooter, DialogType } from "@fluentui/react/lib/Dialog";
-import { stringify } from "uuid";
+import HandleSubmitSearch from "./HandleSubmitSearch";
+import HandleSubmit from "./HandleSubmit";
+import InputRegClient from "../../templates/InputRegClient";
+import ButtonGeneric from "../../templates/ButtonGeneric";
+import TextArea from "../../templates/TextArea";
+import HandleSaveDataClient from "./HandleSaveDataClient";
+import whatsapp from "../../../img/whatsapp.png";
 
 function HomeClient() {
   const [showHideSearch, setShowHideSearch] = useState(false);
@@ -27,7 +27,8 @@ function HomeClient() {
   const [clientEditTel1, setClientEditTel1] = useState("");
   const [clientEditTel2, setClientEditTel2] = useState("");
   const [clientEditExtra, setClientEditExtra] = useState("");
-  const [clientEditBox, setClientEditBox] = useState(false);
+  const [clientCheckEditBox, setClientCheckEditBox] = useState(false);
+  const [clienteEditId, setClienteEditId] = useState(0);
 
   const dialogContentProps = {
     type: DialogType.normal,
@@ -41,24 +42,41 @@ function HomeClient() {
   function handleChangeName(e) {
     setHandleName(e);
   }
-
   function handleChangeTel1(e) {
     setHandleTel1(e);
   }
-
   function handleChangeTel2(e) {
     setHandleTel2(e);
   }
-
   function handleChangeExtra(e) {
     setHandleExtra(e.target.value);
   }
-
   function handleChangeBox() {
     if (handleBox === false) {
       setHandleBox(true);
     } else {
       setHandleBox(false);
+    }
+  }
+
+  function handleChangeEditName(e) {
+    setClientEditName(e);
+  }
+  function handleChangeEditTel1(e) {
+    setClientEditTel1(e);
+  }
+  function handleChangeEditTel2(e) {
+    setClientEditTel2(e);
+  }
+  function handleChangeEditExtra(e) {
+    setClientEditExtra(e.target.value);
+  }
+
+  function handleEditChangeBox() {
+    if (clientCheckEditBox === false) {
+      setClientCheckEditBox(true);
+    } else {
+      setClientCheckEditBox(false);
     }
   }
 
@@ -110,6 +128,11 @@ function HomeClient() {
     setOpenPainelClientDialog(false);
     setShowHideSearcPainel(false);
   }
+
+  function handleChangeTextArea(item) {
+    setClientEditExtra(item);
+  }
+
   function openReport(item) {
     closeAll();
     setShowHideSearch(true);
@@ -117,9 +140,19 @@ function HomeClient() {
     setClientEditTel1(item.tel1);
     setClientEditTel2(item.tel2);
     setClientEditExtra(item.extra);
-    console.log(typeof clientEditExtra);
-    setClientEditBox(item.whatsapp);
+    setClientCheckEditBox(item.whatsapp);
+    setClienteEditId(item.id);
   }
+
+  let HandleSaveDataClientFunc = () =>
+    HandleSaveDataClient(
+      clientCheckEditBox,
+      clientEditExtra,
+      clientEditTel2,
+      clientEditTel1,
+      clientEditName,
+      clienteEditId
+    );
 
   return (
     <div className={styles.containerHome}>
@@ -284,7 +317,7 @@ function HomeClient() {
                 textLabel={"Nome:"}
                 value={clientEditName}
                 name={"NomeDadosCliente"}
-                makeChange={handleChangeName}
+                makeChange={handleChangeEditName}
               />
             </div>
             <div>
@@ -293,8 +326,8 @@ function HomeClient() {
                 textLabel={"Telefone(1)"}
                 value={clientEditTel1}
                 name={"telefone1DadosCLiente"}
-                makeChange={handleChangeTel1}
                 maxLength={"11"}
+                makeChange={handleChangeEditTel1}
               />
             </div>
             <div>
@@ -303,37 +336,59 @@ function HomeClient() {
                 textLabel={"Telefone(2)"}
                 value={clientEditTel2}
                 name={"telefone2DadosCLiente"}
-                makeChange={handleChangeTel2}
                 maxLength={"11"}
+                makeChange={handleChangeEditTel2}
               />
             </div>
             <div>
-              <TextArea
-                textLabel={"Extras:"}
+              <label className={styles.labelStyles}>
+                <p>Extras:</p>
+              </label>
+              <textarea
                 type={"text"}
                 name={"observacaoDadosCliente"}
-                textContent={clientEditExtra}
+                value={clientEditExtra}
                 rows={"10"}
                 cols={"75"}
-                onChange={handleChangeExtra}
+                className={styles.inputStyles}
+                onChange={(item) => handleChangeTextArea(item.target.value)}
               />
             </div>
-            <div className={styles.checkWhatsapp}>
+            <div className={styles.checkWhatsappEditBox}>
               <InputRegClient
                 type={"checkbox"}
                 textLabel={"Esse cliente tem whatsapp?"}
-                check={clientEditBox}
+                check={clientCheckEditBox}
                 name={"whatsappDadosCliente"}
-                makeChange={handleChangeBox}
+                makeChange={handleEditChangeBox}
               />
+              <div
+                className={
+                  clientCheckEditBox === true ? "" : styles.whatsappFalse
+                }
+              >
+                <a
+                  href={
+                    clientCheckEditBox === true &&
+                    `https://wa.me/55${clientEditTel1}`
+                  }
+                  target="blank"
+                >
+                  <img
+                    src={whatsapp}
+                    alt="botao whatsapp para acessar conversas com clientes"
+                    className={styles.whatsappButton}
+                  ></img>
+                </a>
+              </div>
             </div>
             <div className={styles.buttonStyles}>
               <ButtonGeneric
                 type={"submit"}
-                textButton={"Salvar Cadastro"}
+                textButton={"Salvar Dados"}
                 colorBg={"colorBgSave"}
                 colorText={"colorTextSave"}
-                onClick={handleSubmitFunc}
+                onClick={HandleSaveDataClientFunc}
               />
               <ButtonGeneric
                 type={"reset"}

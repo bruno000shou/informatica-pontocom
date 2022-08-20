@@ -22,6 +22,7 @@ function TextArea({
         id={name}
         rows={rows}
         cols={cols}
+        value={textContent}
         onChange={onChange}
       >
         {textContent}

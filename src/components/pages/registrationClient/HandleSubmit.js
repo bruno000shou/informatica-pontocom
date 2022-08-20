@@ -1,4 +1,5 @@
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 async function HandleSubmit(
   setHandleBox,
@@ -18,6 +19,7 @@ async function HandleSubmit(
     tel2: 0,
     extra: "teste",
     whatsapp: false,
+    id: uuidv4(),
   };
   let auxPost = postModel;
   auxPost.name = handleName;
@@ -35,12 +37,24 @@ async function HandleSubmit(
       })
       .catch((err) => console.log(err));
 
+    let splitPostName = auxPost.name.split(" ");
+    for (let i = 0; i < splitPostName.length; i++) {
+      splitPostName[i] =
+        splitPostName[i][0].toUpperCase() + splitPostName[i].substr(1);
+    }
+
+    console.log(auxPost);
+
+    let joinPosName = "";
+    splitPostName.map((word) => (joinPosName += ` ${word}`));
+    auxPost.name = joinPosName;
+
     varJson.push(auxPost);
-    // Função para ordenar em ordem alfabetica o conteúdo do json antes do put
+
     varJson.sort(function(x, y) {
       let a = x.name.toUpperCase();
       let b = y.name.toUpperCase();
-      return a == b ? 0 : a > b ? 1 : -1;
+      return a === b ? 0 : a > b ? 1 : -1;
     });
 
     axios

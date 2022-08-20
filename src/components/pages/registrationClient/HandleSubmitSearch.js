@@ -25,10 +25,9 @@ async function HandleSubmitSearch(
 
   if (auxName !== "" && auxNumber === "") {
     auxSearchByNameList = [];
-
     auxSearch.forEach((element) => {
       if (
-        auxSearch[i].name.toUpperCase().indexOf(auxName.toUpperCase()) != -1
+        auxSearch[i].name.toUpperCase().indexOf(auxName.toUpperCase()) !== -1
       ) {
         auxSearchByNameList.push(element);
       }
@@ -41,14 +40,10 @@ async function HandleSubmitSearch(
   } else if (auxNumber !== "" && auxName === "") {
     auxSearchByNumberList = [];
     auxSearch.forEach((element) => {
-      if (auxSearch[i].tel1.indexOf(auxNumber) != -1) {
-        auxSearchByNumberList.push(element);
-      }
-      i = i + 1;
-    });
-    i = 0;
-    auxSearch.forEach((element) => {
-      if (auxSearch[i].tel2.indexOf(auxNumber) != -1) {
+      if (
+        auxSearch[i].tel1.indexOf(auxNumber) !== -1 ||
+        auxSearch[i].tel2.indexOf(auxNumber) !== -1
+      ) {
         auxSearchByNumberList.push(element);
       }
       i = i + 1;
@@ -60,11 +55,11 @@ async function HandleSubmitSearch(
   } else if (auxName !== "" && auxNumber !== "") {
     auxSearch.forEach((element) => {
       if (
-        auxSearch[i].name.toUpperCase().indexOf(auxName.toUpperCase()) != -1
+        auxSearch[i].name.toUpperCase().indexOf(auxName.toUpperCase()) !== -1
       ) {
         if (
-          auxSearch[i].tel1.indexOf(auxNumber) != -1 ||
-          auxSearch[i].tel2.indexOf(auxNumber) != -1
+          auxSearch[i].tel1.indexOf(auxNumber) !== -1 ||
+          auxSearch[i].tel2.indexOf(auxNumber) !== -1
         ) {
           auxSearchByNumberName.push(element);
         }

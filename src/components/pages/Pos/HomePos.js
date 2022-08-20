@@ -1,7 +1,7 @@
 import styles from "./HomePos.module.css";
 import ButtonSave from "../../templates/ButtonSave";
 import InputRegClient from "../../templates/InputRegClient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchSales from "./SearchSales";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
@@ -211,28 +211,29 @@ function HomePos() {
   }
 
   // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
-  function getOnLoad() {
+  async function getOnLoad() {
     let caixaDia;
-    axios
+    await axios
       .get("http://localhost:5000/dailyList")
       .then((resp) => {
         setUpdateJson(resp.data.dailyList);
         caixaDia = resp.data.dailyList.filter((name) => name.openPos === true);
         setSellNow(caixaDia);
+        console.log("teste");
       })
       .catch((erro) => {
         console.log(erro);
       });
   }
 
-  window.onload = function getDateNow() {
+  useEffect(() => {
     let dateNow = new Date();
     let dia = String(dateNow.getDate()).padStart(2, "0");
     let mes = String(dateNow.getMonth() + 1).padStart(2, "0");
     let ano = dateNow.getFullYear();
     setTakeDateNow(ano + mes + dia);
     getOnLoad();
-  };
+  }, []);
 
   return (
     <div className={styles.sellContainer}>
@@ -370,12 +371,14 @@ function HomePos() {
         <ButtonSave
           active
           className={styles.openDailyStatus}
-          textButton={sellNow !== "" ? "Caixa Aberto" : "Abrir Caixa"}
+          textButton={sellNow.length > 0 ? "Caixa Aberto" : "Abrir Caixa"}
           colorBg={
-            sellNow !== "" ? "colorBgSellManager2" : "colorBgSellManager"
+            sellNow.length > 0 ? "colorBgSellManager2" : "colorBgSellManager"
           }
           colorText={
-            sellNow !== "" ? "colorTextSellManager2" : "colorTextSellManager"
+            sellNow.length > 0
+              ? "colorTextSellManager2"
+              : "colorTextSellManager"
           }
           eClick={openDaily}
         />
