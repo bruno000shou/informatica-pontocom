@@ -11,7 +11,8 @@ async function HandleSubmit(
   handleTel1,
   handleTel2,
   handleExtra,
-  handleBox
+  handleBox,
+  setHandleSubmitDialog
 ) {
   const postModel = {
     name: "",
@@ -62,6 +63,7 @@ async function HandleSubmit(
       .then(console.log("Cadastro do cliente feito com sucesso"))
       .catch((err) => console.log(err));
   } else {
+    setHandleSubmitDialog(true);
     console.log("O nome do cliente e telefone 1 sao obrigatórios");
   }
   setHandleBox(false);

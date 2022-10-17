@@ -1,15 +1,28 @@
 import styles from "./HomePos.module.css";
-import ButtonSave from "../../templates/ButtonSave";
-import InputRegClient from "../../templates/InputRegClient";
 import { useEffect, useState } from "react";
-import SearchSales from "./SearchSales";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import React from "react";
+
 import DraggableDialog from "../../templates/DraggableDialog";
 import DailyReport from "./DailyReport";
 import PrintReport from "./PrintReport";
 import PrintHelp from "../../../helpers/PrintHelp";
+
+import SearchSales from "./SearchSales";
+import ButtonSave from "../../templates/ButtonSave";
+import InputRegClient from "../../templates/InputRegClient";
+import HandleChangeInsertValue from "../../../helpers/HandleChangeInsertValue";
+import HelperResetsellstates from "../../../helpers/HelperResetsellstates";
+import Resetsellstates from "./PosHelpers/ResetSellStates";
+import HelperSetFalseAllStates from "../../../helpers/HelperSetFalseAllStates";
+import HelperSetTrueAllStates from "../../../helpers/HelperSetTrueAllStates";
+import GetOnLoad from "./PosHelpers/GetOnLoad";
+import SearchDaily from "./PosHelpers/SearchDaily";
+import VerifyReportDaily from "./PosHelpers/VerifyReportDaily";
+import OpenDaily from "./PosHelpers/OpenDaily";
+import CloseDaily from "./PosHelpers/CloseDaily";
+import SellDaily from "./PosHelpers/SellDaily";
+import SetServiceValue from "./PosHelpers/SetServiceValue";
+import SetPayTypeValue from "./PosHelpers/SetPayTypeValue";
 
 function HomePos() {
   const servStateType = {
@@ -51,212 +64,13 @@ function HomePos() {
   const [printDialog, setPrintDialog] = useState(false);
   const [printSuportData, setPrintSuportData] = useState();
 
-  // FUNCOES PARA MARCAR OS BOTOES PRESSIONADOS E SETAR EM UM STATE
-  function setServiceValue(name) {
-    setService({ ...servStateType, [name]: true });
-    setSellDailyInsertService(name);
-  }
-  function setPayTypeValue(name) {
-    setPayType({ ...payTypeType, [name]: true });
-    setSellDailyInsertType(name);
-  }
-
-  // RESET PARA TODOS OS STATES ENVOLVIDOS NA VENDA
-  function resetsellstates() {
-    setPayType({ ...payTypeType, key: false });
-    setService({ ...servStateType, key: false });
-    setPayValue("");
-    setSellDailyInsertType("");
-    setSellDailyInsertService("");
-  }
-
-  function handleChange(e) {
-    setPayValue(e);
-    setSellDailyInsertValue(e);
-  }
-
-  function handleCloseDialog() {
-    setOpenDialog(false);
-    setOpenDialogAlready(false);
-  }
-
-  function handleCloseDialog2() {
-    setCloseDialog(false);
-    setCloseDialogAlready(false);
-  }
-
-  function handleCloseDialogSales() {
-    setOpenDialogErroSales(false);
-  }
-
-  function handleCloseDialogSalesButton() {
-    setOpenDialogErroSalesButtons(false);
-  }
-
-  function printDaily() {
-    setPrintDialog(true);
-    getOnLoad();
-  }
-
-  function confirmPrint() {
-    PrintHelp(sellNow, setPrintSuportData);
-    PrintReport(printSuportData, takeDateNow);
-    console.log(printSuportData);
-  }
-
-  function handlePrintDialog() {
-    setPrintDialog(false);
-    confirmPrint();
-  }
-
-  function handleSellDialog() {
-    setSellDialog(false);
-  }
-
-  function SearchDaily() {
-    if (showSearch !== 1) {
-      setShowSearch(1);
-    }
-    getOnLoad();
-  }
-
-  function verifyReportDaily() {
-    getOnLoad();
-    setShowSearch(4);
-  }
-
-  // Abertura de Caixa:
-  // Verifica se tem caixa aberto, se tiver, avisa que ja existe, senao abre um caixa novo
-  async function openDaily() {
-    let caixaDia;
-    await axios
-      .get("http://localhost:5000/dailyList")
-      .then((resp) => {
-        caixaDia = resp.data.dailyList.filter((name) => name.openPos === true);
-      })
-      .catch((erro) => {
-        console.log(erro);
-      });
-    if (caixaDia.length > 0) {
-      console.log("Ja tem caixa aberto");
-      setOpenDialogAlready(true);
-    } else {
-      await axios.post("http://localhost:5000/dailyList", {
-        id: uuidv4(),
-        datePos: takeDateNow,
-        openPos: true,
-        sales: [],
-      });
-      console.log("Abrindo caixa caixa");
-      getOnLoad();
-      setOpenDialog(true);
-    }
-    setSellNow(caixaDia);
-  }
-
-  // Fechamento de caixa:
-  // Verifica se tem caixa fechado, se tiver, fecha passando false para openPos
-  // Se nao tiver, avisa que precisa antes abrir um caixa
-  async function closeDaily() {
-    let varJson;
-    await axios
-      .get("http://localhost:5000/dailyList")
-      .then((resp) => (varJson = resp.data.dailyList))
-      .catch((err) => console.log(err));
-    let varSellNow = sellNow;
-    let varId = "";
-    if (
-      (!!varSellNow && varSellNow.length > 0) ||
-      varSellNow.openPos === true
-    ) {
-      varId = varSellNow.find((a) => a);
-      varId = varId.id; //AQUI NOS TEMOS O ID DO CAIXA ABERTO
-      varJson.map(async (item) => {
-        if (item.id === varId) item.openPos = false;
-        console.log("Caixa fechado com sucesso"); //AQUI SETAMOS FALSE PARA O CAIXA ABERTO
-        await axios.put("http://localhost:5000/dailyList", varJson);
-      });
-      setCloseDialog(true);
-    } else {
-      console.log("Nao ha caixa aberto. Abra um caixa.");
-      setCloseDialogAlready(true);
-    }
-    getOnLoad();
-  }
-
-  // Execução de venda:
-  // Insere, no caixa que ja esta aberto, uma venda registrada na pagina
-  async function sellDaily() {
-    let varJson;
-    let caixaDia;
-    let auxService = sellDailyInsertService.substr(10);
-    let auxType = sellDailyInsertType.substr(7);
-    let auxSend = {
-      id: uuidv4(),
-      serviceType: auxService,
-      payType: auxType,
-      value: sellDailyInsertValue,
-    };
-    await axios.get("http://localhost:5000/dailyList").then((resp) => {
-      varJson = resp.data.dailyList;
-      caixaDia = resp.data.dailyList.filter((name) => name.openPos === true);
-    });
-    // VARJSON TEM O CAIXA COMPLETO COM A VENDA INCLUIDA
-    // CAIXADIA POSSUI O CAIXA ABERTO MAIS A VENDA INCLUIDA
-    if (sellNow.length > 0) {
-      caixaDia[0].sales.push(auxSend);
-    } else {
-      setOpenDialogErroSales(true);
-    }
-
-    if (!!caixaDia && caixaDia.length > 0) {
-      if (
-        payValue.length > 0 &&
-        sellDailyInsertService.length > 0 &&
-        sellDailyInsertType.length > 0
-      ) {
-        axios.put("http://localhost:5000/dailyList", varJson);
-        console.log("Venda Incluída com sucesso");
-        resetsellstates();
-        setSellDialog(true);
-        setSellNow(caixaDia); // ALTERADO AQUI PARA ATUALIZAR O VALOR DO CAIXA DIA
-        setSellDailyInsertService("");
-        setSellDailyInsertType("");
-      } else {
-        console.log(
-          "Venda não pôde ser concluída. Verifique os botões de controle."
-        );
-        setOpenDialogErroSalesButtons(true);
-      }
-    } else {
-      setOpenDialogErroSales(true);
-      console.log("Não há caixa aberto, precisa abrir um caixa antes");
-    }
-  }
-
-  // FUNCAO QUE VERIFICA SE TEM UM CAIXA ABERTO NO CAIXA DIA, SE TIVER, ARMAZENA NELE E SETA NO SELLNOW
-  async function getOnLoad() {
-    let caixaDia;
-    await axios
-      .get("http://localhost:5000/dailyList")
-      .then((resp) => {
-        setUpdateJson(resp.data.dailyList);
-        caixaDia = resp.data.dailyList.filter((name) => name.openPos === true);
-        setSellNow(caixaDia);
-        console.log("teste");
-      })
-      .catch((erro) => {
-        console.log(erro);
-      });
-  }
-
   useEffect(() => {
     let dateNow = new Date();
     let dia = String(dateNow.getDate()).padStart(2, "0");
     let mes = String(dateNow.getMonth() + 1).padStart(2, "0");
     let ano = dateNow.getFullYear();
     setTakeDateNow(ano + mes + dia);
-    getOnLoad();
+    GetOnLoad(setUpdateJson, setSellNow);
   }, []);
 
   return (
@@ -264,7 +78,14 @@ function HomePos() {
       <div className={styles.sellTypeButton}>
         <div>
           <ButtonSave
-            eClick={setServiceValue}
+            eClick={(value) =>
+              SetServiceValue(
+                value,
+                servStateType,
+                setSellDailyInsertService,
+                setService
+              )
+            }
             textButton={"Serviço Informática"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
@@ -274,7 +95,14 @@ function HomePos() {
         </div>
         <div>
           <ButtonSave
-            eClick={setServiceValue}
+            eClick={(value) =>
+              SetServiceValue(
+                value,
+                servStateType,
+                setSellDailyInsertService,
+                setService
+              )
+            }
             textButton={"Serviço Celular"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
@@ -284,7 +112,14 @@ function HomePos() {
         </div>
         <div>
           <ButtonSave
-            eClick={setServiceValue}
+            eClick={(value) =>
+              SetServiceValue(
+                value,
+                servStateType,
+                setSellDailyInsertService,
+                setService
+              )
+            }
             textButton={"Serviço Televisão"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
@@ -294,7 +129,14 @@ function HomePos() {
         </div>
         <div>
           <ButtonSave
-            eClick={setServiceValue}
+            eClick={(value) =>
+              SetServiceValue(
+                value,
+                servStateType,
+                setSellDailyInsertService,
+                setService
+              )
+            }
             textButton={"Serviços Diversos"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
@@ -304,7 +146,14 @@ function HomePos() {
         </div>
         <div>
           <ButtonSave
-            eClick={setServiceValue}
+            eClick={(value) =>
+              SetServiceValue(
+                value,
+                servStateType,
+                setSellDailyInsertService,
+                setService
+              )
+            }
             textButton={"Produtos"}
             colorBg={"colorBgSell"}
             colorText={"colorTextSell"}
@@ -314,7 +163,14 @@ function HomePos() {
         </div>
         <div>
           <ButtonSave
-            eClick={setServiceValue}
+            eClick={(value) =>
+              SetServiceValue(
+                value,
+                servStateType,
+                setSellDailyInsertService,
+                setService
+              )
+            }
             textButton={"Saída ou Devolução"}
             colorBg={"colorBgSellDevolution"}
             colorText={"colorTextSellDevolution"}
@@ -331,12 +187,25 @@ function HomePos() {
             name={"sellValor"}
             placeholder={payValue}
             value={payValue}
-            makeChange={handleChange}
+            makeChange={(value) =>
+              HandleChangeInsertValue(
+                value,
+                setPayValue,
+                setSellDailyInsertValue
+              )
+            }
           />
         </div>
         <div className={styles.payTypes}>
           <ButtonSave
-            eClick={setPayTypeValue}
+            eClick={(value) =>
+              SetPayTypeValue(
+                value,
+                payTypeType,
+                setSellDailyInsertType,
+                setPayType
+              )
+            }
             textButton={"Dinheiro"}
             colorBg={"colorBgPayTypes"}
             colorText={"colorTextPayTypes"}
@@ -344,7 +213,14 @@ function HomePos() {
             focus={payType.payTypeMoney}
           />
           <ButtonSave
-            eClick={setPayTypeValue}
+            eClick={(value) =>
+              SetPayTypeValue(
+                value,
+                payTypeType,
+                setSellDailyInsertType,
+                setPayType
+              )
+            }
             textButton={"Crédito"}
             colorBg={"colorBgPayTypes"}
             colorText={"colorTextPayTypes"}
@@ -352,7 +228,14 @@ function HomePos() {
             focus={payType.payTypeCredit}
           />
           <ButtonSave
-            eClick={setPayTypeValue}
+            eClick={(value) =>
+              SetPayTypeValue(
+                value,
+                payTypeType,
+                setSellDailyInsertType,
+                setPayType
+              )
+            }
             textButton={"Débito"}
             colorBg={"colorBgPayTypes"}
             colorText={"colorTextPayTypes"}
@@ -360,7 +243,14 @@ function HomePos() {
             focus={payType.payTypeDebit}
           />
           <ButtonSave
-            eClick={setPayTypeValue}
+            eClick={(value) =>
+              SetPayTypeValue(
+                value,
+                payTypeType,
+                setSellDailyInsertType,
+                setPayType
+              )
+            }
             textButton={"Pix"}
             colorBg={"colorBgPayTypes"}
             colorText={"colorTextPayTypes"}
@@ -373,10 +263,41 @@ function HomePos() {
             textButton={"Concluir Venda"}
             colorBg={"colorBgSellDeal"}
             colorText={"colorTextSellDeal"}
-            eClick={sellDaily}
+            eClick={() =>
+              SellDaily(
+                sellDailyInsertService,
+                sellDailyInsertType,
+                sellDailyInsertValue,
+                sellNow,
+                setOpenDialogErroSales,
+                payValue,
+                setPayValue,
+                setSellDailyInsertType,
+                setSellDailyInsertService,
+                setPayType,
+                setService,
+                payTypeType,
+                servStateType,
+                setSellDialog,
+                setSellNow,
+                setOpenDialogErroSalesButtons
+              )
+            }
           />
           <ButtonSave
-            eClick={resetsellstates}
+            eClick={() => {
+              HelperResetsellstates(
+                setPayValue,
+                setSellDailyInsertType,
+                setSellDailyInsertService
+              );
+              Resetsellstates(
+                setPayType,
+                setService,
+                payTypeType,
+                servStateType
+              );
+            }}
             textButton={"Limpar"}
             type="reset"
             colorBg={"colorBgSellFinishReset"}
@@ -404,31 +325,56 @@ function HomePos() {
               ? "colorTextSellManager2"
               : "colorTextSellManager"
           }
-          eClick={openDaily}
+          eClick={() =>
+            OpenDaily(
+              setOpenDialogAlready,
+              setOpenDialog,
+              setSellNow,
+              setUpdateJson,
+              takeDateNow
+            )
+          }
         />
         <ButtonSave
           textButton={"Fechar Caixa"}
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
-          eClick={closeDaily}
+          eClick={() =>
+            CloseDaily(
+              sellNow,
+              setCloseDialog,
+              setCloseDialogAlready,
+              setUpdateJson,
+              setSellNow
+            )
+          }
         />
         <ButtonSave
           textButton={"Relatório Dia"}
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
-          eClick={verifyReportDaily}
+          eClick={() => {
+            GetOnLoad(setUpdateJson, setSellNow);
+            VerifyReportDaily(setShowSearch);
+          }}
         />
         <ButtonSave
           textButton={"Imprimir Caixa"}
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
-          eClick={printDaily}
+          eClick={() => {
+            GetOnLoad(setUpdateJson, setSellNow);
+            HelperSetTrueAllStates(setPrintDialog);
+          }}
         />
         <ButtonSave
           textButton={"Pesquisar Caixa"}
           colorBg={"colorBgSellManager"}
           colorText={"colorTextSellManager"}
-          eClick={SearchDaily}
+          eClick={() => {
+            SearchDaily(showSearch, setShowSearch);
+            GetOnLoad(setUpdateJson, setSellNow);
+          }}
         />
         <DailyReport
           showHide={showSearch}
@@ -441,32 +387,40 @@ function HomePos() {
       <div className={styles.componentsBox}>
         <DraggableDialog
           open={openDialog}
-          handleClose={handleCloseDialog}
+          handleClose={() =>
+            HelperSetFalseAllStates(setOpenDialog, setOpenDialogAlready)
+          }
           titleText={"Abrindo Caixa"}
           dialogBox="O caixa do dia foi aberto. Ao final do dia, feche o caixa"
         />
         <DraggableDialog
           open={openDialogErroSales}
-          handleClose={handleCloseDialogSales}
+          handleClose={() => HelperSetFalseAllStates(setOpenDialogErroSales)}
           titleText={"Não há caixa aberto"}
           dialogBox="Abra um caixa antes de inserir uma venda"
         />
         <DraggableDialog
           open={openDialogErroSalesButtons}
-          handleClose={handleCloseDialogSalesButton}
+          handleClose={() =>
+            HelperSetFalseAllStates(setOpenDialogErroSalesButtons)
+          }
           titleText={"Erro ao inserir uma venda"}
           dialogBox="Verifique os botões de controle de venda ou o valor de entrada"
         />
         <DraggableDialog
           open={openDialogAlready}
-          handleClose={handleCloseDialog}
+          handleClose={() =>
+            HelperSetFalseAllStates(setOpenDialog, setOpenDialogAlready)
+          }
           titleText={"Caixa Aberto"}
           dialogBox="Já existe um caixa aberto"
         />
         {
           <DraggableDialog
             open={closeDialog}
-            handleClose={handleCloseDialog2}
+            handleClose={() =>
+              HelperSetFalseAllStates(setCloseDialog, setCloseDialogAlready)
+            }
             titleText="Fechando Caixa"
             dialogBox="O caixa foi fechado. Para inserir vendas, abra um novo caixa"
           />
@@ -474,7 +428,9 @@ function HomePos() {
         {
           <DraggableDialog
             open={closeDialogAlready}
-            handleClose={handleCloseDialog2}
+            handleClose={() =>
+              HelperSetFalseAllStates(setCloseDialog, setCloseDialogAlready)
+            }
             titleText="Caixa Fechado"
             dialogBox="Não há caixa aberto, abra um novo caixa"
           />
@@ -482,7 +438,7 @@ function HomePos() {
         {
           <DraggableDialog
             open={sellDialog}
-            handleClose={handleSellDialog}
+            handleClose={() => HelperSetFalseAllStates(setSellDialog)}
             titleText="Venda Concluída"
             dialogBox="Venda concluida. Para excluir uma venda acesse 'Relatório Dia'"
           />
@@ -490,7 +446,11 @@ function HomePos() {
         {
           <DraggableDialog
             open={printDialog}
-            handleClose={handlePrintDialog}
+            handleClose={() => {
+              HelperSetFalseAllStates(setPrintDialog);
+              PrintHelp(sellNow, setPrintSuportData);
+              PrintReport(printSuportData, takeDateNow);
+            }}
             titleText="Deseja imprimir?"
             dialogBox="Impressão esta sendo preparada"
           />

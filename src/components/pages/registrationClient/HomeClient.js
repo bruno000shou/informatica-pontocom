@@ -3,13 +3,17 @@ import styles from "./HomeClient.module.css";
 import { DefaultButton, PrimaryButton } from "@fluentui/react/lib/Button";
 import { Panel } from "@fluentui/react/lib/Panel";
 import { Dialog, DialogFooter, DialogType } from "@fluentui/react/lib/Dialog";
+
 import HandleSubmitSearch from "./HandleSubmitSearch";
 import HandleSubmit from "./HandleSubmit";
 import InputRegClient from "../../templates/InputRegClient";
 import ButtonGeneric from "../../templates/ButtonGeneric";
 import TextArea from "../../templates/TextArea";
 import HandleSaveDataClient from "./HandleSaveDataClient";
+import HelperResetsellstates from "../../../helpers/HelperResetsellstates";
+
 import whatsapp from "../../../img/whatsapp.png";
+import DraggableDialog from "../../templates/DraggableDialog";
 
 function HomeClient() {
   const [showHideSearch, setShowHideSearch] = useState(false);
@@ -29,6 +33,8 @@ function HomeClient() {
   const [clientEditExtra, setClientEditExtra] = useState("");
   const [clientCheckEditBox, setClientCheckEditBox] = useState(false);
   const [clienteEditId, setClienteEditId] = useState(0);
+  const [handleSubmitDialog, setHandleSubmitDialog] = useState(false);
+  const [handleSearchDialog, setHandleSearchDialog] = useState(false);
 
   const dialogContentProps = {
     type: DialogType.normal,
@@ -91,7 +97,8 @@ function HomeClient() {
       handleTel1,
       handleTel2,
       handleExtra,
-      handleBox
+      handleBox,
+      setHandleSubmitDialog
     );
 
   function handleSearchName(e) {
@@ -109,7 +116,8 @@ function HomeClient() {
       setSearchByNameNumberList,
       setShowHideSearcPainel,
       searchNumber,
-      searchName
+      searchName,
+      setHandleSearchDialog
     );
 
   function handleBackSearch() {
@@ -239,7 +247,7 @@ function HomeClient() {
           </div>
           <div className={styles.buttonStyles}>
             <ButtonGeneric
-              type={"submit"}
+              type={"button"}
               textButton={"Salvar Cadastro"}
               colorBg={"colorBgSave"}
               colorText={"colorTextSave"}
@@ -406,6 +414,22 @@ function HomeClient() {
             </div>
           </div>
         </form>
+        {
+          <DraggableDialog
+            open={handleSubmitDialog}
+            handleClose={() => HelperResetsellstates(setHandleSubmitDialog)}
+            titleText="Dados incompletos"
+            dialogBox="O nome e o telefone 1 do cliente são obrigatórios"
+          />
+        }
+        {
+          <DraggableDialog
+            open={handleSearchDialog}
+            handleClose={() => HelperResetsellstates(setHandleSearchDialog)}
+            titleText="Pesquisa incompleta"
+            dialogBox="É preciso preencher algum dos métodos de pesquisa"
+          />
+        }
         <Dialog
           hidden={!openPainelClientDialog}
           onDismiss={closeDialog}
@@ -423,3 +447,4 @@ function HomeClient() {
 }
 
 export default HomeClient;
+//a

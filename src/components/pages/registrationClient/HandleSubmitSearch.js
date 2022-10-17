@@ -6,7 +6,8 @@ async function HandleSubmitSearch(
   setSearchByNameNumberList,
   setShowHideSearcPainel,
   searchNumber,
-  searchName
+  searchName,
+  setHandleSubmitDialog
 ) {
   let auxNumber = searchNumber;
   let auxName = searchName;
@@ -71,6 +72,7 @@ async function HandleSubmitSearch(
     setShowHideSearcPainel(true);
     setSearchByNameNumberList(auxSearchByNumberName);
   } else {
+    setHandleSubmitDialog(true);
     console.log("É necessário preencher um dos métodos de pesquisa");
   }
   auxNumber = "";
