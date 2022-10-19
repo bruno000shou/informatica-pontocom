@@ -62,6 +62,7 @@ async function HandleSubmit(
       .put("http://localhost:5000/regClient", varJson)
       .then(console.log("Cadastro do cliente feito com sucesso"))
       .catch((err) => console.log(err));
+    window.location.reload();
   } else {
     setHandleSubmitDialog(true);
     console.log("O nome do cliente e telefone 1 sao obrigatórios");

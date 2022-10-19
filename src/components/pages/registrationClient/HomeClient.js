@@ -3,6 +3,8 @@ import styles from "./HomeClient.module.css";
 import { DefaultButton, PrimaryButton } from "@fluentui/react/lib/Button";
 import { Panel } from "@fluentui/react/lib/Panel";
 import { Dialog, DialogFooter, DialogType } from "@fluentui/react/lib/Dialog";
+import whatsapp from "../../../img/whatsapp.png";
+import DraggableDialog from "../../templates/DraggableDialog";
 
 import HandleSubmitSearch from "./HandleSubmitSearch";
 import HandleSubmit from "./HandleSubmit";
@@ -11,9 +13,9 @@ import ButtonGeneric from "../../templates/ButtonGeneric";
 import TextArea from "../../templates/TextArea";
 import HandleSaveDataClient from "./HandleSaveDataClient";
 import HelperResetsellstates from "../../../helpers/HelperResetsellstates";
-
-import whatsapp from "../../../img/whatsapp.png";
-import DraggableDialog from "../../templates/DraggableDialog";
+import HandleChangeInput from "./homeClientHelpers/HandleChangeInput";
+import HandleChangeBox from "./homeClientHelpers/HandleChangeBox";
+import SetBooleanState from "./homeClientHelpers/SetBooleanState";
 
 function HomeClient() {
   const [showHideSearch, setShowHideSearch] = useState(false);
@@ -45,84 +47,69 @@ function HomeClient() {
     styles: { main: { maxWidth: 450 } },
   };
 
-  function handleChangeName(e) {
-    setHandleName(e);
-  }
-  function handleChangeTel1(e) {
-    setHandleTel1(e);
-  }
-  function handleChangeTel2(e) {
-    setHandleTel2(e);
-  }
-  function handleChangeExtra(e) {
-    setHandleExtra(e.target.value);
-  }
-  function handleChangeBox() {
-    if (handleBox === false) {
-      setHandleBox(true);
-    } else {
-      setHandleBox(false);
-    }
-  }
+  //ALTERACOES FEITAS PARA ELIMINAR ESSAS FUNCOES E UTILIZAR A FUNCAO
+  //HANDLECHANGEINPUT DO HELPER DA CATEGORIA
+  // function handleChangeName(e) {
+  //   setHandleName(e);
+  // }
+  // function handleChangeTel1(e) {
+  //   setHandleTel1(e);
+  // }
+  // function handleChangeTel2(e) {
+  //   setHandleTel2(e);
+  // }
 
-  function handleChangeEditName(e) {
-    setClientEditName(e);
-  }
-  function handleChangeEditTel1(e) {
-    setClientEditTel1(e);
-  }
-  function handleChangeEditTel2(e) {
-    setClientEditTel2(e);
-  }
-  function handleChangeEditExtra(e) {
-    setClientEditExtra(e.target.value);
-  }
+  // function handleChangeExtra(e) {
+  //   setHandleExtra(e.target.value);
+  // }
 
-  function handleEditChangeBox() {
-    if (clientCheckEditBox === false) {
-      setClientCheckEditBox(true);
-    } else {
-      setClientCheckEditBox(false);
-    }
-  }
+  // function handleChangeBox() {
+  //   if (handleBox === false) {
+  //     setHandleBox(true);
+  //   } else {
+  //     setHandleBox(false);
+  //   }
+  // }
 
-  let handleSubmitFunc = () =>
-    HandleSubmit(
-      setHandleBox,
-      setHandleName,
-      setHandleTel1,
-      setHandleTel2,
-      setHandleExtra,
-      handleName,
-      handleTel1,
-      handleTel2,
-      handleExtra,
-      handleBox,
-      setHandleSubmitDialog
-    );
+  //ALTERACOES FEITAS PARA ELIMINAR ESSAS FUNCOES E UTILIZAR A FUNCAO
+  //HANDLECHANGEINPUT DO HELPER DA CATEGORIA
+  // function handleChangeEditName(e) {
+  //   setClientEditName(e);
+  // }
+  // function handleChangeEditTel1(e) {
+  //   setClientEditTel1(e);
+  // }
+  // function handleChangeEditTel2(e) {
+  //   setClientEditTel2(e);
+  // }
 
-  function handleSearchName(e) {
-    setSearchName(e);
-  }
+  // function handleChangeEditExtra(e) {
+  //   setClientEditExtra(e.target.value);
+  // }
 
-  function handleSearchNumber(e) {
-    setSearchNumber(e);
-  }
+  // function handleEditChangeBox() {
+  //   if (clientCheckEditBox === false) {
+  //     setClientCheckEditBox(true);
+  //   } else {
+  //     setClientCheckEditBox(false);
+  //   }
+  // }
 
-  let handleSearchFunc = () =>
-    HandleSubmitSearch(
-      setSearchName,
-      setSearchNumber,
-      setSearchByNameNumberList,
-      setShowHideSearcPainel,
-      searchNumber,
-      searchName,
-      setHandleSearchDialog
-    );
+  // function handleSearchName(e) {
+  //   setSearchName(e);
+  // }
 
-  function handleBackSearch() {
-    setShowHideSearch(false);
-  }
+  // function handleSearchNumber(e) {
+  //   setSearchNumber(e);
+  // }
+
+  // function handleChangeTextArea(item) {
+  //   setClientEditExtra(item);
+  // }
+
+  // function handleBackSearch() {
+  //   setShowHideSearch(false);
+  // }
 
   function closePainelClient() {
     setOpenPainelClientDialog(true);
@@ -132,17 +119,19 @@ function HomeClient() {
     setOpenPainelClientDialog(false);
   }
 
-  function closeAll() {
-    setOpenPainelClientDialog(false);
-    setShowHideSearcPainel(false);
-  }
-
-  function handleChangeTextArea(item) {
-    setClientEditExtra(item);
-  }
+  // function closeAll() {
+  //   setOpenPainelClientDialog(false);
+  //   setShowHideSearcPainel(false);
+  // }
 
   function openReport(item) {
-    closeAll();
+    // closeAll();
+    SetBooleanState(
+      setOpenPainelClientDialog,
+      !openPainelClientDialog,
+      setShowHideSearcPainel,
+      showHideSearchPainel
+    );
     setShowHideSearch(true);
     setClientEditName(item.name);
     setClientEditTel1(item.tel1);
@@ -162,13 +151,42 @@ function HomeClient() {
       clienteEditId
     );
 
+  let handleSearchFunc = () =>
+    HandleSubmitSearch(
+      setSearchName,
+      setSearchNumber,
+      setSearchByNameNumberList,
+      setShowHideSearcPainel,
+      searchNumber,
+      searchName,
+      setHandleSearchDialog
+    );
+
+  let handleSubmitFunc = () =>
+    HandleSubmit(
+      setHandleBox,
+      setHandleName,
+      setHandleTel1,
+      setHandleTel2,
+      setHandleExtra,
+      handleName,
+      handleTel1,
+      handleTel2,
+      handleExtra,
+      handleBox,
+      setHandleSubmitDialog
+    );
+
   return (
     <div className={styles.containerHome}>
       <Panel
         headerText="A pesquisa encontrou os cadastros de clientes abaixo:"
         isOpen={showHideSearchPainel === true ? true : false}
-        onDismiss={closePainelClient}
         closeButtonAriaLabel="Close"
+        onDismiss={closePainelClient}
+        // onDismiss={() =>
+        //   SetBooleanState(setOpenPainelClientDialog, openPainelClientDialog)
+        // }
       >
         <div className={styles.stylesTemplateBoxes}>
           {searchByNameNumberList.map((item) => {
@@ -203,7 +221,8 @@ function HomeClient() {
               placeholder={"Digite o nome aqui"}
               textLabel={"Nome"}
               name={"nome"}
-              makeChange={handleChangeName}
+              // makeChange={handleChangeName}
+              makeChange={(e) => HandleChangeInput(e, setHandleName)}
             />
           </div>
           <div>
@@ -212,7 +231,8 @@ function HomeClient() {
               placeholder={"Digite o telefone(1) aqui"}
               textLabel={"Telefone(1)"}
               name={"telefone1"}
-              makeChange={handleChangeTel1}
+              // makeChange={handleChangeTel1}
+              makeChange={(e) => HandleChangeInput(e, setHandleTel1)}
               maxLength={"11"}
             />
           </div>
@@ -222,7 +242,8 @@ function HomeClient() {
               placeholder={"Digite o telefone(2) aqui"}
               textLabel={"Telefone(2)"}
               name={"telefone2"}
-              makeChange={handleChangeTel2}
+              // makeChange={handleChangeTel2}
+              makeChange={(e) => HandleChangeInput(e, setHandleTel2)}
               maxLength={"11"}
             />
           </div>
@@ -234,7 +255,8 @@ function HomeClient() {
               name={"observacao"}
               rows={"10"}
               cols={"75"}
-              onChange={handleChangeExtra}
+              // onChange={handleChangeExtra}
+              onChange={(e) => HandleChangeInput(e, null, setHandleExtra)}
             />
           </div>
           <div className={styles.checkWhatsapp}>
@@ -242,7 +264,8 @@ function HomeClient() {
               type={"checkbox"}
               textLabel={"Esse cliente tem whatsapp?"}
               name={"whatsapp"}
-              makeChange={handleChangeBox}
+              // makeChange={handleChangeBox}
+              makeChange={(e) => HandleChangeBox(handleBox, setHandleBox)}
             />
           </div>
           <div className={styles.buttonStyles}>
@@ -278,7 +301,8 @@ function HomeClient() {
               placeholder={"Digite o nome aqui"}
               textLabel={"Por nome"}
               name={"searchName"}
-              makeChange={handleSearchName}
+              // makeChange={handleSearchName}
+              makeChange={(e) => HandleChangeInput(e, setSearchName)}
             />
           </div>
           <div>
@@ -287,8 +311,9 @@ function HomeClient() {
               placeholder={"Digite o telefone aqui"}
               textLabel={"Por telefone"}
               name={"searchTel"}
-              makeChange={handleSearchNumber}
               maxLength={"11"}
+              // makeChange={handleSearchNumber}
+              makeChange={(e) => HandleChangeInput(e, setSearchNumber)}
             />
           </div>
           <div className={styles.buttonStyles}>
@@ -325,7 +350,8 @@ function HomeClient() {
                 textLabel={"Nome:"}
                 value={clientEditName}
                 name={"NomeDadosCliente"}
-                makeChange={handleChangeEditName}
+                // makeChange={handleChangeEditName}
+                makeChange={(e) => HandleChangeInput(e, setClientEditName)}
               />
             </div>
             <div>
@@ -335,7 +361,8 @@ function HomeClient() {
                 value={clientEditTel1}
                 name={"telefone1DadosCLiente"}
                 maxLength={"11"}
-                makeChange={handleChangeEditTel1}
+                // makeChange={handleChangeEditTel1}
+                makeChange={(e) => HandleChangeInput(e, setClientEditTel1)}
               />
             </div>
             <div>
@@ -345,7 +372,8 @@ function HomeClient() {
                 value={clientEditTel2}
                 name={"telefone2DadosCLiente"}
                 maxLength={"11"}
-                makeChange={handleChangeEditTel2}
+                // makeChange={handleChangeEditTel2}
+                makeChange={(e) => HandleChangeInput(e, setClientEditTel2)}
               />
             </div>
             <div>
@@ -359,7 +387,10 @@ function HomeClient() {
                 value={clientEditExtra}
                 rows={"10"}
                 cols={"75"}
-                onChange={(item) => handleChangeTextArea(item.target.value)}
+                // onChange={(e) => handleChangeTextArea(e.target.value)}
+                onChange={(e) =>
+                  HandleChangeInput(e.target.value, setClientEditExtra)
+                }
               />
             </div>
             <div className={styles.checkWhatsappEditBox}>
@@ -368,7 +399,10 @@ function HomeClient() {
                 textLabel={"Esse cliente tem whatsapp?"}
                 check={clientCheckEditBox}
                 name={"whatsappDadosCliente"}
-                makeChange={handleEditChangeBox}
+                // makeChange={handleEditChangeBox}
+                makeChange={(e) =>
+                  HandleChangeBox(clientCheckEditBox, setClientCheckEditBox)
+                }
               />
               <div
                 className={
@@ -409,7 +443,8 @@ function HomeClient() {
                 textButton={"Voltar"}
                 colorBg={"colorBgSave"}
                 colorText={"colorTextSave"}
-                onClick={handleBackSearch}
+                // onClick={handleBackSearch}
+                onClick={() => setShowHideSearch(false)}
               />
             </div>
           </div>
@@ -437,7 +472,18 @@ function HomeClient() {
           modalProps={dialogModalProps}
         >
           <DialogFooter>
-            <PrimaryButton onClick={closeAll} text="Fechar" />
+            {/* <PrimaryButton onClick={closeAll} text="Fechar" /> */}
+            <PrimaryButton
+              onClick={() =>
+                SetBooleanState(
+                  setOpenPainelClientDialog,
+                  openPainelClientDialog,
+                  setShowHideSearcPainel,
+                  showHideSearchPainel
+                )
+              }
+              text="Fechar"
+            />
             <DefaultButton onClick={closeDialog} text="Voltar" />
           </DialogFooter>
         </Dialog>
@@ -447,4 +493,3 @@ function HomeClient() {
 }
 
 export default HomeClient;
-//a
