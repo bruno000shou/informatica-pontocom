@@ -1,11 +1,14 @@
 import styles from "./HomeReceipt.module.css";
-import InputRegClient from "../../templates/InputRegClient";
-import ButtonGeneric from "../../templates/ButtonGeneric";
-import TextArea from "../../templates/TextArea";
 import React, { useState } from "react";
+import DraggableDialog from "../../templates/DraggableDialog";
+
+import InputRegClient from "../../templates/InputRegClient";
 import HandleReceiptSubmit from "./HandleReceiptSubmit";
 import PrintReceipt from "./PrintReceipt";
-import DraggableDialog from "../../templates/DraggableDialog";
+import ButtonGeneric from "../../templates/ButtonGeneric";
+import TextArea from "../../templates/TextArea";
+import HandleChangeInput from "./receiptHelpers/HandleChangeInput";
+import HandleSubmitSearchReceipt from "./HandleSubmitSearchReceipt";
 
 function HomeReceipt() {
   const [nameReceipt, setNameReceipt] = useState("");
@@ -15,22 +18,14 @@ function HomeReceipt() {
   const [osReceipt, setOsReceipt] = useState("");
   const [confirmPrintDialog, setConfirmPrintDialog] = useState(false);
   const [numberReceipt, setNumberReceipt] = useState("");
-
-  function handleChangeNameReceipt(e) {
-    setNameReceipt(e);
-  }
-  function handleChangeValorReceipt(e) {
-    setValorReceipt(e);
-  }
-  function handleChangeEquipReceipt(e) {
-    setEquipReceipt(e);
-  }
-  function handleChangeOsReceipt(e) {
-    setOsReceipt(e);
-  }
-  function handleChangeServiceReceipt(e) {
-    setServiceReceipt(e.target.value);
-  }
+  const [searchNameReceipt, setSearchNameReceipt] = useState("");
+  const [searchTelReceipt, setSearchTelReceipt] = useState("");
+  const [searchReceiptNameContent, setSearchReceiptNameContent] = useState("");
+  const [searchReceiptNumberContent, setSearchReceiptNumberContent] = useState(
+    ""
+  );
+  const [searchReceiptInitDate, setSearchReceiptInitDate] = useState("");
+  const [searchReceiptFinalDate, setSearchReceiptFinalDate] = useState("");
 
   let handleReceiptSubmitFunc = () => {
     HandleReceiptSubmit(
@@ -82,7 +77,8 @@ function HomeReceipt() {
               placeholder={"Digite a O.S. aqui"}
               textLabel={"O.S."}
               name={"ordemDeServico"}
-              makeChange={handleChangeOsReceipt}
+              // makeChange={handleChangeOsReceipt}
+              makeChange={(e) => HandleChangeInput(e, setOsReceipt)}
             />
           </div>
           <div>
@@ -91,7 +87,8 @@ function HomeReceipt() {
               placeholder={"Digite o nome aqui"}
               textLabel={"Nome:"}
               name={"nome"}
-              makeChange={handleChangeNameReceipt}
+              // makeChange={handleChangeNameReceipt}
+              makeChange={(e) => HandleChangeInput(e, setNameReceipt)}
             />
           </div>
           <div>
@@ -100,7 +97,8 @@ function HomeReceipt() {
               placeholder={"Digite o valor aqui"}
               textLabel={"Valor R$"}
               name={"Valor"}
-              makeChange={handleChangeValorReceipt}
+              // makeChange={handleChangeValorReceipt}
+              makeChange={(e) => HandleChangeInput(e, setValorReceipt)}
             />
           </div>
           <div>
@@ -109,10 +107,11 @@ function HomeReceipt() {
               placeholder={"Digite o equipamento aqui"}
               textLabel={"Equip:"}
               name={"equipamento"}
-              makeChange={handleChangeEquipReceipt}
+              // makeChange={handleChangeEquipReceipt}
+              makeChange={(e) => HandleChangeInput(e, setEquipReceipt)}
             />
           </div>
-          <div>
+          <div class={styles.textAreaCor}>
             <TextArea
               type={"text"}
               placeholder={"Digite aqui o serviço executado"}
@@ -120,7 +119,8 @@ function HomeReceipt() {
               name={"observacao"}
               rows={"6"}
               cols={"75"}
-              onChange={handleChangeServiceReceipt}
+              // onChange={handleChangeServiceReceipt}
+              onChange={(e) => HandleChangeInput(e, setServiceReceipt)}
             />
           </div>
           <div className={styles.buttonStyles}>
@@ -147,18 +147,20 @@ function HomeReceipt() {
           </div>
           <div>
             <InputRegClient
-              type={"text"}
-              placeholder={"Digite o nome aqui"}
-              textLabel={"Por nome:"}
-              name={"nome"}
+              type={"number"}
+              placeholder="Digite o numero aqui           ( A pesquisa por número do Recibo é prioritária )"
+              textLabel={"Por nº:"}
+              name={"telefone"}
+              makeChange={(e) => HandleChangeInput(e, setSearchTelReceipt)}
             />
           </div>
           <div>
             <InputRegClient
-              type={"number"}
-              placeholder={"Digite o numero aqui"}
-              textLabel={"Por numero:"}
-              name={"telefone"}
+              type={"text"}
+              placeholder={"Digite o nome aqui"}
+              textLabel={"Por nome:"}
+              name={"nome"}
+              makeChange={(e) => HandleChangeInput(e, setSearchNameReceipt)}
             />
           </div>
           <div className={styles.inputDate}>
@@ -168,6 +170,9 @@ function HomeReceipt() {
                 textLabel={"Data inicial:"}
                 name={"dateIni"}
                 labelStyles={"labelStyles"}
+                makeChange={(e) =>
+                  HandleChangeInput(e, setSearchReceiptInitDate)
+                }
               />
             </div>
             <div className={styles.divDateStyles}>
@@ -176,15 +181,28 @@ function HomeReceipt() {
                 textLabel={"Data final:"}
                 name={"dateIni"}
                 labelStyles={"labelStyles"}
+                makeChange={(e) =>
+                  HandleChangeInput(e, setSearchReceiptFinalDate)
+                }
               />
             </div>
           </div>
           <div className={styles.buttonStyles}>
             <ButtonGeneric
-              type={"submit"}
+              type={"button"}
               textButton={"Pesquisar recibo"}
               colorBg={"colorBgSave"}
               colorText={"colorTextSave"}
+              onClick={() =>
+                HandleSubmitSearchReceipt(
+                  searchTelReceipt,
+                  searchNameReceipt,
+                  setSearchReceiptNameContent,
+                  setSearchReceiptNumberContent,
+                  searchReceiptInitDate,
+                  searchReceiptFinalDate
+                )
+              }
             />
             <ButtonGeneric
               type={"reset"}

@@ -47,70 +47,6 @@ function HomeClient() {
     styles: { main: { maxWidth: 450 } },
   };
 
-  //ALTERACOES FEITAS PARA ELIMINAR ESSAS FUNCOES E UTILIZAR A FUNCAO
-  //HANDLECHANGEINPUT DO HELPER DA CATEGORIA
-  // function handleChangeName(e) {
-  //   setHandleName(e);
-  // }
-  // function handleChangeTel1(e) {
-  //   setHandleTel1(e);
-  // }
-  // function handleChangeTel2(e) {
-  //   setHandleTel2(e);
-  // }
-
-  // function handleChangeExtra(e) {
-  //   setHandleExtra(e.target.value);
-  // }
-
-  // function handleChangeBox() {
-  //   if (handleBox === false) {
-  //     setHandleBox(true);
-  //   } else {
-  //     setHandleBox(false);
-  //   }
-  // }
-
-  //ALTERACOES FEITAS PARA ELIMINAR ESSAS FUNCOES E UTILIZAR A FUNCAO
-  //HANDLECHANGEINPUT DO HELPER DA CATEGORIA
-  // function handleChangeEditName(e) {
-  //   setClientEditName(e);
-  // }
-  // function handleChangeEditTel1(e) {
-  //   setClientEditTel1(e);
-  // }
-  // function handleChangeEditTel2(e) {
-  //   setClientEditTel2(e);
-  // }
-
-  // function handleChangeEditExtra(e) {
-  //   setClientEditExtra(e.target.value);
-  // }
-
-  // function handleEditChangeBox() {
-  //   if (clientCheckEditBox === false) {
-  //     setClientCheckEditBox(true);
-  //   } else {
-  //     setClientCheckEditBox(false);
-  //   }
-  // }
-
-  // function handleSearchName(e) {
-  //   setSearchName(e);
-  // }
-
-  // function handleSearchNumber(e) {
-  //   setSearchNumber(e);
-  // }
-
-  // function handleChangeTextArea(item) {
-  //   setClientEditExtra(item);
-  // }
-
-  // function handleBackSearch() {
-  //   setShowHideSearch(false);
-  // }
-
   function closePainelClient() {
     setOpenPainelClientDialog(true);
   }
@@ -118,11 +54,6 @@ function HomeClient() {
   function closeDialog() {
     setOpenPainelClientDialog(false);
   }
-
-  // function closeAll() {
-  //   setOpenPainelClientDialog(false);
-  //   setShowHideSearcPainel(false);
-  // }
 
   function openReport(item) {
     // closeAll();
@@ -184,9 +115,6 @@ function HomeClient() {
         isOpen={showHideSearchPainel === true ? true : false}
         closeButtonAriaLabel="Close"
         onDismiss={closePainelClient}
-        // onDismiss={() =>
-        //   SetBooleanState(setOpenPainelClientDialog, openPainelClientDialog)
-        // }
       >
         <div className={styles.stylesTemplateBoxes}>
           {searchByNameNumberList.map((item) => {
@@ -221,7 +149,6 @@ function HomeClient() {
               placeholder={"Digite o nome aqui"}
               textLabel={"Nome"}
               name={"nome"}
-              // makeChange={handleChangeName}
               makeChange={(e) => HandleChangeInput(e, setHandleName)}
             />
           </div>
@@ -231,7 +158,6 @@ function HomeClient() {
               placeholder={"Digite o telefone(1) aqui"}
               textLabel={"Telefone(1)"}
               name={"telefone1"}
-              // makeChange={handleChangeTel1}
               makeChange={(e) => HandleChangeInput(e, setHandleTel1)}
               maxLength={"11"}
             />
@@ -242,7 +168,6 @@ function HomeClient() {
               placeholder={"Digite o telefone(2) aqui"}
               textLabel={"Telefone(2)"}
               name={"telefone2"}
-              // makeChange={handleChangeTel2}
               makeChange={(e) => HandleChangeInput(e, setHandleTel2)}
               maxLength={"11"}
             />
@@ -255,7 +180,6 @@ function HomeClient() {
               name={"observacao"}
               rows={"10"}
               cols={"75"}
-              // onChange={handleChangeExtra}
               onChange={(e) => HandleChangeInput(e, null, setHandleExtra)}
             />
           </div>
@@ -264,7 +188,6 @@ function HomeClient() {
               type={"checkbox"}
               textLabel={"Esse cliente tem whatsapp?"}
               name={"whatsapp"}
-              // makeChange={handleChangeBox}
               makeChange={(e) => HandleChangeBox(handleBox, setHandleBox)}
             />
           </div>
@@ -301,7 +224,6 @@ function HomeClient() {
               placeholder={"Digite o nome aqui"}
               textLabel={"Por nome"}
               name={"searchName"}
-              // makeChange={handleSearchName}
               makeChange={(e) => HandleChangeInput(e, setSearchName)}
             />
           </div>
@@ -309,10 +231,9 @@ function HomeClient() {
             <InputRegClient
               type={"text"}
               placeholder={"Digite o telefone aqui"}
-              textLabel={"Por telefone"}
+              textLabel={"Por tel."}
               name={"searchTel"}
               maxLength={"11"}
-              // makeChange={handleSearchNumber}
               makeChange={(e) => HandleChangeInput(e, setSearchNumber)}
             />
           </div>
@@ -350,7 +271,6 @@ function HomeClient() {
                 textLabel={"Nome:"}
                 value={clientEditName}
                 name={"NomeDadosCliente"}
-                // makeChange={handleChangeEditName}
                 makeChange={(e) => HandleChangeInput(e, setClientEditName)}
               />
             </div>
@@ -361,7 +281,6 @@ function HomeClient() {
                 value={clientEditTel1}
                 name={"telefone1DadosCLiente"}
                 maxLength={"11"}
-                // makeChange={handleChangeEditTel1}
                 makeChange={(e) => HandleChangeInput(e, setClientEditTel1)}
               />
             </div>
@@ -372,7 +291,6 @@ function HomeClient() {
                 value={clientEditTel2}
                 name={"telefone2DadosCLiente"}
                 maxLength={"11"}
-                // makeChange={handleChangeEditTel2}
                 makeChange={(e) => HandleChangeInput(e, setClientEditTel2)}
               />
             </div>
@@ -387,7 +305,6 @@ function HomeClient() {
                 value={clientEditExtra}
                 rows={"10"}
                 cols={"75"}
-                // onChange={(e) => handleChangeTextArea(e.target.value)}
                 onChange={(e) =>
                   HandleChangeInput(e.target.value, setClientEditExtra)
                 }
@@ -399,7 +316,6 @@ function HomeClient() {
                 textLabel={"Esse cliente tem whatsapp?"}
                 check={clientCheckEditBox}
                 name={"whatsappDadosCliente"}
-                // makeChange={handleEditChangeBox}
                 makeChange={(e) =>
                   HandleChangeBox(clientCheckEditBox, setClientCheckEditBox)
                 }
@@ -443,7 +359,6 @@ function HomeClient() {
                 textButton={"Voltar"}
                 colorBg={"colorBgSave"}
                 colorText={"colorTextSave"}
-                // onClick={handleBackSearch}
                 onClick={() => setShowHideSearch(false)}
               />
             </div>
@@ -457,14 +372,12 @@ function HomeClient() {
             dialogBox="O nome e o telefone 1 do cliente são obrigatórios"
           />
         }
-        {
-          <DraggableDialog
-            open={handleSearchDialog}
-            handleClose={() => HelperResetsellstates(setHandleSearchDialog)}
-            titleText="Pesquisa incompleta"
-            dialogBox="É preciso preencher algum dos métodos de pesquisa"
-          />
-        }
+        <DraggableDialog
+          open={handleSearchDialog}
+          handleClose={() => HelperResetsellstates(setHandleSearchDialog)}
+          titleText="Pesquisa incompleta"
+          dialogBox="É preciso preencher algum dos métodos de pesquisa"
+        />
         <Dialog
           hidden={!openPainelClientDialog}
           onDismiss={closeDialog}

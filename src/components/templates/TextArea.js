@@ -13,7 +13,7 @@ function TextArea({
 }) {
   return (
     <div className={styles.divStyles}>
-      <label>{textLabel}</label>
+      <label class="textAreaCor">{textLabel}</label>
       <textarea
         className={styles.inputStyles}
         type={type}

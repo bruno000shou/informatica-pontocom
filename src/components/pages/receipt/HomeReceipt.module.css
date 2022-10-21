@@ -1,7 +1,7 @@
 .containerHome {
     display: flex;
-    width: 127%;
-    height: 39.7vw;    
+    width: 125%;
+    height: 39.45vw;    
 }
 
 .divFormStyles {
@@ -48,4 +48,8 @@
 
 .divDateStyles {
     width: 100%;
+}
+
+.textAreaCor div label {
+    margin-left: 2vw;
 }

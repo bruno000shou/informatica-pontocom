@@ -1,14 +1,16 @@
 .homeContainer {
-  width: 100vw;
+  width: 98vw;
+  margin-top: -0.5vh;
 }
 
 .homeContainerBox {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  width: 100vw;
+  width: 98vw;
   height: 32vw;
   margin-top: -1%;
   grid-gap: 5%;
+  margin-bottom: 500px;
 }
 
 .homeContainerBox div {

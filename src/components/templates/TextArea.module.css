@@ -5,6 +5,10 @@
 
 } 
 
+.divStyles label {
+    margin-left: 2.8vw;
+}
+
 .inputStyles:focus {
     background-color: #F5DEB3;
     transform: translateY(-5px);
