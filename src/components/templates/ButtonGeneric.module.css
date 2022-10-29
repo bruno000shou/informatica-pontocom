@@ -36,3 +36,24 @@
 .colorTextSave {
     color: black;
 }
+
+.colorBgFindCliente {
+    background-color: #CD853F;
+    border: 2px solid black;
+    transition: .5s;
+    height: 3vw;
+    width: 10vw;
+    border-radius: 5px;
+}
+
+.colorBgFindCliente:hover {
+    background-color: black;
+    filter:opacity(100%);
+    transition: .5s;
+}
+
+.colorTextFindClient:hover {
+    color: #CD853F;
+}
+
+

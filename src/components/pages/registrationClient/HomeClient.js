@@ -37,6 +37,7 @@ function HomeClient() {
   const [clienteEditId, setClienteEditId] = useState(0);
   const [handleSubmitDialog, setHandleSubmitDialog] = useState(false);
   const [handleSearchDialog, setHandleSearchDialog] = useState(false);
+  const [handleSaveDialog, setHandleSaveDialog] = useState(false);
 
   const dialogContentProps = {
     type: DialogType.normal,
@@ -47,16 +48,7 @@ function HomeClient() {
     styles: { main: { maxWidth: 450 } },
   };
 
-  function closePainelClient() {
-    setOpenPainelClientDialog(true);
-  }
-
-  function closeDialog() {
-    setOpenPainelClientDialog(false);
-  }
-
   function openReport(item) {
-    // closeAll();
     SetBooleanState(
       setOpenPainelClientDialog,
       !openPainelClientDialog,
@@ -72,49 +64,13 @@ function HomeClient() {
     setClienteEditId(item.id);
   }
 
-  let HandleSaveDataClientFunc = () =>
-    HandleSaveDataClient(
-      clientCheckEditBox,
-      clientEditExtra,
-      clientEditTel2,
-      clientEditTel1,
-      clientEditName,
-      clienteEditId
-    );
-
-  let handleSearchFunc = () =>
-    HandleSubmitSearch(
-      setSearchName,
-      setSearchNumber,
-      setSearchByNameNumberList,
-      setShowHideSearcPainel,
-      searchNumber,
-      searchName,
-      setHandleSearchDialog
-    );
-
-  let handleSubmitFunc = () =>
-    HandleSubmit(
-      setHandleBox,
-      setHandleName,
-      setHandleTel1,
-      setHandleTel2,
-      setHandleExtra,
-      handleName,
-      handleTel1,
-      handleTel2,
-      handleExtra,
-      handleBox,
-      setHandleSubmitDialog
-    );
-
   return (
     <div className={styles.containerHome}>
       <Panel
         headerText="A pesquisa encontrou os cadastros de clientes abaixo:"
         isOpen={showHideSearchPainel === true ? true : false}
         closeButtonAriaLabel="Close"
-        onDismiss={closePainelClient}
+        onDismiss={() => setOpenPainelClientDialog(true)}
       >
         <div className={styles.stylesTemplateBoxes}>
           {searchByNameNumberList.map((item) => {
@@ -197,7 +153,22 @@ function HomeClient() {
               textButton={"Salvar Cadastro"}
               colorBg={"colorBgSave"}
               colorText={"colorTextSave"}
-              onClick={handleSubmitFunc}
+              onClick={() => {
+                HandleSubmit(
+                  setHandleBox,
+                  setHandleName,
+                  setHandleTel1,
+                  setHandleTel2,
+                  setHandleExtra,
+                  handleName,
+                  handleTel1,
+                  handleTel2,
+                  handleExtra,
+                  handleBox,
+                  setHandleSubmitDialog
+                );
+                setHandleSaveDialog(true);
+              }}
             />
             <ButtonGeneric
               type={"reset"}
@@ -243,7 +214,15 @@ function HomeClient() {
               textButton={"Pesquisar"}
               colorBg={"colorBgSave"}
               colorText={"colorTextSave"}
-              onClick={handleSearchFunc}
+              onClick={() =>
+                HandleSubmitSearch(
+                  setSearchByNameNumberList,
+                  setShowHideSearcPainel,
+                  searchNumber,
+                  searchName,
+                  setHandleSearchDialog
+                )
+              }
             />
             <ButtonGeneric
               type={"reset"}
@@ -304,7 +283,7 @@ function HomeClient() {
                 name={"observacaoDadosCliente"}
                 value={clientEditExtra}
                 rows={"10"}
-                cols={"75"}
+                cols={"72"}
                 onChange={(e) =>
                   HandleChangeInput(e.target.value, setClientEditExtra)
                 }
@@ -342,11 +321,21 @@ function HomeClient() {
             </div>
             <div className={styles.buttonStyles}>
               <ButtonGeneric
-                type={"submit"}
+                type={"button"}
                 textButton={"Salvar Dados"}
                 colorBg={"colorBgSave"}
                 colorText={"colorTextSave"}
-                onClick={HandleSaveDataClientFunc}
+                onClick={() => {
+                  HandleSaveDataClient(
+                    clientCheckEditBox,
+                    clientEditExtra,
+                    clientEditTel2,
+                    clientEditTel1,
+                    clientEditName,
+                    clienteEditId
+                  );
+                  setHandleSaveDialog(true);
+                }}
               />
               <ButtonGeneric
                 type={"reset"}
@@ -378,14 +367,31 @@ function HomeClient() {
           titleText="Pesquisa incompleta"
           dialogBox="É preciso preencher algum dos métodos de pesquisa"
         />
+        <DraggableDialog
+          open={handleSaveDialog}
+          handleClose={() => {
+            setHandleSaveDialog(false);
+            window.location.reload();
+          }}
+          titleText="Cadastro Concluído"
+          dialogBox="Os dados do cliente foram salvos"
+        />
+        <DraggableDialog
+          open={handleSaveDialog}
+          handleClose={() => {
+            setHandleSaveDialog(false);
+            window.location.reload();
+          }}
+          titleText="Cadastro Atualizado"
+          dialogBox="Os dados do cliente foram atualizados"
+        />
         <Dialog
           hidden={!openPainelClientDialog}
-          onDismiss={closeDialog}
+          onDismiss={() => setOpenPainelClientDialog(false)}
           dialogContentProps={dialogContentProps}
           modalProps={dialogModalProps}
         >
           <DialogFooter>
-            {/* <PrimaryButton onClick={closeAll} text="Fechar" /> */}
             <PrimaryButton
               onClick={() =>
                 SetBooleanState(
@@ -397,7 +403,10 @@ function HomeClient() {
               }
               text="Fechar"
             />
-            <DefaultButton onClick={closeDialog} text="Voltar" />
+            <DefaultButton
+              onClick={() => setOpenPainelClientDialog(false)}
+              text="Voltar"
+            />
           </DialogFooter>
         </Dialog>
       </div>

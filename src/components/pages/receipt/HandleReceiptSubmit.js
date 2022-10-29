@@ -7,11 +7,6 @@ async function HandleReceiptSubmit(
   equipReceipt,
   serviceReceipt,
   osReceipt,
-  // setServiceReceipt,
-  // setEquipReceipt,
-  // setValorReceipt,
-  // setNameReceipt,
-  // setOsReceipt,
   setNumberReceipt
 ) {
   let auxPutReceipt = {
@@ -22,8 +17,9 @@ async function HandleReceiptSubmit(
     id: uuidv4(),
     date: dateNowDone,
     os: osReceipt,
-    number: 0,
+    number: "",
   };
+  console.log(auxPutReceipt);
   let varJsonReceipt;
 
   let dateNow = new Date();
@@ -45,34 +41,37 @@ async function HandleReceiptSubmit(
       })
       .catch((err) => console.log(err));
 
-    let splitReceiptName = auxPutReceipt.name.split(" ");
-    for (let i = 0; i < splitReceiptName.length; i++) {
-      splitReceiptName[i] =
-        splitReceiptName[i][0].toUpperCase() + splitReceiptName[i].substr(1);
+    if (auxPutReceipt.id.length > 0) {
+      let splitReceiptName = auxPutReceipt.name.split(" ");
+      for (let i = 0; i < splitReceiptName.length; i++) {
+        splitReceiptName[i] =
+          splitReceiptName[i][0].toUpperCase() + splitReceiptName[i].substr(1);
+      }
+      let joinReceiptName = "";
+      splitReceiptName.map((word) => (joinReceiptName += ` ${word}`));
+      auxPutReceipt.name = joinReceiptName;
+
+      let maxValue = 0;
+
+      varJsonReceipt.map((current) => {
+        maxValue = current.number > maxValue ? current.number : maxValue;
+      });
+
+      maxValue = parseInt(maxValue) + 1;
+      auxPutReceipt.date = dateNowDone;
+      maxValue = maxValue.toString();
+      auxPutReceipt.number = maxValue;
+      setNumberReceipt(maxValue);
+
+      varJsonReceipt.push(auxPutReceipt);
+
+      varJsonReceipt.sort(function(x, y) {
+        let a = x.name.toUpperCase();
+        let b = y.name.toUpperCase();
+        return a === b ? 0 : a > b ? 1 : -1;
+      });
     }
-    let joinReceiptName = "";
-    splitReceiptName.map((word) => (joinReceiptName += ` ${word}`));
-    auxPutReceipt.name = joinReceiptName;
 
-    let maxValue = 0;
-
-    varJsonReceipt.map((current) => {
-      maxValue = current.number > maxValue ? current.number : maxValue;
-    });
-
-    maxValue = maxValue + 1;
-    auxPutReceipt.date = dateNowDone;
-    auxPutReceipt.number = maxValue;
-    setNumberReceipt(maxValue);
-    console.log(maxValue);
-
-    varJsonReceipt.push(auxPutReceipt);
-
-    varJsonReceipt.sort(function(x, y) {
-      let a = x.name.toUpperCase();
-      let b = y.name.toUpperCase();
-      return a === b ? 0 : a > b ? 1 : -1;
-    });
     axios
       .put("http://localhost:5000/receipt", varJsonReceipt)
       .then(console.log("Cadastro do cliente feito com sucesso"))

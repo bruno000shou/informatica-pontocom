@@ -1,0 +1,13 @@
+.searchReceiptBox {
+    width: 98%;
+    margin-top: 8%;
+}
+
+.searchReceiptUnit {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    height: 4vw;
+    border-radius: 1vw;
+}

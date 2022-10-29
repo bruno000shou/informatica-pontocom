@@ -1,8 +1,6 @@
 import axios from "axios";
 
 async function HandleSubmitSearch(
-  setSearchName,
-  setSearchNumber,
   setSearchByNameNumberList,
   setShowHideSearcPainel,
   searchNumber,

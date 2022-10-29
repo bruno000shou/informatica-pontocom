@@ -1,7 +1,7 @@
 .containerHome {
     display: flex;
     width: 125%;
-    height: 39.45vw;    
+    height: 39.7vw;    
 }
 
 .divFormStyles {
@@ -82,7 +82,8 @@
 .checkWhatsappEditBox {
     font-size: 1vw; 
     font-weight: 800;
-    margin-left: 20%;
+    margin-left: 18%;
+    margin-right: -5%;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }

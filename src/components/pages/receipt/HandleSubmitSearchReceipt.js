@@ -1,18 +1,26 @@
 import axios from "axios";
+import moment from "moment";
+
+import FindBetweenReceipt from "./receiptHelpers/FindBetweenReceipt";
 
 async function HandleSubmitSearchReceipt(
-  searchNumberReceipt, // VEM A PESQUISA POR TELEFONE
-  searchNameReceipt, // VEM A PESQUISA POR NOME
-  setSearchReceiptNameContent, //STATE DE CONTEUDO DE PESQUISA
-  setSearchReceiptNumberContent,
+  searchNumberReceipt,
+  searchNameReceipt,
   searchReceiptInitDate,
-  searchReceiptFinalDate
+  searchReceiptFinalDate,
+  setSearchReceiptComplete,
+  setOpenDialogLessInit,
+  setOpenDialogLessFinal,
+  setOpenDialogNothing,
+  setOpenDialogInitGreaterFinal,
+  setOpenPanelReceipt,
+  setShowDialogEmptySearch
 ) {
   let searchNumber = searchNumberReceipt;
   let searchName = searchNameReceipt;
   let searchInitDate = searchReceiptInitDate;
   let searchFinalDate = searchReceiptFinalDate;
-  let auxSearch = "";
+  let auxSearch = [];
   let auxSearchByNameList = [];
   let auxSearchByNumberList = [];
   let i = 0;
@@ -26,6 +34,12 @@ async function HandleSubmitSearchReceipt(
     })
     .catch((err) => console.log(err));
 
+  function ordenateGrow(element) {
+    element.sort(function(x, y) {
+      return x.number - y.number;
+    });
+  }
+
   if (
     (searchName !== "" && searchNumber !== "") ||
     (searchNumber !== "" && searchName === "")
@@ -34,13 +48,15 @@ async function HandleSubmitSearchReceipt(
     auxSearch.forEach((element) => {
       if (auxSearch[i].number.indexOf(auxNumber) !== -1) {
         auxSearchByNumberList.push(element);
+        console.log("entrou no if");
       }
       i = i + 1;
     });
     i = 0;
     console.log("pesquisa feita com elemento numero ");
-    // setShowHideSearcPainel(true); SETAR COMO TRUE O STATE QUE FAZ ABRIR O PAINEL DE PESQUISA
-    setSearchReceiptNumberContent(auxSearchByNumberList);
+    ordenateGrow(auxSearchByNumberList);
+    setSearchReceiptComplete(auxSearchByNumberList);
+    setOpenPanelReceipt(true);
   } else if (searchName !== "") {
     if (searchName !== "" && searchNumber === "") {
       auxSearchByNameList = [];
@@ -54,17 +70,43 @@ async function HandleSubmitSearchReceipt(
       });
       i = 0;
       console.log("pesquisa feita com elemento nome");
-      // setShowHideSearcPainel(true); COLOCAR AQUI O SET DO STATE QUE ABRE O PAINEL DE PESQUISA
-      setSearchReceiptNameContent(auxSearchByNameList);
+      if (auxSearchByNameList.length === 0) {
+        setShowDialogEmptySearch(true);
+      }
+      ordenateGrow(auxSearchByNameList);
+      setSearchReceiptComplete(auxSearchByNameList);
+      setOpenPanelReceipt(true);
     }
+  } else if (searchInitDate !== "" || searchFinalDate !== "") {
+    if (searchInitDate === "" && searchFinalDate !== "") {
+      console.log("Nao foi escolhida  uma data inicial");
+      setOpenDialogLessInit(true);
+    } else if (searchFinalDate === "" && searchInitDate !== "") {
+      console.log("Nao foi escolhida uma data final");
+      setOpenDialogLessFinal(true);
+    } else if (searchInitDate > searchFinalDate) {
+      console.log(
+        "A data inicial e mais recente que a data final, refaça a pesquisa"
+      );
+      setOpenDialogInitGreaterFinal(true);
+    } else {
+      console.log("Pesquisa feita com sucesso");
+      setSearchReceiptComplete(
+        FindBetweenReceipt(
+          auxSearch,
+          moment(searchInitDate).format("YYYYMMDD"),
+          moment(searchFinalDate).format("YYYYMMDD")
+        )
+      );
+      if (auxSearchByNameList.length === 0) {
+        setShowDialogEmptySearch(true);
+      }
+      setOpenPanelReceipt(true);
+    }
+  } else {
+    console.log("Nenhum metodo de pesquisa foi selecionado");
+    setOpenDialogNothing(true);
   }
 }
-
-//  else {
-//     setHandleSubmitDialog(true);
-//     console.log("É necessário preencher um dos métodos de pesquisa");
-//   }
-//   auxNumber = "";
-//   auxName = "";
 
 export default HandleSubmitSearchReceipt;

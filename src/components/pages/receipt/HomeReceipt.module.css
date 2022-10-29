@@ -1,7 +1,7 @@
 .containerHome {
     display: flex;
     width: 125%;
-    height: 39.45vw;    
+    height: 39.7vw;    
 }
 
 .divFormStyles {
@@ -21,18 +21,24 @@
     margin-right: 20%;
 }
 
+.buttonFindClient {
+    display: flex;
+} 
+
 .buttonFindClient button{
-    margin-left: 35%;
-    height: 20%;
-    width: 43%;
-    border-radius: 5px; 
+    margin-left: 140%;
+    /* width: 120%;    */
+}
+
+.buttonDiv {
+    padding-right: 10%;
+    z-index: 5;
 }
 
 .buttonStyles button {
     height: 180%;
     border-radius: 5px;
 }
-
 
 .buttonStyles p {
     font-size: 20px;
@@ -52,4 +58,18 @@
 
 .textAreaCor div label {
     margin-left: 2vw;
+}
+
+.hideReceiptDiv {
+    display: none;
+}
+
+.buttonBackStyles {
+    position: absolute;
+    right: 60.5%;
+    top: 13.6%;
+}
+
+.buttonBackStyles button {
+    border-radius: 5px;
 }

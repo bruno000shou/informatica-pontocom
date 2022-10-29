@@ -21,3 +21,15 @@ code {
 * {
   box-sizing: border-box;
 }
+
+.root-159 {
+  background-color: #CD853F !important;
+  border: 1px solid #CD853F !important;
+  border-radius: 5px;
+  color: black;
+}
+
+.root-159:hover {
+  border: 1px solid black !important;
+  color: black;
+}

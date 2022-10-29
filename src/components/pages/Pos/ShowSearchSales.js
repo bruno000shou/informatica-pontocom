@@ -5,6 +5,8 @@ import { Dialog, DialogFooter, DialogType } from "@fluentui/react/lib/Dialog";
 import { useState } from "react";
 import React from "react";
 
+import SetBooleanFalse from "../../../helpers/SetBooleanFalse";
+
 function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
   let dataSearch = searchComplete;
   let day;
@@ -29,21 +31,6 @@ function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
     isBlocking: true,
     styles: { main: { maxWidth: 450 } },
   };
-
-  function closePanelOpenDialog2() {
-    setDialogOpen(true);
-  }
-
-  function closeDialog() {
-    setDialogOpen(false);
-  }
-
-  function closeAll() {
-    setDialogOpen(false);
-    setShowSearch(0);
-    setOpenReportVerif(false);
-    setOpenReportVerif2(false);
-  }
 
   function openReport(item) {
     setOpenReportVerif2(true);
@@ -158,7 +145,7 @@ function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
         <Panel
           headerText="A pesquisa encontrou o seguinte resultado"
           isOpen={showHide === 2 ? true : false}
-          onDismiss={closePanelOpenDialog2}
+          onDismiss={() => setDialogOpen(true)}
           closeButtonAriaLabel="Close"
         >
           <div
@@ -218,13 +205,23 @@ function ShowSearchSales({ showHide, searchComplete, setShowSearch }) {
         </Panel>
         <Dialog
           hidden={!dialogOpen}
-          onDismiss={closeDialog}
+          onDismiss={() => setDialogOpen(false)}
           dialogContentProps={dialogContentProps}
           modalProps={dialogModalProps}
         >
           <DialogFooter>
-            <PrimaryButton onClick={closeAll} text="Fechar" />
-            <DefaultButton onClick={closeDialog} text="Voltar" />
+            <PrimaryButton
+              onClick={() => {
+                SetBooleanFalse(
+                  setOpenReportVerif,
+                  setOpenReportVerif2,
+                  setDialogOpen
+                );
+                setShowSearch(0);
+              }}
+              text="Fechar"
+            />
+            <DefaultButton onClick={() => setDialogOpen(false)} text="Voltar" />
           </DialogFooter>
         </Dialog>
       </div>

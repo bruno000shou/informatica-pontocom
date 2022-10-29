@@ -23,14 +23,6 @@ function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
     styles: { main: { maxWidth: 450 } },
   };
 
-  function closePanelOpenDialog2() {
-    setDialogOpen(true);
-  }
-
-  function closeDialog() {
-    setDialogOpen(false);
-  }
-
   function closeAll() {
     setDialogOpen2(false);
     setDialogOpen(false);
@@ -156,7 +148,7 @@ function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
     <div>
       <Panel
         isOpen={showHide === 4 && !dialogOpen2 === true ? true : false}
-        onDismiss={closePanelOpenDialog2}
+        onDismiss={() => setDialogOpen(true)}
         closeButtonAriaLabel="Close"
       >
         <div className={styles.showPainelContent}>
@@ -182,13 +174,13 @@ function DailyReport({ showHide, sellNow, setShowSearch, setPrintSuportData }) {
       </Panel>
       <Dialog
         hidden={!dialogOpen}
-        onDismiss={closeDialog}
+        onDismiss={() => setDialogOpen(false)}
         dialogContentProps={dialogContentProps}
         modalProps={dialogModalProps}
       >
         <DialogFooter>
           <PrimaryButton onClick={closeAll} text="Fechar" />
-          <DefaultButton onClick={closeDialog} text="Voltar" />
+          <DefaultButton onClick={() => setDialogOpen(false)} text="Voltar" />
         </DialogFooter>
       </Dialog>
     </div>

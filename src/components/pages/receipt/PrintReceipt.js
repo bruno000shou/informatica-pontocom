@@ -135,7 +135,7 @@ function PrintReceipt(
     doc.setFontSize(13);
     doc.setFont("times", "normal");
     doc.text("Rio de Janeiro", 108, 102);
-    doc.text(`${dia}, de ${meses[mes]}, de ${ano}`, 140, 102);
+    doc.text(`${dia}  de  ${meses[mes]}  de  ${ano}`, 140, 102);
 
     doc.setFontSize(8);
     doc.setFont("times", "bold");
@@ -251,8 +251,8 @@ function PrintReceipt(
 
     doc.setFontSize(13);
     doc.setFont("times", "normal");
-    doc.text("Rio de Janeiro", 108, 102);
-    doc.text(`${dia}, de ${meses[mes]}, de ${ano}`, 140, 242);
+    doc.text("Rio de Janeiro", 108, 242);
+    doc.text(`${dia}  de  ${meses[mes]}  de  ${ano}`, 140, 242);
 
     doc.setFontSize(8);
     doc.setFont("times", "bold");
