@@ -1,1 +1,452 @@
-{"dailyList":[{"id":"587aac72-973a-48bc-aef5-3e1c36b6df02","datePos":"20220819","openPos":false,"sales":[{"id":"697cd173-3f4b-43e6-b44e-5c05a2f1ea7a","serviceType":"Celular","payType":"Money","value":"50"}]},{"id":"b1c1544a-1bc2-4299-bc72-b5683cbc2417","datePos":"20220819","openPos":false,"sales":[]},{"id":"b280a027-6a4e-4c76-ab68-819560e6ae1e","datePos":"20220819","openPos":false,"sales":[{"id":"05e99272-9166-4a49-9ade-a3cf056db34a","serviceType":"Celular","payType":"Credit","value":"21"}]},{"id":"f3c255d7-dbd7-46f6-92c5-691bf2f0ad24","datePos":"20220819","openPos":false,"sales":[]},{"id":"fdacf08b-7b6b-4862-bda2-9c33b8e02b6a","datePos":"20220820","openPos":false,"sales":[]},{"id":"4ab06004-0919-4975-b04d-d17849cb10f4","datePos":"20220820","openPos":false,"sales":[{"id":"34e065f0-c074-476c-8633-f829b650a295","serviceType":"Celular","payType":"Money","value":"2"},{"id":"faefdca6-6978-4310-ad79-f979c8451a71","serviceType":"Celular","payType":"Money","value":"58"},{"id":"f754fa43-9bbb-4b0b-978d-028d040c66ee","serviceType":"Celular","payType":"Money","value":"43"}]},{"id":"86099468-5631-4d7f-9058-2300efef4c63","datePos":"20220820","openPos":false,"sales":[{"id":"8f2719ee-3430-44c8-9985-97afd7ef068b","serviceType":"Celular","payType":"Money","value":"4"},{"id":"7fb68957-1326-4c3e-b140-e8a2e5edc055","serviceType":"Celular","payType":"Credit","value":"21"},{"id":"54d1cea0-aff5-45ad-8a61-2a6af84f0093","serviceType":"Celular","payType":"Money","value":"2"}]},{"id":"d40441cb-d2b5-4a8a-8bfe-26fd55dc5682","datePos":"20220820","openPos":false,"sales":[]},{"id":"d072f73c-de83-41fb-bd9a-d3dbd27a649c","datePos":"20220820","openPos":false,"sales":[{"id":"6778a520-1480-4a4d-b459-be63e80ff4c9","serviceType":"Celular","payType":"Credit","value":"21"},{"id":"3bb76a46-6916-4471-adeb-d7aa275ea6a3","serviceType":"Celular","payType":"Credit","value":"2"},{"id":"1737de40-527c-4198-a02f-819aded56e5a","serviceType":"Celular","payType":"Money","value":"2"},{"id":"5b3e121d-f00e-40cd-aad6-3e867ca6ccf5","serviceType":"Celular","payType":"Credit","value":"3"},{"id":"42f72d8e-f112-410d-8d8d-0f6bf200745c","serviceType":"Celular","payType":"Money","value":"54"},{"id":"da7cbe78-bf8a-464f-bf4b-d1e333233bec","serviceType":"Televisao","payType":"Debit","value":"32"},{"id":"ad894323-c44b-485f-95c3-33b3f742403e","serviceType":"Celular","payType":"Money","value":"65"},{"id":"2aec2b38-fd4e-40d6-8164-0bdfa00fa1c6","serviceType":"Informatica","payType":"Credit","value":"32"},{"id":"71b4255d-eb69-4ffc-ab1f-de8a223420f6","serviceType":"Televisao","payType":"Credit","value":"3"},{"id":"c7340e08-9c15-4690-a401-8038f51421e0","serviceType":"Diversos","payType":"Credit","value":"65"},{"id":"e0c4a312-9385-4d54-88e3-596eea25298a","serviceType":"Televisao","payType":"Money","value":"32"},{"id":"92f17307-b8d3-4b40-8ec3-1d7c98b0a7b9","serviceType":"Televisao","payType":"Debit","value":"56"},{"id":"718d5778-959a-46da-81a1-08c7f8dbbaef","serviceType":"Celular","payType":"Credit","value":"200"},{"id":"668bc5ce-7bbd-4207-884e-4aeaf51a49a5","serviceType":"Celular","payType":"Money","value":"200"},{"id":"ca1ba6b8-4510-49f0-a5ad-c02101dda6ff","serviceType":"Celular","payType":"Credit","value":"200"}]},{"id":"11cbcc34-f181-4114-98b8-e7f2927a814c","datePos":"20220821","openPos":false,"sales":[]},{"id":"76a2405a-087b-4126-893a-d59f29eaadbe","datePos":"20220821","openPos":false,"sales":[]},{"id":"6bed3248-df4e-4dea-873a-69956c116ce8","datePos":"20220821","openPos":false,"sales":[]},{"id":"f03cd306-567d-45c6-a6f2-15ab2773f8eb","datePos":"20220821","openPos":false,"sales":[{"id":"a730aab5-efad-4e42-988e-66e7976203d0","serviceType":"Informatica","payType":"Credit","value":"50"},{"id":"a7fd16b3-3cb5-49b7-8b98-14227c504cf1","serviceType":"Televisao","payType":"Credit","value":"100"}]},{"id":"e0ef688a-ed65-43ff-a9e8-5128762791b8","datePos":"20220821","openPos":false,"sales":[{"id":"9b97bc13-e6e0-4189-81bb-66c38a0d486c","serviceType":"Celular","payType":"Credit","value":"32"},{"id":"7854e50e-ac6d-43b0-a9bd-b54322ffa1ee","serviceType":"Televisao","payType":"Money","value":"21"}]},{"id":"0accc7a1-0fc6-4c9e-b6e8-573a94282715","datePos":"20220821","openPos":false,"sales":[{"id":"0675bef5-f77b-45c1-83ba-3fe32155127f","serviceType":"Celular","payType":"Credit","value":"32"},{"id":"cc5f4ad2-bfbd-4299-b1b0-91667da7c9f0","serviceType":"Televisao","payType":"Credit","value":"42"}]},{"id":"89b42f46-a035-43c9-9975-5f22c426c6d1","datePos":"20220821","openPos":false,"sales":[{"id":"b7c67df5-839e-4190-9b5e-e50e2153007f","serviceType":"Diversos","payType":"Money","value":"21"}]},{"id":"51e7cb12-2c9d-429a-9178-d530cce28956","datePos":"20220821","openPos":false,"sales":[]},{"id":"29cef4cd-97e9-4976-9f19-9c8160f6bc25","datePos":"20220821","openPos":false,"sales":[{"id":"118eafd5-17e1-455d-8e24-755640416246","serviceType":"Celular","payType":"Credit","value":"32"},{"id":"6a9121ef-5521-498b-94da-42fa61c962fc","serviceType":"Televisao","payType":"Pix","value":"43"},{"id":"001a56e6-d4b4-44a8-949b-d8ad3a7bcfcf","serviceType":"Celular","payType":"Debit","value":"21"},{"id":"dd27d264-1d2c-4f11-b893-557395d380e9","serviceType":"Televisao","payType":"Credit","value":"111"}]},{"id":"8759401b-1ab6-4afa-b334-71ff25ad427a","datePos":"20220821","openPos":false,"sales":[]},{"id":"77b1faf7-9153-44be-b8f5-17dc91e79dd8","datePos":"20220821","openPos":false,"sales":[{"id":"c832bab3-3296-4290-becc-d113d2888de5","serviceType":"Celular","payType":"Credit","value":"123"}]},{"id":"7ae6340c-e593-4763-bf19-43150d4d0b28","datePos":"20220821","openPos":false,"sales":[]},{"id":"6decc801-e4ee-47f2-b726-24182ced01b8","datePos":"20220821","openPos":false,"sales":[]},{"id":"5cdcb017-6bb3-4679-8e52-dee4e45382e1","datePos":"20220821","openPos":false,"sales":[{"id":"c8a948b4-fef8-45aa-8b47-4c0622e30f7d","serviceType":"Celular","payType":"Credit","value":"21"}]},{"id":"03bc162a-e89b-425e-ae78-cbab1d8277d3","datePos":"20220821","openPos":false,"sales":[{"id":"adc83970-b4c4-4f00-9e7a-6b2227369107","serviceType":"Diversos","payType":"Money","value":"43"}]},{"id":"c1583d85-a303-4395-a97c-f19445a3df31","datePos":"20220821","openPos":false,"sales":[{"id":"e76f7d2a-eaeb-496a-adf5-1d23b2a486d1","serviceType":"Televisao","payType":"Money","value":"32"},{"id":"72839cb1-00ae-49b1-8153-1498460c994c","serviceType":"Diversos","payType":"Debit","value":"16"}]},{"id":"62d35de9-c84e-4337-b06d-67418bb20093","datePos":"20220821","openPos":false,"sales":[{"id":"f657d17f-9dd7-4516-ad87-7aa25db79367","serviceType":"Produtos","payType":"Money","value":"50"},{"id":"e7fc9710-db63-4707-aca3-a5e7c661e72a","serviceType":"Celular","payType":"Credit","value":"62"},{"id":"de55e191-56b1-4e06-aac5-843079700637","serviceType":"Produtos","payType":"Debit","value":"15"},{"id":"00134a35-3b6e-4a6f-9704-5a22dbbff933","serviceType":"Celular","payType":"Money","value":"111"}]},{"id":"db0df90c-0a69-4249-adb3-ac3ae9214f32","datePos":"20221017","openPos":false,"sales":[]},{"id":"8328c1d1-278c-4660-b25b-d41acf0aa016","datePos":"20221026","openPos":false,"sales":[{"id":"a42541b1-fb65-4031-b1e1-d7957a4cb383","serviceType":"Celular","payType":"Money","value":"50"}]}]}
+{
+  "dailyList": [
+    {
+      "id": "587aac72-973a-48bc-aef5-3e1c36b6df02",
+      "datePos": "20220819",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "697cd173-3f4b-43e6-b44e-5c05a2f1ea7a",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "50"
+        }
+      ]
+    },
+    {
+      "id": "b1c1544a-1bc2-4299-bc72-b5683cbc2417",
+      "datePos": "20220819",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "b280a027-6a4e-4c76-ab68-819560e6ae1e",
+      "datePos": "20220819",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "05e99272-9166-4a49-9ade-a3cf056db34a",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "21"
+        }
+      ]
+    },
+    {
+      "id": "f3c255d7-dbd7-46f6-92c5-691bf2f0ad24",
+      "datePos": "20220819",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "fdacf08b-7b6b-4862-bda2-9c33b8e02b6a",
+      "datePos": "20220820",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "4ab06004-0919-4975-b04d-d17849cb10f4",
+      "datePos": "20220820",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "34e065f0-c074-476c-8633-f829b650a295",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "2"
+        },
+        {
+          "id": "faefdca6-6978-4310-ad79-f979c8451a71",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "58"
+        },
+        {
+          "id": "f754fa43-9bbb-4b0b-978d-028d040c66ee",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "43"
+        }
+      ]
+    },
+    {
+      "id": "86099468-5631-4d7f-9058-2300efef4c63",
+      "datePos": "20220820",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "8f2719ee-3430-44c8-9985-97afd7ef068b",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "4"
+        },
+        {
+          "id": "7fb68957-1326-4c3e-b140-e8a2e5edc055",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "21"
+        },
+        {
+          "id": "54d1cea0-aff5-45ad-8a61-2a6af84f0093",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "2"
+        }
+      ]
+    },
+    {
+      "id": "d40441cb-d2b5-4a8a-8bfe-26fd55dc5682",
+      "datePos": "20220820",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "d072f73c-de83-41fb-bd9a-d3dbd27a649c",
+      "datePos": "20220820",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "6778a520-1480-4a4d-b459-be63e80ff4c9",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "21"
+        },
+        {
+          "id": "3bb76a46-6916-4471-adeb-d7aa275ea6a3",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "2"
+        },
+        {
+          "id": "1737de40-527c-4198-a02f-819aded56e5a",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "2"
+        },
+        {
+          "id": "5b3e121d-f00e-40cd-aad6-3e867ca6ccf5",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "3"
+        },
+        {
+          "id": "42f72d8e-f112-410d-8d8d-0f6bf200745c",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "54"
+        },
+        {
+          "id": "da7cbe78-bf8a-464f-bf4b-d1e333233bec",
+          "serviceType": "Televisao",
+          "payType": "Debit",
+          "value": "32"
+        },
+        {
+          "id": "ad894323-c44b-485f-95c3-33b3f742403e",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "65"
+        },
+        {
+          "id": "2aec2b38-fd4e-40d6-8164-0bdfa00fa1c6",
+          "serviceType": "Informatica",
+          "payType": "Credit",
+          "value": "32"
+        },
+        {
+          "id": "71b4255d-eb69-4ffc-ab1f-de8a223420f6",
+          "serviceType": "Televisao",
+          "payType": "Credit",
+          "value": "3"
+        },
+        {
+          "id": "c7340e08-9c15-4690-a401-8038f51421e0",
+          "serviceType": "Diversos",
+          "payType": "Credit",
+          "value": "65"
+        },
+        {
+          "id": "e0c4a312-9385-4d54-88e3-596eea25298a",
+          "serviceType": "Televisao",
+          "payType": "Money",
+          "value": "32"
+        },
+        {
+          "id": "92f17307-b8d3-4b40-8ec3-1d7c98b0a7b9",
+          "serviceType": "Televisao",
+          "payType": "Debit",
+          "value": "56"
+        },
+        {
+          "id": "718d5778-959a-46da-81a1-08c7f8dbbaef",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "200"
+        },
+        {
+          "id": "668bc5ce-7bbd-4207-884e-4aeaf51a49a5",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "200"
+        },
+        {
+          "id": "ca1ba6b8-4510-49f0-a5ad-c02101dda6ff",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "id": "11cbcc34-f181-4114-98b8-e7f2927a814c",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "76a2405a-087b-4126-893a-d59f29eaadbe",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "6bed3248-df4e-4dea-873a-69956c116ce8",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "f03cd306-567d-45c6-a6f2-15ab2773f8eb",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "a730aab5-efad-4e42-988e-66e7976203d0",
+          "serviceType": "Informatica",
+          "payType": "Credit",
+          "value": "50"
+        },
+        {
+          "id": "a7fd16b3-3cb5-49b7-8b98-14227c504cf1",
+          "serviceType": "Televisao",
+          "payType": "Credit",
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "id": "e0ef688a-ed65-43ff-a9e8-5128762791b8",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "9b97bc13-e6e0-4189-81bb-66c38a0d486c",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "32"
+        },
+        {
+          "id": "7854e50e-ac6d-43b0-a9bd-b54322ffa1ee",
+          "serviceType": "Televisao",
+          "payType": "Money",
+          "value": "21"
+        }
+      ]
+    },
+    {
+      "id": "0accc7a1-0fc6-4c9e-b6e8-573a94282715",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "0675bef5-f77b-45c1-83ba-3fe32155127f",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "32"
+        },
+        {
+          "id": "cc5f4ad2-bfbd-4299-b1b0-91667da7c9f0",
+          "serviceType": "Televisao",
+          "payType": "Credit",
+          "value": "42"
+        }
+      ]
+    },
+    {
+      "id": "89b42f46-a035-43c9-9975-5f22c426c6d1",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "b7c67df5-839e-4190-9b5e-e50e2153007f",
+          "serviceType": "Diversos",
+          "payType": "Money",
+          "value": "21"
+        }
+      ]
+    },
+    {
+      "id": "51e7cb12-2c9d-429a-9178-d530cce28956",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "29cef4cd-97e9-4976-9f19-9c8160f6bc25",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "118eafd5-17e1-455d-8e24-755640416246",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "32"
+        },
+        {
+          "id": "6a9121ef-5521-498b-94da-42fa61c962fc",
+          "serviceType": "Televisao",
+          "payType": "Pix",
+          "value": "43"
+        },
+        {
+          "id": "001a56e6-d4b4-44a8-949b-d8ad3a7bcfcf",
+          "serviceType": "Celular",
+          "payType": "Debit",
+          "value": "21"
+        },
+        {
+          "id": "dd27d264-1d2c-4f11-b893-557395d380e9",
+          "serviceType": "Televisao",
+          "payType": "Credit",
+          "value": "111"
+        }
+      ]
+    },
+    {
+      "id": "8759401b-1ab6-4afa-b334-71ff25ad427a",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "77b1faf7-9153-44be-b8f5-17dc91e79dd8",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "c832bab3-3296-4290-becc-d113d2888de5",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "123"
+        }
+      ]
+    },
+    {
+      "id": "7ae6340c-e593-4763-bf19-43150d4d0b28",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "6decc801-e4ee-47f2-b726-24182ced01b8",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "5cdcb017-6bb3-4679-8e52-dee4e45382e1",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "c8a948b4-fef8-45aa-8b47-4c0622e30f7d",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "21"
+        }
+      ]
+    },
+    {
+      "id": "03bc162a-e89b-425e-ae78-cbab1d8277d3",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "adc83970-b4c4-4f00-9e7a-6b2227369107",
+          "serviceType": "Diversos",
+          "payType": "Money",
+          "value": "43"
+        }
+      ]
+    },
+    {
+      "id": "c1583d85-a303-4395-a97c-f19445a3df31",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "e76f7d2a-eaeb-496a-adf5-1d23b2a486d1",
+          "serviceType": "Televisao",
+          "payType": "Money",
+          "value": "32"
+        },
+        {
+          "id": "72839cb1-00ae-49b1-8153-1498460c994c",
+          "serviceType": "Diversos",
+          "payType": "Debit",
+          "value": "16"
+        }
+      ]
+    },
+    {
+      "id": "62d35de9-c84e-4337-b06d-67418bb20093",
+      "datePos": "20220821",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "f657d17f-9dd7-4516-ad87-7aa25db79367",
+          "serviceType": "Produtos",
+          "payType": "Money",
+          "value": "50"
+        },
+        {
+          "id": "e7fc9710-db63-4707-aca3-a5e7c661e72a",
+          "serviceType": "Celular",
+          "payType": "Credit",
+          "value": "62"
+        },
+        {
+          "id": "de55e191-56b1-4e06-aac5-843079700637",
+          "serviceType": "Produtos",
+          "payType": "Debit",
+          "value": "15"
+        },
+        {
+          "id": "00134a35-3b6e-4a6f-9704-5a22dbbff933",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "111"
+        }
+      ]
+    },
+    {
+      "id": "db0df90c-0a69-4249-adb3-ac3ae9214f32",
+      "datePos": "20221017",
+      "openPos": false,
+      "sales": []
+    },
+    {
+      "id": "8328c1d1-278c-4660-b25b-d41acf0aa016",
+      "datePos": "20221026",
+      "openPos": false,
+      "sales": [
+        {
+          "id": "a42541b1-fb65-4031-b1e1-d7957a4cb383",
+          "serviceType": "Celular",
+          "payType": "Money",
+          "value": "50"
+        }
+      ]
+    }
+  ]
+}

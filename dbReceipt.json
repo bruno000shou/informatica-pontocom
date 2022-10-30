@@ -1,1 +1,44 @@
-{"receipt":[{"name":" Bruno Jaci","valor":"4","equip":"4","service":"4\n","id":"ec966305-9693-43f2-a683-bf96a783ea93","date":"20221028","os":"21","number":"4"},{"name":" Bruno Sercundo","valor":"54","equip":"54","service":"54","id":"24415afb-c0a6-4f46-a8a4-a5b5aa1b3478","date":"20221028","os":"21","number":"2"},{"name":" Calango Da Silva","valor":"50","equip":"celular","service":"32161654984181s981d981d9s1d1s98d98s1","id":"8fe665c0-e622-45d4-b49b-a3fc4f34ab14","date":"20221027","os":"54","number":"1"},{"name":" Calango De Sapato","valor":"65","equip":"65","service":"65","id":"17c24be7-1a85-466e-8407-c1727256c1dc","date":"20221028","os":"21","number":"3"}]}
+{
+  "receipt": [
+    {
+      "name": " Bruno Jaci",
+      "valor": "4",
+      "equip": "4",
+      "service": "4\n",
+      "id": "ec966305-9693-43f2-a683-bf96a783ea93",
+      "date": "20221028",
+      "os": "21",
+      "number": "4"
+    },
+    {
+      "name": " Bruno Sercundo",
+      "valor": "54",
+      "equip": "54",
+      "service": "54",
+      "id": "24415afb-c0a6-4f46-a8a4-a5b5aa1b3478",
+      "date": "20221028",
+      "os": "21",
+      "number": "2"
+    },
+    {
+      "name": " Calango Da Silva",
+      "valor": "50",
+      "equip": "celular",
+      "service": "32161654984181s981d981d9s1d1s98d98s1",
+      "id": "8fe665c0-e622-45d4-b49b-a3fc4f34ab14",
+      "date": "20221027",
+      "os": "54",
+      "number": "1"
+    },
+    {
+      "name": " Calango De Sapato",
+      "valor": "65",
+      "equip": "65",
+      "service": "65",
+      "id": "17c24be7-1a85-466e-8407-c1727256c1dc",
+      "date": "20221028",
+      "os": "21",
+      "number": "3"
+    }
+  ]
+}

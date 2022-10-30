@@ -11,6 +11,7 @@ import HandleChangeInput from "./receiptHelpers/HandleChangeInput";
 import HandleSubmitSearchReceipt from "./HandleSubmitSearchReceipt";
 import ShowReceiptSearch from "./ShowReceiptSearch";
 import HandleSearchRegNameReceipt from "./HandleSearchRegNameReceipt";
+import HandleFillSearch from "./HandleFillSearch";
 
 function HomeReceipt() {
   const [nameReceipt, setNameReceipt] = useState("");
@@ -40,6 +41,7 @@ function HomeReceipt() {
   const [selectedSearchReceipt, setSelectedSearchReceipt] = useState("");
   const [showReceiptPanel, setShowReceiptPanel] = useState(0);
   const [showDialogEmptySearch, setShowDialogEmptySearch] = useState(false);
+  const [returnSearchReceipt, setReturnSearchReceipt] = useState([]);
 
   let handleReceiptSubmitFunc = () => {
     HandleReceiptSubmit(
@@ -367,7 +369,10 @@ function HomeReceipt() {
             setSelectedSearchReceipt={setSelectedSearchReceipt}
             showReceiptPanel={showReceiptPanel}
             setShowReceiptPanel={setShowReceiptPanel}
+            selectedSearchReceipt={selectedSearchReceipt}
+            setReturnSearchReceipt={setReturnSearchReceipt}
           />
+          {/* <HandleFillSearch selectedSearchReceipt={selectedSearchReceipt} /> */}
         </form>
       </div>
     </div>

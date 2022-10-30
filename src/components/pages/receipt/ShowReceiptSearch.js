@@ -5,6 +5,8 @@ import { useState } from "react";
 import React from "react";
 import styles from "./ShowReceiptSearch.module.css";
 
+import HandleFillSearch from "./HandleFillSearch";
+
 function ShowReceiptSearch({
   openPanelReceipt,
   searchReceiptComplete,
@@ -15,6 +17,7 @@ function ShowReceiptSearch({
   selectedSearchReceipt,
   showReceiptPanel,
   setShowReceiptPanel,
+  setReturnSearchReceipt,
 }) {
   const [receiptDialogOpen, setReceiptDialogOpen] = useState(true);
   const dialogContentProps = {
@@ -61,6 +64,10 @@ function ShowReceiptSearch({
                       className={styles.searchReceiptUnit}
                       onClick={() => {
                         setSelectedSearchReceipt(item.id);
+                        HandleFillSearch(
+                          selectedSearchReceipt,
+                          setReturnSearchReceipt
+                        );
                       }}
                     >
                       Nº Recibo : {receiptNumber}
@@ -132,6 +139,10 @@ function ShowReceiptSearch({
                       className={styles.searchReceiptUnit}
                       onClick={() => {
                         setSelectedSearchReceipt(item.id);
+                        HandleFillSearch(
+                          selectedSearchReceipt,
+                          setReturnSearchReceipt
+                        );
                       }}
                     >
                       {receiptName}
@@ -158,6 +169,7 @@ function ShowReceiptSearch({
                   setOpenPanelReceipt(false);
                   setOpenCustomerInput(false);
                   setOpenOsInput(false);
+                  window.location.reload();
                 }}
                 text="Fechar"
               />
